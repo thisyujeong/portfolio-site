@@ -3,8 +3,7 @@ import axios from 'axios';
 
 function LandingPage(props) {
   useEffect(() => {
-    axios.get('/api/hello')
-      .then(response => console.log(response.data));
+    axios.get('/api/hello').then((response) => console.log(response.data));
   }, []);
 
   const style = {
@@ -12,12 +11,14 @@ function LandingPage(props) {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: 'calc(100vh - 46px)'
-  }
-  
+    height: 'calc(100vh - 46px)',
+  };
+
   return (
     <div style={style}>
-      <h2>Hello <strong style={{color: '#1890ff'}}>Node-React-Template!</strong></h2>
+      <h2>
+        Hello <strong style={{ color: '#1890ff' }}>Node-React-Template!</strong>
+      </h2>
     </div>
   );
 }
