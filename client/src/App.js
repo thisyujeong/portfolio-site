@@ -1,10 +1,10 @@
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import LandingPage from './components/views/LandingPage/LandingPage';
-import LoginPage from './components/views/LoginPage/LoginPage';
-import RegisterPage from './components/views/RegisterPage/RegisterPage';
+import LandingPage from './pages/LandingPage/LandingPage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
 import Auth from './hoc/auth';
-import NavBar from './components/views/NavBar/NavBar';
+import NavBar from './components/NavBar/NavBar';
 import './common/styles/index.scss';
 
 function App() {
