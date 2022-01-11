@@ -1,0 +1,39 @@
+@import '../../common/styles/variables.scss';
+
+.header {
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  padding: 0 55px;
+  border-bottom: 1px solid $border-color;
+  background-color: $base-color;
+
+  nav {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  h1 {
+    font-size: 0;
+    line-height: 1;
+    a {
+      margin: 0;
+      color: $accent-color;
+      font-family: 'Arial';
+      font-size: 18px;
+      font-weight: 900;
+    }
+  }
+
+  ul {
+    display: flex;
+    li {
+      margin-left: 10px;
+      font-family: 'Arial';
+      font-weight: bold;
+      font-size: 18px;
+    }
+  }
+}
