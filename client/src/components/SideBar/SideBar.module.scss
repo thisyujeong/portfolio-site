@@ -59,6 +59,10 @@
       cursor: pointer;
       svg {
         margin-left: 8px;
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
         path {
           transition: all 0.2s;
         }

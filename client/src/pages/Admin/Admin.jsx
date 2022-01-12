@@ -6,7 +6,7 @@ function Admin(props) {
   return (
     <Router>
       <SideBar />
-      <div className="contents">
+      <div className="contents admin">
         <Switch>
           <Route exact path="/admin/posts"></Route>
         </Switch>
