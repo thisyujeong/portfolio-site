@@ -1,0 +1,75 @@
+@import '../../common/styles/variables.scss';
+
+.sidebar * {
+  color: $admin-text-color;
+}
+.sidebar {
+  position: fixed;
+  top: 60px;
+  height: calc(100vh - 60px);
+  width: 300px;
+  border-right: 1px solid $admin-border-color;
+  background-color: $admin-side-nav-bg;
+
+  ul {
+    padding: 36px 0;
+
+    li {
+      position: relative;
+
+      a {
+        display: block;
+        padding: 6px 38px 6px;
+      }
+
+      &.active {
+        a {
+          color: $admin-text-accent-color;
+        }
+
+        &:before {
+          width: 4px;
+          height: 100%;
+          background-color: $base-color;
+          position: absolute;
+          top: 0;
+          left: 1px;
+          bottom: 0;
+          content: '';
+        }
+      }
+      & + li {
+        margin-top: 4px;
+      }
+    }
+  }
+
+  .logout {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    button {
+      width: 100%;
+      border: 0;
+      height: 50px;
+      font-size: 16px;
+      border-top: 1px solid $admin-border-color;
+      background-color: #fff;
+      transition: all 0.2s;
+      cursor: pointer;
+      svg {
+        margin-left: 8px;
+        path {
+          transition: all 0.2s;
+        }
+      }
+    }
+
+    &:hover {
+      button,
+      svg path {
+        color: $base-color;
+      }
+    }
+  }
+}
