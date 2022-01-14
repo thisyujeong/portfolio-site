@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faSignOutAlt, faUserCog } from '@fortawesome/free-solid-svg-icons';
 import LoginModal from '../LoginModal/LoginModal';
+import axios from 'axios';
 
-function NavBar({ isLogin }) {
-  console.log('NavBar: isLogin?', isLogin);
+function NavBar(props) {
+  console.log('NavBar: isLogin?', props.isLogin);
   const [onModal, setOnModal] = useState(false);
   const gitHubProps = {
     href: 'https://github.com/thisyujeong',
@@ -20,8 +21,20 @@ function NavBar({ isLogin }) {
     setOnModal(a);
   }, []);
 
+  const onClickLogout = (e) => {
+    e.preventDefault();
+    axios.get(`api/users/logout`).then((response) => {
+      console.log(response.data);
+      if (response.data.success) {
+        props.history.push('/login');
+      } else {
+        alert('Failed to sign out.');
+      }
+    });
+  };
+
   const AuthOption = () => {
-    return isLogin ? (
+    return props.isLogin ? (
       <>
         <li>
           <FontAwesomeIcon icon={faUserCog} />
@@ -29,7 +42,9 @@ function NavBar({ isLogin }) {
         </li>
         <li>
           <FontAwesomeIcon icon={faSignOutAlt} />
-          <span className={styles.tooltip}>로그아웃</span>
+          <span className={styles.tooltip} onClick={onClickLogout}>
+            로그아웃
+          </span>
         </li>
       </>
     ) : (
