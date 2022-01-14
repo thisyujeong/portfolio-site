@@ -4,6 +4,7 @@ import { Form, Input, Button } from 'antd';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../_actions/user_action';
+import { useHistory } from 'react-router-dom';
 
 const StyledForm = styled.div`
   width: 100%;
@@ -82,8 +83,9 @@ const StyledForm = styled.div`
   }
 `;
 
-function LoginModal(props) {
+function LoginModal({ onModalHandler, onLoginHandler }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -92,8 +94,8 @@ function LoginModal(props) {
   };
 
   const onClickClose = useCallback(() => {
-    props.onModalHandler(false);
-  }, [props]);
+    onModalHandler(false);
+  }, [onModalHandler]);
 
   const onEmailHandler = useCallback((e) => {
     setEmail(e.currentTarget.value);
@@ -108,13 +110,14 @@ function LoginModal(props) {
       email: email,
       password: password,
     };
-    console.log('aaaa');
 
     dispatch(loginUser(body)).then((response) => {
       if (response.payload.loginSuccess) {
-        props.history.push('/');
+        history.push('/');
+        onLoginHandler(true);
+        onClickClose();
       } else {
-        alert('Error');
+        console.log('login fail...');
       }
     });
   };

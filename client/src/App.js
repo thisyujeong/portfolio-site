@@ -7,29 +7,10 @@ import NavBar from './components/NavBar/NavBar';
 import './common/styles/index.scss';
 import Admin from './pages/Admin/Admin';
 
-import { useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { auth } from './_actions/user_action';
-
 function App(props) {
-  const dispatch = useDispatch();
-  const [isLogin, setIsLogin] = useState(false);
-
-  useEffect(() => {
-    dispatch(auth()).then((response) => {
-      if (response.payload.isAuth) {
-        console.log(`isAuth: ${response.payload.isAuth}`);
-        setIsLogin(true);
-      } else {
-        console.log(`You're not logged in.`);
-        setIsLogin(false);
-      }
-    });
-  }, [dispatch]);
-
   return (
     <Router>
-      <NavBar isLogin={isLogin} />
+      <NavBar />
       <div className="contents">
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, null)}></Route>
