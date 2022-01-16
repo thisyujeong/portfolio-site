@@ -23,7 +23,8 @@ const StyledForm = styled.div`
       .ant-input,
       .ant-select:not(.ant-select-disabled):not(.ant-select-customize-input)
         .ant-select-selector {
-        border-color: #17171760 !important;
+        border-color: #d9d9d9 !important;
+        background: #f7f7f7;
       }
     }
     .ant-form-item-label {
@@ -82,19 +83,38 @@ const StyledForm = styled.div`
       box-shadow: 0 0 0 2px rgb(233 233 233 / 60%);
     }
   }
-  .ant-btn {
-    display: block;
-    width: 200px;
-    height: 48px;
-    color: #fff;
-    margin-top: 50px;
-    margin-left: auto;
-    background-color: #171717;
-    border: 0;
-    &:hover,
-    &:focus {
-      background-color: #2e2f36;
-      color: #fff;
+  .form-footer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .ant-btn {
+      display: block;
+      width: 200px;
+      height: 48px;
+      color: #828491;
+      margin-top: 50px;
+      margin-left: 32px;
+      background-color: #f7f7f7;
+      border-color: #d9d9d9;
+      transition: 0.2s;
+      &:hover,
+      &:focus {
+        background-color: #ebebeb;
+        color: #171717;
+      }
+      &:after {
+        content: none;
+      }
+      &-primary {
+        color: #fff;
+        background-color: #171717;
+        &:hover,
+        &:focus {
+          color: #fff;
+          background-color: #2e2f36;
+        }
+      }
     }
   }
 `;
@@ -105,7 +125,7 @@ function Write(props) {
     console.log('Failed:', errorInfo);
   };
   const onChangeCheck = (e) => {
-    console.log(`checked = ${e.target.checekd}`);
+    console.log(`checked = ${e.target.checked}`);
   };
   const onSubmitHandler = (e) => {};
   const onChangeType = (value) => {};
@@ -202,7 +222,12 @@ function Write(props) {
           >
             <Input placeholder="기획 30% / 프론트엔드 50%" />
           </Form.Item>
-          <Form.Item label="공개 여부" name="lock" className="half">
+          <Form.Item
+            label="공개 여부"
+            name="lock"
+            className="half"
+            valuePropName="checked"
+          >
             <Checkbox onChange={onChangeCheck}>비공개 설정</Checkbox>
           </Form.Item>
           <Form.Item label="프로젝트 설명" name="desc" rules={[{ required: true }]}>
@@ -214,7 +239,12 @@ function Write(props) {
 
           <WriteEditor getEditorHtml={getEditorHtml} />
 
-          <Button htmlType="submit">프로젝트 등록</Button>
+          <div className="form-footer">
+            <Button>나가기</Button>
+            <Button type="primary" htmlType="submit">
+              프로젝트 등록
+            </Button>
+          </div>
         </Form>
       </StyledForm>
     </>

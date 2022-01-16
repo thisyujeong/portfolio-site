@@ -39,8 +39,8 @@ function Projects(props) {
       edit: '수정 / 삭제',
     },
     {
-      key: '1',
-      number: '1',
+      key: '2',
+      number: '2',
       title: 'create yourstage',
       desc: '유튜브 1인 크리에이터를 위한 셀프 매니징 서비스',
       lock: '공개',
