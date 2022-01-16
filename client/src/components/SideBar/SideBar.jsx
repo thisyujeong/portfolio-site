@@ -36,6 +36,7 @@ const StyledSideBar = styled.section`
           padding: 7px 30px;
           width: 100%;
           color: #828491;
+          font-size: 16px;
           line-height: 1.5;
           &:before {
             content: none;

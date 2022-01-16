@@ -15,6 +15,9 @@ const StyledForm = styled.div`
     .half {
       width: calc(50% - 15px);
     }
+    label {
+      font-size: 16px;
+    }
   }
   .ant-form-item {
     margin-bottom: 32px;
@@ -44,6 +47,7 @@ const StyledForm = styled.div`
     .ant-select-selector,
     .ant-form-item-control-input {
       min-height: 40px;
+      font-size: 16px;
     }
     .ant-select-selection-item,
     .ant-select-selection-placeholder {
@@ -65,6 +69,9 @@ const StyledForm = styled.div`
     textarea.ant-input {
       padding: 10px 11px;
     }
+    .ant-checkbox + span {
+      color: #828491;
+    }
     .ant-checkbox-checked {
       .ant-checkbox-inner {
         background-color: #171717;
@@ -73,6 +80,9 @@ const StyledForm = styled.div`
       &:after {
         animation: none;
         border-color: #171717;
+      }
+      & + span {
+        color: #171717;
       }
     }
 
@@ -98,8 +108,11 @@ const StyledForm = styled.div`
       background-color: #f7f7f7;
       border-color: #d9d9d9;
       transition: 0.2s;
-      &:hover,
       &:focus {
+        background-color: #f7f7f7;
+        border-color: #d9d9d9;
+      }
+      &:hover {
         background-color: #ebebeb;
         color: #171717;
       }
@@ -109,8 +122,11 @@ const StyledForm = styled.div`
       &-primary {
         color: #fff;
         background-color: #171717;
-        &:hover,
         &:focus {
+          color: #fff;
+          background-color: #171717;
+        }
+        &:hover {
           color: #fff;
           background-color: #2e2f36;
         }
