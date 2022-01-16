@@ -26,6 +26,9 @@ const StyledSideBar = styled.section`
         transform: translateY(-50%);
         color: #828491;
       }
+      .anticon + span {
+        margin: 0;
+      }
       .ant-menu-title-content {
         width: 100%;
         a {
@@ -88,7 +91,7 @@ function SideBar(props) {
         style={{ width: 300 }}
       >
         <Menu.Item key="v" icon={<BranchesOutlined />} style={{ paddingLeft: 38 }}>
-          <Link to="/admin/v">사이트 버전 관리</Link>
+          <Link to="/admin">사이트 버전 관리</Link>
         </Menu.Item>
         <Menu.Item key="projects" icon={<CloudOutlined />} style={{ paddingLeft: 38 }}>
           <Link to="/admin/projects">프로젝트 관리</Link>
