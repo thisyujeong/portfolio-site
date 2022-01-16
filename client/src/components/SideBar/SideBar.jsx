@@ -17,11 +17,20 @@ const StyledSideBar = styled.section`
   .ant-menu-item {
     position: relative;
     padding: 7px 38px;
+    padding: 0;
     cursor: pointer;
     .anticon {
-      margin-left: 0.5em;
-      margin-right: 0.5em;
-      transition: 0.3s;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .ant-menu-title-content {
+      width: 100%;
+      a {
+        display: inline-block;
+        padding: 7px 30px;
+        width: 100%;
+      }
     }
 
     &-active {
@@ -30,9 +39,6 @@ const StyledSideBar = styled.section`
     }
     &-selected {
       color: #171717;
-      .anticon {
-        margin-left: 1em;
-      }
       &:before {
         width: 4px;
         height: 100%;
@@ -51,7 +57,7 @@ const StyledSideBar = styled.section`
 `;
 
 function SideBar(props) {
-  const [current, setCurrent] = useState('version');
+  const [current, setCurrent] = useState('v');
 
   const handleClick = (e) => {
     console.log('click', e);
@@ -66,15 +72,15 @@ function SideBar(props) {
         mode="inline"
         style={{ width: 300 }}
       >
-        <Menu.Item key="version" icon={<BranchesOutlined />}>
-          사이트 버전 관리
+        <Menu.Item key="v" icon={<BranchesOutlined />}>
+          <Link to="/admin/v">사이트 버전 관리</Link>
         </Menu.Item>
-        <Menu.Item key="manage" icon={<CloudOutlined />}>
-          프로젝트 관리
+        <Menu.Item key="projects" icon={<CloudOutlined />}>
+          <Link to="/admin/projects">프로젝트 관리</Link>
         </Menu.Item>
 
         <Menu.Item key="write" icon={<EditOutlined />}>
-          프로젝트 작성
+          <Link to="/admin/write">프로젝트 작성</Link>
         </Menu.Item>
       </Menu>
     </StyledSideBar>
