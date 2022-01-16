@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import axios from 'axios';
+import LoginModal from '../LoginModal/LoginModal';
 import { useDispatch } from 'react-redux';
-import styles from './NavBar.module.scss';
 import { Link, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faSignOutAlt, faUserCog } from '@fortawesome/free-solid-svg-icons';
-import LoginModal from '../LoginModal/LoginModal';
-import axios from 'axios';
 import { auth } from '../../_actions/user_action';
+import styles from './NavBar.module.scss';
 
 function NavBar(props) {
   const history = useHistory();
@@ -23,8 +23,10 @@ function NavBar(props) {
     dispatch(auth()).then((response) => {
       if (response.payload.isAuth) {
         console.log(`isAuth: ${response.payload.isAuth}`);
+        setIsLogin(true);
       } else {
         console.log(`You're not logged in.`);
+        setIsLogin(false);
       }
     });
   }, [dispatch]);
@@ -54,11 +56,14 @@ function NavBar(props) {
     [history]
   );
 
+  console.log(isLogin);
   const AuthOption = useCallback(() => {
     return isLogin ? (
       <>
         <li>
-          <FontAwesomeIcon icon={faUserCog} />
+          <Link to="/admin">
+            <FontAwesomeIcon icon={faUserCog} />
+          </Link>
           <span className={styles.tooltip}>어드민</span>
         </li>
         <li onClick={onClickLogout}>
@@ -67,8 +72,8 @@ function NavBar(props) {
         </li>
       </>
     ) : (
-      <li>
-        <FontAwesomeIcon icon={faSignInAlt} onClick={onClickLogin} />
+      <li onClick={onClickLogin}>
+        <FontAwesomeIcon icon={faSignInAlt} />
         <span className={styles.tooltip}>로그인</span>
       </li>
     );

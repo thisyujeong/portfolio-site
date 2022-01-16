@@ -15,7 +15,7 @@ function App(props) {
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, null)}></Route>
           <Route exact path="/register" component={Auth(RegisterPage, false)}></Route>
-          <Route exact path="/admin" component={Auth(Admin, false)}></Route>
+          <Route exact path="/admin" component={Auth(Admin, true)}></Route>
         </Switch>
       </div>
     </Router>
