@@ -1,18 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import SideBar from '../../components/SideBar/SideBar';
 
 function Admin(props) {
-  return (
-    <Router>
-      <SideBar />
-      <div className="contents admin">
-        <Switch>
-          <Route exact path="/admin/posts"></Route>
-        </Switch>
-      </div>
-    </Router>
-  );
+  return <h2>어드민 페이지 </h2>;
 }
 
 export default Admin;

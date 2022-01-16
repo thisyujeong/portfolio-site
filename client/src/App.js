@@ -6,6 +6,9 @@ import Auth from './hoc/auth';
 import NavBar from './components/NavBar/NavBar';
 import './common/styles/index.scss';
 import Admin from './pages/Admin/Admin';
+import Write from './pages/Admin/Write/Write';
+import Projects from './pages/Admin/Projects/Projects';
+import SideBar from './components/SideBar/SideBar';
 
 function App(props) {
   return (
@@ -15,7 +18,18 @@ function App(props) {
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, null)}></Route>
           <Route exact path="/register" component={Auth(RegisterPage, false)}></Route>
-          <Route exact path="/admin" component={Auth(Admin, true)}></Route>
+          <>
+            <SideBar />
+            <div className="contents-admin">
+              <Route exact path="/admin" component={Auth(Admin, true)}></Route>
+              <Route exact path="/admin/write" component={Auth(Write, true)}></Route>
+              <Route
+                exact
+                path="/admin/projects"
+                component={Auth(Projects, true)}
+              ></Route>
+            </div>
+          </>
         </Switch>
       </div>
     </Router>
