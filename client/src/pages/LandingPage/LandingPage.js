@@ -11,7 +11,7 @@ function LandingPage(props) {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: 'calc(100vh - 46px)',
+    height: 'calc(100vh - 60px)',
   };
 
   return (

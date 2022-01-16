@@ -9,13 +9,10 @@
   // color: $text-color;
 }
 
-body {
-  // background-color: $base-color;
-}
-
 ol,
 ul {
   list-style: none;
+  margin: 0;
 }
 
 a {
@@ -28,8 +25,12 @@ a {
   display: flex;
 }
 
-.contents-admin {
+.page-admin {
   width: 100%;
   padding-top: 50px;
-  padding-left: 350px;
+  padding-left: 400px;
+  padding-right: 100px;
+  .container {
+    max-width: 1000px;
+  }
 }

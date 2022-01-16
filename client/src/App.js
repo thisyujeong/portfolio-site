@@ -20,14 +20,16 @@ function App(props) {
           <Route exact path="/register" component={Auth(RegisterPage, false)}></Route>
           <>
             <SideBar />
-            <div className="contents-admin">
-              <Route exact path="/admin" component={Auth(Admin, true)}></Route>
-              <Route exact path="/admin/write" component={Auth(Write, true)}></Route>
-              <Route
-                exact
-                path="/admin/projects"
-                component={Auth(Projects, true)}
-              ></Route>
+            <div className="page-admin">
+              <div className="container">
+                <Route exact path="/admin" component={Auth(Admin, true)}></Route>
+                <Route exact path="/admin/write" component={Auth(Write, true)}></Route>
+                <Route
+                  exact
+                  path="/admin/projects"
+                  component={Auth(Projects, true)}
+                ></Route>
+              </div>
             </div>
           </>
         </Switch>
