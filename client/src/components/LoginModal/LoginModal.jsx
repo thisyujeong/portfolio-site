@@ -12,46 +12,67 @@ const StyledForm = styled.div`
     width: 100%;
   }
 
+  .ant-form-item {
+    flex-direction: column;
+  }
   .ant-form-item + .ant-form-item {
     margin-top: 30px;
   }
   .ant-form-item-label {
     display: inline-block;
     margin-bottom: 8px;
+    text-align: left;
     label {
       font-family: 'Arial';
       font-size: 14px;
       font-weight: bold;
       text-transform: uppercase;
     }
-
-    .ant-form-item-required:after {
-      content: '*';
-      color: #f33131;
-      margin-left: 2px;
+    .ant-form-item-required {
+      &:not(.ant-form-item-required-mark-optional):before {
+        content: none;
+      }
+      .ant-form-item-required:after {
+        content: '*';
+        color: #f33131;
+        margin-left: 2px;
+      }
     }
   }
+
   .ant-form-item-control {
     position: relative;
   }
   .ant-form-item-explain {
-    position: absolute;
-    bottom: -22px;
-    font-size: 14px;
-    color: #9a9ca8;
-    font-family: 'Arial';
+    display: none;
   }
   .ant-input-affix-wrapper {
     position: relative;
     display: block;
+    padding: 0;
+    border: 0;
+    box-shadow: none !important;
+    input {
+      padding: 6px 16px;
+    }
+    &:before {
+      display: none;
+    }
   }
+  .ant-input-affix-wrapper:focus,
+  .ant-input-affix-wrapper-focused {
+    border: 0;
+    box-shadow: none;
+  }
+
   .ant-input {
     width: 100%;
     height: 50px;
     padding: 6px 16px;
     border: 0;
     border-radius: 0;
-    background-color: #f0f0f3;
+    box-shadow: none !important;
+    background-color: #f0f0f3 !important;
     font-size: 16px;
     outline: 0;
   }
@@ -133,22 +154,14 @@ function LoginModal({ onModalHandler, onLoginHandler }) {
             onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[{ required: true, message: 'Please input your email.' }]}
-            >
+            <Form.Item label="Email" name="email">
               <Input
                 className={styles.inputEmail}
                 value={email}
                 onChange={onEmailHandler}
               />
             </Form.Item>
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={[{ required: true, message: 'Please input your password.' }]}
-            >
+            <Form.Item label="Password" name="password">
               <Input.Password
                 className={styles.inputPassword}
                 value={password}
