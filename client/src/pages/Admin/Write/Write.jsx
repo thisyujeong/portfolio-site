@@ -159,7 +159,7 @@ function Write(props) {
         >
           <Form.Item
             label="프로젝트 명"
-            name="name"
+            name="title"
             rules={[{ required: true }]}
             className="half"
           >
