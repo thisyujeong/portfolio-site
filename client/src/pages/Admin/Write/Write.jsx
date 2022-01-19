@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import AdminHeader from '../../../components/Admin/AdminHeader';
 import { Form, Input, Button, Select, Checkbox } from 'antd';
 import styled from 'styled-components';
 import WriteEditor from '../../../components/Admin/WriteEditor';
+import { post } from '../../../_actions/post_action';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -136,18 +138,58 @@ const StyledForm = styled.div`
 `;
 
 function Write(props) {
+  const dispatch = useDispatch();
+  const [check, setCheck] = useState(false);
   const [editorHtml, setEditorHtml] = useState('');
+  const [data, setData] = useState({
+    member: 1,
+    type: 'personal',
+  });
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
   const onChangeCheck = (e) => {
-    console.log(`checked = ${e.target.checked}`);
+    setCheck(e.target.checked);
   };
-  const onSubmitHandler = (e) => {};
-  const onChangeType = (value) => {};
+  const onChangeType = (value) => {
+    setData({ ...data, type: value });
+  };
+  const onChangeMember = (value) => {
+    setData({ ...data, member: Number(value) });
+  };
   const getEditorHtml = (html) => {
     setEditorHtml(html);
+    console.log(editorHtml);
   };
+
+  const onChangeInput = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const onSubmitHandler = (e) => {
+    let body = {
+      title: data.title,
+      type: data.type,
+      info: data.info,
+      tech: data.tech.split(',').map((a) => a.trim()),
+      git: data.git,
+      site: data.site,
+      due: data.due,
+      role: data.role,
+      desc: data.desc,
+      member: data.member,
+      lock: check,
+    };
+    dispatch(post(body)).then((response) => {
+      if (response.payload) {
+        console.log('write payload', response.payload);
+      } else {
+        console.log('send post fail...');
+      }
+    });
+  };
+
   return (
     <>
       <AdminHeader title="프로젝트 작성" desc="프로젝트를 작성하여 추가할 수 있습니다." />
@@ -163,15 +205,15 @@ function Write(props) {
             rules={[{ required: true }]}
             className="half"
           >
-            <Input />
+            <Input name="title" onChange={onChangeInput} />
           </Form.Item>
           <Form.Item
             label="프로젝트 타입"
             name="type"
-            rules={[{ required: true }]}
             className="half"
+            initialValue="personal"
           >
-            <Select placeholder="프로젝트 타입" onChange={onChangeType} allowClear>
+            <Select placeholder="프로젝트 타입" onChange={onChangeType}>
               <Option value="personal">Personal</Option>
               <Option value="team">Team</Option>
             </Select>
@@ -182,7 +224,7 @@ function Write(props) {
             rules={[{ required: true }]}
             className="half"
           >
-            <Input />
+            <Input name="info" onChange={onChangeInput} />
           </Form.Item>
           <Form.Item
             label="사용 기술"
@@ -190,7 +232,11 @@ function Write(props) {
             rules={[{ required: true }]}
             className="half"
           >
-            <Input placeholder="HTML, CSS, JavaScript" />
+            <Input
+              placeholder="HTML, CSS, JavaScript"
+              name="tech"
+              onChange={onChangeInput}
+            />
           </Form.Item>
           <Form.Item
             label="깃허브 URL"
@@ -198,7 +244,11 @@ function Write(props) {
             rules={[{ required: true }]}
             className="half"
           >
-            <Input placeholder="https://github.com/" />
+            <Input
+              placeholder="https://github.com/"
+              name="git"
+              onChange={onChangeInput}
+            />
           </Form.Item>
           <Form.Item
             label="사이트 URL"
@@ -206,15 +256,14 @@ function Write(props) {
             rules={[{ required: true }]}
             className="half"
           >
-            <Input placeholder="https://github.com/" />
+            <Input
+              placeholder="https://github.com/"
+              name="site"
+              onChange={onChangeInput}
+            />
           </Form.Item>
-          <Form.Item
-            label="참여 인원"
-            name="member"
-            rules={[{ required: true }]}
-            className="half"
-          >
-            <Select placeholder="참여 인원" onChange={onChangeType} allowClear>
+          <Form.Item label="참여 인원" name="member" className="half" initialValue="1">
+            <Select placeholder="참여 인원" onChange={onChangeMember}>
               <Option value="1">1</Option>
               <Option value="2">2</Option>
               <Option value="3">3</Option>
@@ -228,7 +277,7 @@ function Write(props) {
             rules={[{ required: true }]}
             className="half"
           >
-            <Input placeholder="2022/01 - 2022/02" />
+            <Input placeholder="2022/01 - 2022/02" name="due" onChange={onChangeInput} />
           </Form.Item>
           <Form.Item
             label="업무 범위"
@@ -236,7 +285,11 @@ function Write(props) {
             rules={[{ required: true }]}
             className="half"
           >
-            <Input placeholder="기획 30% / 프론트엔드 50%" />
+            <Input
+              placeholder="기획 30% / 프론트엔드 50%"
+              name="role"
+              onChange={onChangeInput}
+            />
           </Form.Item>
           <Form.Item
             label="공개 여부"
@@ -250,6 +303,8 @@ function Write(props) {
             <TextArea
               placeholder="프로젝트 설명을 입력하세요."
               autoSize={{ minRows: 4, maxRows: 6 }}
+              name="desc"
+              onChange={onChangeInput}
             />
           </Form.Item>
 

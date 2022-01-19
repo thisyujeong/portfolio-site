@@ -92,10 +92,10 @@ app.get('/api/users/logout', auth, (req, res) => {
 app.post('/api/posts/note', (req, res) => {
   const post = new Post(req.body);
   post.save((err, postInfo) => {
-    if (err) return res.json({ postSuccess: false, err });
+    if (err) return res.json({ success: false, err });
     return res.status(200).json({
-      postSuccess: true,
-      postInfo,
+      success: true,
+      post: postInfo,
     });
   });
 });

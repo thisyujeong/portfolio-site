@@ -94,8 +94,10 @@ const StyledForm = styled.div`
     text-transform: uppercase;
     background-color: #171717;
     cursor: pointer;
+    border-radius: 0;
     &:hover {
       background-color: #2e2f36;
+      border: 1px solid transparent;
     }
     span {
       font-family: 'Arial';

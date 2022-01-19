@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-
+const Counter = require('./Counter');
 const postSchema = mongoose.Schema({
-  _id: {
+  id: {
     type: Number,
-    unique: 1,
+    unique: true,
   },
   title: {
     type: String,
@@ -14,36 +14,37 @@ const postSchema = mongoose.Schema({
     type: String,
     default: 'personal',
   },
-  info: {
-    type: String,
-    require: true,
-  },
-  tech: {
-    type: [],
-  },
-  git: {
-    type: String,
-  },
-  site: {
-    type: String,
-  },
+  info: String,
+  tech: [],
+  git: String,
+  site: String,
+  due: String,
+  role: String,
+  desc: String,
+  html: String,
   member: {
     type: Number,
-    default: 1,
-  },
-  due: {
-    type: String,
+    default: 0,
   },
   lock: {
     type: Boolean,
     default: false,
   },
-  desc: {
-    type: String,
-  },
-  html: {
-    type: String,
-  },
+});
+
+// 글 번호 (id)
+postSchema.pre('save', async function (next) {
+  // 유저 정보를 저장하기 전 실행 함수
+  var post = this; // post 스키마
+  if (post.isNew) {
+    // post 가 저장되면 (isNew: true)
+    counter = await Counter.findOne({ name: 'posts' }).exec(); // Couter collection에 posts 이름을 가진 DB 할당
+    if (!counter) counter = await Counter.create({ name: 'posts' }); // posts 가 undefined 라면 DB 생성
+    counter.count++; // 글 번호 업데이트
+    counter.save();
+    post.id = counter.count;
+  }
+  return next();
 });
 
 const Post = mongoose.model('Post', postSchema);
