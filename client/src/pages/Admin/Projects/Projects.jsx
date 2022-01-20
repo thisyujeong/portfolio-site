@@ -1,55 +1,117 @@
-import React from 'react';
-import { Table } from 'antd';
+import React, { useEffect, useState } from 'react';
 import AdminHeader from '../../../components/Admin/AdminHeader';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { Table, Button } from 'antd';
+import { postList } from '../../../_actions/post_action';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
+
+const StyledTable = styled.div`
+  .ant-table-tbody > tr > td {
+    padding: 10px 16px;
+    position: relative;
+    &:first-child .unlock {
+      color: rgba(29, 29, 29, 0.3);
+    }
+  }
+  .ant-btn + .ant-btn {
+    position: relative;
+    &:after {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 16px;
+      width: 1px;
+      background-color: #bbbcc2;
+      transform: translateY(-50%);
+      content: '';
+    }
+  }
+  .ant-btn {
+    &:hover {
+      font-weight: bold;
+    }
+    &.edit-btn {
+      color: #5360dd;
+    }
+    &.delete-btn {
+      color: #dd5353;
+    }
+  }
+`;
+
 function Projects(props) {
-  const postsData = useSelector((state) => state.post);
-  console.log('postsData', postsData);
+  const dispatch = useDispatch();
+  const [inputData, setInputData] = useState([
+    {
+      key: 0,
+      number: 0,
+      title: '',
+      info: '',
+      lock: false,
+    },
+  ]);
   const columns = [
     {
-      title: '번호',
-      dataIndex: 'number',
-      key: 'number',
+      title: '',
+      dataIndex: 'lock',
+      key: 'lock',
+      width: '50px',
+      render: (lock) =>
+        lock === false ? (
+          <FontAwesomeIcon icon={faUnlock} className="unlock" />
+        ) : (
+          <FontAwesomeIcon icon={faLock} className="lock" />
+        ),
     },
+    { title: '번호', dataIndex: 'number', key: 'number', width: '80px' },
     {
       title: '프로젝트 명',
       dataIndex: 'title',
       key: 'title',
+      render: (text) => <span>{text}</span>,
     },
     {
       title: '설명',
-      dataIndex: 'desc',
-      key: 'desc',
-    },
-    {
-      title: '공개 여부',
-      dataIndex: 'lock',
-      key: 'lock',
+      dataIndex: 'info',
+      key: 'info',
+      render: (text) => <span>{text}</span>,
     },
     {
       title: '',
       dataIndex: 'edit',
       key: 'edit',
+      width: '150px',
+      render: (text) => (
+        <>
+          <Button type="text" className="edit-btn">
+            수정
+          </Button>
+          <Button type="text" className="delete-btn">
+            삭제
+          </Button>
+        </>
+      ),
     },
   ];
-  const data = [
-    {
-      key: '1',
-      number: '1',
-      title: 'create yourstage',
-      desc: '유튜브 1인 크리에이터를 위한 셀프 매니징 서비스',
-      lock: '공개',
-      edit: '수정 / 삭제',
-    },
-    {
-      key: '2',
-      number: '2',
-      title: 'create yourstage',
-      desc: '유튜브 1인 크리에이터를 위한 셀프 매니징 서비스',
-      lock: '공개',
-      edit: '수정 / 삭제',
-    },
-  ];
+
+  useEffect(() => {
+    dispatch(postList()).then((response) => {
+      if (response.payload) {
+        const _inputData = response.payload.data.map((item) => ({
+          key: item.id,
+          number: item.id,
+          title: item.title,
+          info: item.info,
+          lock: item.lock,
+        }));
+        setInputData(_inputData);
+      } else {
+        console.log('the posts data is empty...');
+      }
+    });
+  }, [dispatch]);
 
   return (
     <>
@@ -57,7 +119,9 @@ function Projects(props) {
         title="프로젝트 관리"
         desc="작성된 프로젝트의 수정 / 삭제  등을 관리를 할 수 있습니다."
       />
-      <Table columns={columns} dataSource={data} pagination={false} />
+      <StyledTable>
+        <Table columns={columns} dataSource={inputData} pagination={false} />
+      </StyledTable>
     </>
   );
 }

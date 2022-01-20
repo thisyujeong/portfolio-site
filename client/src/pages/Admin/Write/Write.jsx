@@ -5,6 +5,7 @@ import { Form, Input, Button, Select, Checkbox } from 'antd';
 import styled from 'styled-components';
 import WriteEditor from '../../../components/Admin/WriteEditor';
 import { postNote } from '../../../_actions/post_action';
+import MsgModal from '../../../components/MsgModal/MsgModal';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -141,10 +142,14 @@ function Write(props) {
   const dispatch = useDispatch();
   const [check, setCheck] = useState(false);
   const [editorHtml, setEditorHtml] = useState('');
+
   const [data, setData] = useState({
     member: 1,
     type: 'personal',
   });
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
 
   const onChangeCheck = (e) => {
     setCheck(e.target.checked);
@@ -161,7 +166,6 @@ function Write(props) {
   const getEditorHtml = (html) => {
     setEditorHtml(html);
   };
-
   const onSubmitHandler = (e) => {
     let body = {
       title: data.title,
@@ -190,7 +194,11 @@ function Write(props) {
     <>
       <AdminHeader title="프로젝트 작성" desc="프로젝트를 작성하여 추가할 수 있습니다." />
       <StyledForm>
-        <Form onFinish={onSubmitHandler} autoComplete="off">
+        <Form
+          onFinish={onSubmitHandler}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
           <Form.Item
             label="프로젝트 명"
             name="title"
@@ -309,6 +317,7 @@ function Write(props) {
             </Button>
           </div>
         </Form>
+        {/* <MsgModal/> */}
       </StyledForm>
     </>
   );

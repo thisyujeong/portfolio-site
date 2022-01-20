@@ -105,7 +105,7 @@ app.get('/api/posts', (req, res) => {
     if (err) return res.json({ success: false, error: 'database failure' });
     return res.status(200).json({
       success: true,
-      postsData: posts,
+      data: posts,
     });
   });
 });
