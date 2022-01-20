@@ -4,7 +4,7 @@ import AdminHeader from '../../../components/Admin/AdminHeader';
 import { Form, Input, Button, Select, Checkbox } from 'antd';
 import styled from 'styled-components';
 import WriteEditor from '../../../components/Admin/WriteEditor';
-import { post } from '../../../_actions/post_action';
+import { postNote } from '../../../_actions/post_action';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -146,9 +146,6 @@ function Write(props) {
     type: 'personal',
   });
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
   const onChangeCheck = (e) => {
     setCheck(e.target.checked);
   };
@@ -158,13 +155,11 @@ function Write(props) {
   const onChangeMember = (value) => {
     setData({ ...data, member: Number(value) });
   };
-  const getEditorHtml = (html) => {
-    setEditorHtml(html);
-    console.log(editorHtml);
-  };
-
   const onChangeInput = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const getEditorHtml = (html) => {
+    setEditorHtml(html);
   };
 
   const onSubmitHandler = (e) => {
@@ -179,13 +174,14 @@ function Write(props) {
       role: data.role,
       desc: data.desc,
       member: data.member,
+      html: data.html,
       lock: check,
     };
-    dispatch(post(body)).then((response) => {
+    dispatch(postNote(body)).then((response) => {
       if (response.payload) {
-        console.log('write payload', response.payload);
+        console.log('submitbody', response.payload);
       } else {
-        console.log('send post fail...');
+        console.log(`there's no payload`);
       }
     });
   };
@@ -194,11 +190,7 @@ function Write(props) {
     <>
       <AdminHeader title="프로젝트 작성" desc="프로젝트를 작성하여 추가할 수 있습니다." />
       <StyledForm>
-        <Form
-          onFinish={onSubmitHandler}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
+        <Form onFinish={onSubmitHandler} autoComplete="off">
           <Form.Item
             label="프로젝트 명"
             name="title"

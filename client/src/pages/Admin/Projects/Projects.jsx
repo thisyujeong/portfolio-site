@@ -1,7 +1,10 @@
 import React from 'react';
 import { Table } from 'antd';
 import AdminHeader from '../../../components/Admin/AdminHeader';
+import { useSelector } from 'react-redux';
 function Projects(props) {
+  const postsData = useSelector((state) => state.post);
+  console.log('postsData', postsData);
   const columns = [
     {
       title: '번호',
@@ -47,6 +50,7 @@ function Projects(props) {
       edit: '수정 / 삭제',
     },
   ];
+
   return (
     <>
       <AdminHeader

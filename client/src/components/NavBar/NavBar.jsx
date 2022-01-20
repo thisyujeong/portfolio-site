@@ -56,7 +56,6 @@ function NavBar(props) {
     [history]
   );
 
-  console.log(isLogin);
   const AuthOption = useCallback(() => {
     return isLogin ? (
       <>

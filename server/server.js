@@ -100,6 +100,16 @@ app.post('/api/posts/note', (req, res) => {
   });
 });
 
+app.get('/api/posts', (req, res) => {
+  Post.find((err, posts) => {
+    if (err) return res.json({ success: false, error: 'database failure' });
+    return res.status(200).json({
+      success: true,
+      postsData: posts,
+    });
+  });
+});
+
 const port = 5000;
 
 app.listen(port, () => console.log(`Express app listening on port ${port}!`));

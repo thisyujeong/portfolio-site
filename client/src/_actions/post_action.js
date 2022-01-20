@@ -1,14 +1,23 @@
 import axios from 'axios';
-import { POST } from './types';
+import { POST_NOTE } from './types';
+import { POST_LIST } from './types';
 
-// let id = 0;
-export function post(dataToSubmit) {
-  // dataToSubmit.id = id++;
+export function postNote(dataToSubmit) {
   const request = axios
     .post('/api/posts/note', dataToSubmit)
     .then((response) => response.data);
   return {
-    type: POST,
+    type: POST_NOTE,
+    payload: request,
+  };
+}
+
+export function postList() {
+  const request = axios
+    .get('/api/posts') //
+    .then((response) => response.data);
+  return {
+    type: POST_LIST,
     payload: request,
   };
 }

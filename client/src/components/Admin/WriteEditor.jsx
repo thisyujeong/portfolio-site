@@ -63,6 +63,7 @@ export default function WriteEditor({ getEditorHtml }) {
   const onChangeEditorTextHandler = () => {
     const getInstance = editorRef.current.getInstance();
     const getInstance_html = getInstance.getHTML();
+    console.log(getInstance_html);
     getEditorHtml(getInstance_html);
   };
 

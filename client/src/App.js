@@ -9,8 +9,21 @@ import Admin from './pages/Admin/Admin';
 import Write from './pages/Admin/Write/Write';
 import Projects from './pages/Admin/Projects/Projects';
 import SideBar from './components/SideBar/SideBar';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { postList } from './_actions/post_action';
 
 function App(props) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(postList()).then((response) => {
+      if (response.payload) {
+        console.log('get posts data success:', response.payload.postsData);
+      } else {
+        console.log('the posts data is empty...');
+      }
+    });
+  }, [dispatch]);
   return (
     <Router>
       <NavBar />
