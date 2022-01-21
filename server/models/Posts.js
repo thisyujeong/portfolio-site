@@ -35,7 +35,7 @@ const postSchema = mongoose.Schema({
 // 글 번호 (id)
 postSchema.pre('save', async function (next) {
   // 유저 정보를 저장하기 전 실행 함수
-  var post = this; // post 스키마
+  const post = this; // post 스키마
   if (post.isNew) {
     // post 가 저장되면 (isNew: true)
     counter = await Counter.findOne({ name: 'posts' }).exec(); // Couter collection에 posts 이름을 가진 DB 할당

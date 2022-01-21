@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import AdminHeader from '../../../components/Admin/AdminHeader';
 import { Form, Input, Button, Select, Checkbox } from 'antd';
-import styled from 'styled-components';
+import { UploadOutlined } from '@ant-design/icons';
+import { postImgUpload, postNote } from '../../../_actions/post_action';
+import AdminHeader from '../../../components/Admin/AdminHeader';
 import WriteEditor from '../../../components/Admin/WriteEditor';
-import { postNote } from '../../../_actions/post_action';
 import MsgModal from '../../../components/MsgModal/MsgModal';
+import styled from 'styled-components';
+import axios from 'axios';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -95,6 +97,45 @@ const StyledForm = styled.div`
       border-color: #17171760;
       box-shadow: 0 0 0 2px rgb(233 233 233 / 60%);
     }
+    .thumb-input {
+      display: none;
+    }
+    .upload-btn {
+      display: inline-block;
+      width: 110px;
+      height: 32px;
+      color: #5360dd;
+      font-size: 14px;
+      text-align: center;
+      line-height: 32px;
+      border: 1px solid #d9d9d9;
+      transition: none;
+      background-color: #fff;
+      cursor: pointer;
+      .anticon {
+        margin-right: 8px;
+      }
+      &:hover {
+        border-color: #5360dd;
+      }
+      &:active {
+        color: #fff;
+        background-color: #5360dd;
+      }
+      &:focus {
+        color: #171717;
+        border-color: #d9d9d9;
+      }
+      &:after {
+        content: none;
+      }
+    }
+    .file-name {
+      display: block;
+      margin-top: 4px;
+      font-size: 14px;
+      color: #828491;
+    }
   }
   .form-footer {
     width: 100%;
@@ -144,6 +185,8 @@ function Write(props) {
   const [modal, setModal] = useState(false);
   const [modalType, setModalType] = useState('');
   const [editorHtml, setEditorHtml] = useState('');
+  const [thumbFile, setThumbFile] = useState('');
+  const [heroFile, setHeroFile] = useState('');
 
   const [data, setData] = useState({
     member: 1,
@@ -199,6 +242,11 @@ function Write(props) {
     }
   };
   const onSubmitHandler = (e) => {
+    const formData = new FormData();
+    formData.append('thumb-image', thumbFile);
+    formData.append('hero-image', heroFile);
+
+    // 서버의 upload API 호출
     let body = {
       title: data.title,
       type: data.type,
@@ -213,19 +261,33 @@ function Write(props) {
       html: data.html,
       lock: check,
     };
+
     dispatch(postNote(body)).then((response) => {
-      if (response.payload) {
+      if (response.payload.success) {
         console.log('submitbody', response.payload);
-        if (response.payload.success) {
-          setModalType('success');
-          setModal(true);
-        } else {
-          setModal(false);
-        }
+
+        const res = axios
+          .post('/api/posts/upload', formData)
+          .then((res) => console.log('formData', res));
+        console.log('upload res', res);
+
+        setModalType('success');
+        setModal(true);
+      } else if (!response.payload.success) {
+        setModalType('warning');
+        setModal(false);
       } else {
         console.log(`there's no payload`);
       }
     });
+  };
+
+  const onChangeUpload = (e) => {
+    if (e.target.id) {
+      e.target.id === 'thumb-image' && setThumbFile(e.target.files[0]);
+      e.target.id === 'hero-image' && setHeroFile(e.target.files[0]);
+      console.log(e.target.files[0]);
+    }
   };
 
   return (
@@ -344,6 +406,42 @@ function Write(props) {
               name="desc"
               onChange={onChangeInput}
             />
+          </Form.Item>
+
+          <Form.Item label="썸네일 등록" className="half">
+            <input
+              type="file"
+              id="thumb-image"
+              className="thumb-input"
+              onChange={onChangeUpload}
+              required
+              accept="image/*"
+            />
+            <label htmlFor="thumb-image" className="thumb-label">
+              <span className="upload-btn">
+                <UploadOutlined />
+                Upload
+              </span>
+            </label>
+            <div className="file-name">{thumbFile.name}</div>
+          </Form.Item>
+
+          <Form.Item label="대표 이미지" className="half">
+            <input
+              type="file"
+              id="hero-image"
+              className="thumb-input"
+              onChange={onChangeUpload}
+              accept="image/*"
+              required
+            />
+            <label htmlFor="hero-image" className="thumb-label">
+              <span className="upload-btn">
+                <UploadOutlined />
+                Upload
+              </span>
+            </label>
+            <span className="file-name">{heroFile.name} </span>
           </Form.Item>
 
           <WriteEditor getEditorHtml={getEditorHtml} />

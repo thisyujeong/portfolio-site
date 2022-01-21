@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 const mongoose = require('mongoose');
+const upload = require('./utils/s3');
 mongoose
   .connect(config.mongoURI)
   .then(() => console.log('mongoDB Connected...'))
@@ -91,12 +92,26 @@ app.get('/api/users/logout', auth, (req, res) => {
 /* post */
 app.post('/api/posts/note', (req, res) => {
   const post = new Post(req.body);
+  console.log(req.body);
   post.save((err, postInfo) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).json({
       success: true,
       post: postInfo,
     });
+  });
+});
+
+/* image upload */
+const fileFields = upload.fields([
+  { name: 'thumb-image', maxCount: 1 },
+  { name: 'hero-image', maxCount: 1 },
+]);
+app.post('/api/posts/upload', fileFields, (req, res) => {
+  console.log('req files', req.files);
+  return res.status(200).json({
+    uploadSuccess: true,
+    post: req.files,
   });
 });
 
