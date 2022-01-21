@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 const StyledModal = styled.div`
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  &.visible {
-    display: block;
-  }
   .modal {
     position: fixed;
     width: 450px;
@@ -28,6 +26,15 @@ const StyledModal = styled.div`
       .heading {
         text-transform: capitalize;
       }
+      .state-icon {
+        margin-right: 8px;
+        .success {
+          color: #32bd32;
+        }
+        .warning {
+          color: #f7bb16;
+        }
+      }
     }
     &-body {
       padding: 20px 16px;
@@ -44,6 +51,9 @@ const StyledModal = styled.div`
         border: 0;
         background-color: #171717;
         cursor: pointer;
+        &:hover {
+          background-color: #2e2f36;
+        }
       }
     }
   }
@@ -54,21 +64,38 @@ const StyledModal = styled.div`
   }
 `;
 
-function MsgModal({ heading, message, submit }) {
+function MsgModal({ type, heading, message, submit, onModalHandler }) {
+  const onClick = (e) => {
+    e.preventDefault();
+    onModalHandler(false);
+  };
+  const StateIcon = () => {
+    switch (type) {
+      case 'success':
+        return <FontAwesomeIcon icon={faCheckCircle} className="success" />;
+      case 'warning':
+        return <FontAwesomeIcon icon={faExclamationCircle} className="warning" />;
+      default:
+        return null;
+    }
+  };
   return (
-    <StyledModal className={`modal-wrapper visible`}>
+    <StyledModal className="modal-wrapper">
       <div className="modal">
         <div className="modal-header">
+          <span className="state-icon">
+            <StateIcon />
+          </span>
           <span className="heading">{heading}</span>
         </div>
         <div className="modal-body">
           <p>{message}</p>
         </div>
         <div className="modal-footer">
-          <button>{submit}</button>
+          <button onClick={onClick}>{submit}</button>
         </div>
       </div>
-      <div className="mask"></div>
+      <div className="mask" onClick={onClick}></div>
     </StyledModal>
   );
 }

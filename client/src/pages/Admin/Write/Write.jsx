@@ -141,6 +141,8 @@ const StyledForm = styled.div`
 function Write(props) {
   const dispatch = useDispatch();
   const [check, setCheck] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [modalType, setModalType] = useState('');
   const [editorHtml, setEditorHtml] = useState('');
 
   const [data, setData] = useState({
@@ -149,8 +151,9 @@ function Write(props) {
   });
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
+    setModalType('warning');
+    setModal(true);
   };
-
   const onChangeCheck = (e) => {
     setCheck(e.target.checked);
   };
@@ -165,6 +168,35 @@ function Write(props) {
   };
   const getEditorHtml = (html) => {
     setEditorHtml(html);
+  };
+  const onModalHandler = (state) => {
+    setModal(state);
+  };
+  const ModalType = () => {
+    switch (modalType) {
+      case 'success':
+        return (
+          <MsgModal
+            type="success"
+            heading="Upload"
+            message="새 프로젝트가 등록되었습니다."
+            submit="OK"
+            onModalHandler={onModalHandler}
+          />
+        );
+      case 'warning':
+        return (
+          <MsgModal
+            type="warning"
+            heading="Upload"
+            message="새 프로젝트 등록에 실패했습니다. 빈칸을 채워주세요."
+            submit="OK"
+            onModalHandler={onModalHandler}
+          />
+        );
+      default:
+        return null;
+    }
   };
   const onSubmitHandler = (e) => {
     let body = {
@@ -184,6 +216,12 @@ function Write(props) {
     dispatch(postNote(body)).then((response) => {
       if (response.payload) {
         console.log('submitbody', response.payload);
+        if (response.payload.success) {
+          setModalType('success');
+          setModal(true);
+        } else {
+          setModal(false);
+        }
       } else {
         console.log(`there's no payload`);
       }
@@ -317,7 +355,8 @@ function Write(props) {
             </Button>
           </div>
         </Form>
-        {/* <MsgModal/> */}
+
+        {modal && <ModalType />}
       </StyledForm>
     </>
   );
