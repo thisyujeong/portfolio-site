@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import AdminHeader from '../../../components/Admin/AdminHeader';
 import { useDispatch } from 'react-redux';
 import { Table, Button } from 'antd';
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import MsgModal from '../../../components/MsgModal/MsgModal';
+import axios from 'axios';
 
 const StyledTable = styled.div`
   .ant-table-tbody > tr > td {
@@ -62,6 +63,7 @@ function Projects(props) {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [confirm, setConfirm] = useState(false);
+  const [targetId, setTargetId] = useState(null);
   const [inputData, setInputData] = useState([
     {
       key: 0,
@@ -137,22 +139,28 @@ function Projects(props) {
         console.log('the posts data is empty...');
       }
     });
-  }, [dispatch]);
+
+    if (confirm) {
+      axios
+        .post('/api/posts/delete', { id: targetId }) //
+        .then((response) => console.log(response.data));
+    }
+  }, [confirm, dispatch, targetId]);
 
   /* modal type handler */
-  const onClickDelete = (e) => {
-    const targetNumber = e.currentTarget.dataset.number;
-    console.log(targetNumber);
+  const onClickDelete = useCallback((e) => {
+    setTargetId(e.currentTarget.dataset.number);
     setConfirm(false);
     setVisible(true);
-  };
+  }, []);
 
-  const onModalHandler = (state) => {
+  const onModalHandler = useCallback((state) => {
     setVisible(state);
-  };
-  const onConfirmHandler = (state) => {
+  }, []);
+
+  const onConfirmHandler = useCallback((state) => {
     setConfirm(state);
-  };
+  });
   return (
     <>
       <AdminHeader

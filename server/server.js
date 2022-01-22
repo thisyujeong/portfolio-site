@@ -102,6 +102,17 @@ app.post('/api/posts/note', (req, res) => {
   });
 });
 
+/* post delete */
+app.post('/api/posts/delete', (req, res) => {
+  Post.deleteOne({ id: req.body.id }, (err, result) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).json({
+      success: true,
+      result,
+    });
+  });
+});
+
 /* post list */
 app.get('/api/posts', (req, res) => {
   Post.find((err, posts) => {
