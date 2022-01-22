@@ -224,30 +224,27 @@ function Write(props) {
       case 'success':
         return (
           <MsgModal
-            type="success"
+            success
             heading="Upload"
             message="새 프로젝트가 등록되었습니다."
-            submit="OK"
             onModalHandler={onModalHandler}
           />
         );
       case 'warning':
         return (
           <MsgModal
-            type="warning"
+            warning
             heading="Upload"
             message="새 프로젝트 등록에 실패했습니다. 빈칸을 채워주세요."
-            submit="OK"
             onModalHandler={onModalHandler}
           />
         );
       case 'error':
         return (
           <MsgModal
-            type="error"
+            error
             heading="Upload"
             message={`새 프로젝트 등록에 실패했습니다. Error Message : ${errMessage}`}
-            submit="OK"
             onModalHandler={onModalHandler}
           />
         );

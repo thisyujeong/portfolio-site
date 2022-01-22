@@ -1,4 +1,4 @@
-import { POST_LIST, POST_NOTE, POST_IMAGE_UPLOAD } from '../_actions/types';
+import { POST_LIST, POST_NOTE } from '../_actions/types';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = {}, action) {
@@ -9,8 +9,6 @@ export default function (state = {}, action) {
     case POST_LIST:
       return { ...state, postsData: action.payload };
 
-    case POST_IMAGE_UPLOAD:
-      return { ...state, imageDaga: action.payload };
     default:
       return state;
   }

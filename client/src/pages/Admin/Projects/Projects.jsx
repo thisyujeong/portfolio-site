@@ -6,6 +6,7 @@ import { postList } from '../../../_actions/post_action';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
+import MsgModal from '../../../components/MsgModal/MsgModal';
 
 const StyledTable = styled.div`
   .ant-table-tbody > tr > td {
@@ -59,6 +60,8 @@ const StyledTable = styled.div`
 
 function Projects(props) {
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
+  const [confirm, setConfirm] = useState(false);
   const [inputData, setInputData] = useState([
     {
       key: 0,
@@ -99,12 +102,17 @@ function Projects(props) {
       dataIndex: 'edit',
       key: 'edit',
       width: '150px',
-      render: (text) => (
+      render: (id) => (
         <>
-          <Button type="text" className="edit-btn">
+          <Button type="text" className="edit-btn" data-number={id}>
             수정
           </Button>
-          <Button type="text" className="delete-btn">
+          <Button
+            type="text"
+            className="delete-btn"
+            data-number={id}
+            onClick={onClickDelete}
+          >
             삭제
           </Button>
         </>
@@ -112,6 +120,7 @@ function Projects(props) {
     },
   ];
 
+  /* 프로젝트 리스트 조회 */
   useEffect(() => {
     dispatch(postList()).then((response) => {
       if (response.payload) {
@@ -121,6 +130,7 @@ function Projects(props) {
           title: item.title,
           info: item.info,
           lock: item.lock,
+          edit: item.id,
         }));
         setInputData(_inputData);
       } else {
@@ -129,6 +139,20 @@ function Projects(props) {
     });
   }, [dispatch]);
 
+  /* modal type handler */
+  const onClickDelete = (e) => {
+    const targetNumber = e.currentTarget.dataset.number;
+    console.log(targetNumber);
+    setConfirm(false);
+    setVisible(true);
+  };
+
+  const onModalHandler = (state) => {
+    setVisible(state);
+  };
+  const onConfirmHandler = (state) => {
+    setConfirm(state);
+  };
   return (
     <>
       <AdminHeader
@@ -138,6 +162,17 @@ function Projects(props) {
       <StyledTable>
         <Table columns={columns} dataSource={inputData} />
       </StyledTable>
+
+      {visible && (
+        <MsgModal
+          warning
+          heading="delete"
+          message={`정말 삭제하시겠습니까? '확인'을 클릭하면 되돌릴 수 없습니다.`}
+          submit={['취소', '확인']}
+          onModalHandler={onModalHandler}
+          onConfirmHandler={onConfirmHandler}
+        />
+      )}
     </>
   );
 }

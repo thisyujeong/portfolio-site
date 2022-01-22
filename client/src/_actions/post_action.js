@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { POST_NOTE, POST_LIST, POST_IMAGE_UPLOAD } from './types';
+import { POST_NOTE, POST_LIST } from './types';
 
 export function postNote(dataToSubmit) {
   const request = axios
@@ -20,13 +20,3 @@ export function postList() {
     payload: request,
   };
 }
-
-// export function postImgUpload(formData) {
-//   const request = axios
-//     .post('/api/posts/upload', formData) //
-//     .then((response) => response.data);
-//   return {
-//     type: POST_IMAGE_UPLOAD,
-//     payload: request,
-//   };
-// }

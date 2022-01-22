@@ -47,15 +47,31 @@ const StyledModal = styled.div`
     &-footer {
       padding: 0 16px 16px;
       text-align: right;
+
       button {
-        width: 80px;
+        width: 96px;
         height: 32px;
-        color: #fff;
+        margin-left: 16px;
+        color: #171717;
         border: 0;
-        background-color: #171717;
+        border: 1px solid rgba(29, 29, 29, 0.2);
+        background-color: #fff;
         cursor: pointer;
         &:hover {
-          background-color: #2e2f36;
+          background-color: rgba(29, 29, 29, 0.05);
+        }
+
+        &.primary {
+          width: 96px;
+          height: 32px;
+          color: #fff;
+          border: 1px solid #171717;
+          background-color: #171717;
+          cursor: pointer;
+          &:hover {
+            border-color: #2e2f36;
+            background-color: #2e2f36;
+          }
         }
       }
     }
@@ -67,23 +83,59 @@ const StyledModal = styled.div`
   }
 `;
 
-function MsgModal({ type, heading, message, submit, onModalHandler }) {
-  const onClick = (e) => {
-    e.preventDefault();
+function MsgModal(props) {
+  let {
+    heading = 'alert',
+    message = '메세지가 설정되지 않았습니다.',
+    submit = '확인',
+    onModalHandler,
+    onConfirmHandler,
+  } = props;
+
+  const onClose = () => {
     onModalHandler(false);
   };
+
+  const onConfirm = () => {
+    onConfirmHandler && onConfirmHandler(true);
+    onClose();
+  };
+
   const StateIcon = () => {
-    switch (type) {
-      case 'success':
-        return <FontAwesomeIcon icon={faCheckCircle} className="success" />;
-      case 'warning':
-        return <FontAwesomeIcon icon={faExclamationCircle} className="warning" />;
-      case 'warning':
-        return <FontAwesomeIcon icon={faExclamationCircle} className="error" />;
-      default:
-        return null;
+    if (props.success) {
+      return <FontAwesomeIcon icon={faCheckCircle} className="success" />;
+    } else if (props.warning) {
+      return <FontAwesomeIcon icon={faExclamationCircle} className="warning" />;
+    } else if (props.error) {
+      return <FontAwesomeIcon icon={faExclamationCircle} className="error" />;
+    }
+    return <FontAwesomeIcon icon={faCheckCircle} className="success" />;
+  };
+
+  const ButtonType = () => {
+    if (typeof submit == 'object') {
+      const [cancel, confirm] = submit;
+      return (
+        <>
+          <button className="default" onClick={onClose}>
+            {cancel}
+          </button>
+          <button className="primary" onClick={onConfirm}>
+            {confirm}
+          </button>
+        </>
+      );
+    } else if (typeof submit == 'string') {
+      return (
+        <>
+          <button className="primary" onClick={onClose}>
+            {submit}
+          </button>
+        </>
+      );
     }
   };
+
   return (
     <StyledModal className="modal-wrapper">
       <div className="modal">
@@ -97,10 +149,10 @@ function MsgModal({ type, heading, message, submit, onModalHandler }) {
           <p>{message}</p>
         </div>
         <div className="modal-footer">
-          <button onClick={onClick}>{submit}</button>
+          <ButtonType />
         </div>
       </div>
-      <div className="mask" onClick={onClick}></div>
+      <div className="mask" onClick={onClose}></div>
     </StyledModal>
   );
 }
