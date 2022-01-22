@@ -147,6 +147,14 @@ function Projects(props) {
     }
   }, [confirm, dispatch, targetId]);
 
+  useEffect(() => {
+    if (confirm) {
+      axios
+        .post('/api/posts/delete', { id: targetId }) //
+        .then((response) => console.log(response.data));
+    }
+  });
+
   /* modal type handler */
   const onClickDelete = useCallback((e) => {
     setTargetId(e.currentTarget.dataset.number);
@@ -160,7 +168,7 @@ function Projects(props) {
 
   const onConfirmHandler = useCallback((state) => {
     setConfirm(state);
-  });
+  }, []);
   return (
     <>
       <AdminHeader

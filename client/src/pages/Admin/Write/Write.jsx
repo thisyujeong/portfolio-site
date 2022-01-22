@@ -217,7 +217,6 @@ function Write(props) {
   const onModalHandler = (state) => {
     setModal(state);
   };
-
   /* modal type */
   const ModalType = () => {
     switch (modalType) {
@@ -235,7 +234,7 @@ function Write(props) {
           <MsgModal
             warning
             heading="Upload"
-            message="새 프로젝트 등록에 실패했습니다. 빈칸을 채워주세요."
+            message="새 프로젝트 등록에 실패했습니다. 첨부파일 또는 빈칸을 채워주세요."
             onModalHandler={onModalHandler}
           />
         );
@@ -262,6 +261,12 @@ function Write(props) {
 
   /* onSubmit */
   const onSubmitHandler = (e) => {
+    if (heroFile === '' || thumbFile === '') {
+      setModalType('warning');
+      setModal(true);
+      return;
+    }
+
     const formData = new FormData();
     formData.append('thumb', thumbFile);
     formData.append('hero', heroFile);
@@ -433,9 +438,9 @@ function Write(props) {
             <input
               type="file"
               id="thumb"
+              name="thumb"
               className="thumb-input"
               onChange={onChangeUpload}
-              required
               accept="image/*"
             />
             <label htmlFor="thumb" className="thumb-label">
@@ -451,10 +456,10 @@ function Write(props) {
             <input
               type="file"
               id="hero"
+              name="hero"
               className="thumb-input"
               onChange={onChangeUpload}
               accept="image/*"
-              required
             />
             <label htmlFor="hero" className="thumb-label">
               <span className="upload-btn">
