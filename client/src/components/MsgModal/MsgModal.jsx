@@ -34,6 +34,9 @@ const StyledModal = styled.div`
         .warning {
           color: #f7bb16;
         }
+        .error {
+          color: #d82e2e;
+        }
       }
     }
     &-body {
@@ -75,6 +78,8 @@ function MsgModal({ type, heading, message, submit, onModalHandler }) {
         return <FontAwesomeIcon icon={faCheckCircle} className="success" />;
       case 'warning':
         return <FontAwesomeIcon icon={faExclamationCircle} className="warning" />;
+      case 'warning':
+        return <FontAwesomeIcon icon={faExclamationCircle} className="error" />;
       default:
         return null;
     }

@@ -26,13 +26,15 @@ const upload = multer({
     acl: 'public-read',
     key: (req, file, cb) => {
       let extension = path.extname(file.originalname);
-      if (file.fieldname === 'hero-image') {
-        cb(null, 'hero/' + Date.now().toString() + extension);
-      } else if (file.fieldname === 'thumb-image') {
-        cb(null, 'thumbnail/' + Date.now().toString() + extension);
-      } else {
-        cb(null, Date.now().toString() + extension);
+      const dir = req.params.name;
+      console.log('dir', dir);
+      if (file.fieldname === 'hero') {
+        return cb(null, dir + '/hero-' + Date.now().toString() + extension);
       }
+      if (file.fieldname === 'thumb') {
+        return cb(null, dir + '/thumb-' + Date.now().toString() + extension);
+      }
+      cb(null, dir + '/' + Date.now().toString() + extension);
     },
   }),
   // limits: { fileSize: 5 * 1024 * 1024 }, // 용량 제한

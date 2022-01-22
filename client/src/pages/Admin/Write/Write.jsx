@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Select, Checkbox } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { postImgUpload, postNote } from '../../../_actions/post_action';
+import { postNote } from '../../../_actions/post_action';
 import AdminHeader from '../../../components/Admin/AdminHeader';
 import WriteEditor from '../../../components/Admin/WriteEditor';
 import MsgModal from '../../../components/MsgModal/MsgModal';
@@ -183,20 +183,18 @@ function Write(props) {
   const dispatch = useDispatch();
   const [check, setCheck] = useState(false);
   const [modal, setModal] = useState(false);
-  const [modalType, setModalType] = useState('');
+  const [modalType, setModalType] = useState(''); // success | warning | error
+  const [thumbFile, setThumbFile] = useState(''); // thumbnail image file
+  const [heroFile, setHeroFile] = useState(''); // hero image file
+  const [errMessage, setErrMessage] = useState(''); // error message
   const [editorHtml, setEditorHtml] = useState('');
-  const [thumbFile, setThumbFile] = useState('');
-  const [heroFile, setHeroFile] = useState('');
 
   const [data, setData] = useState({
     member: 1,
     type: 'personal',
   });
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-    setModalType('warning');
-    setModal(true);
-  };
+
+  /* form elements onChange */
   const onChangeCheck = (e) => {
     setCheck(e.target.checked);
   };
@@ -209,12 +207,18 @@ function Write(props) {
   const onChangeInput = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  /* toast ui */
   const getEditorHtml = (html) => {
     setEditorHtml(html);
   };
+
+  /* modal type handler */
   const onModalHandler = (state) => {
     setModal(state);
   };
+
+  /* modal type */
   const ModalType = () => {
     switch (modalType) {
       case 'success':
@@ -237,14 +241,33 @@ function Write(props) {
             onModalHandler={onModalHandler}
           />
         );
+      case 'error':
+        return (
+          <MsgModal
+            type="error"
+            heading="Upload"
+            message={`새 프로젝트 등록에 실패했습니다. Error Message : ${errMessage}`}
+            submit="OK"
+            onModalHandler={onModalHandler}
+          />
+        );
       default:
         return null;
     }
   };
+
+  /* onSubmit failed */
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+    setModalType('warning');
+    setModal(true);
+  };
+
+  /* onSubmit */
   const onSubmitHandler = (e) => {
     const formData = new FormData();
-    formData.append('thumb-image', thumbFile);
-    formData.append('hero-image', heroFile);
+    formData.append('thumb', thumbFile);
+    formData.append('hero', heroFile);
 
     // 서버의 upload API 호출
     let body = {
@@ -267,14 +290,15 @@ function Write(props) {
         console.log('submitbody', response.payload);
 
         const res = axios
-          .post('/api/posts/upload', formData)
+          .post(`/api/posts/upload/${data.title}`, formData)
           .then((res) => console.log('formData', res));
         console.log('upload res', res);
 
         setModalType('success');
         setModal(true);
       } else if (!response.payload.success) {
-        setModalType('warning');
+        setErrMessage(response.payload.success.err);
+        setModalType('error');
         setModal(false);
       } else {
         console.log(`there's no payload`);
@@ -284,8 +308,8 @@ function Write(props) {
 
   const onChangeUpload = (e) => {
     if (e.target.id) {
-      e.target.id === 'thumb-image' && setThumbFile(e.target.files[0]);
-      e.target.id === 'hero-image' && setHeroFile(e.target.files[0]);
+      e.target.id === 'thumb' && setThumbFile(e.target.files[0]);
+      e.target.id === 'hero' && setHeroFile(e.target.files[0]);
       console.log(e.target.files[0]);
     }
   };
@@ -411,13 +435,13 @@ function Write(props) {
           <Form.Item label="썸네일 등록" className="half">
             <input
               type="file"
-              id="thumb-image"
+              id="thumb"
               className="thumb-input"
               onChange={onChangeUpload}
               required
               accept="image/*"
             />
-            <label htmlFor="thumb-image" className="thumb-label">
+            <label htmlFor="thumb" className="thumb-label">
               <span className="upload-btn">
                 <UploadOutlined />
                 Upload
@@ -429,13 +453,13 @@ function Write(props) {
           <Form.Item label="대표 이미지" className="half">
             <input
               type="file"
-              id="hero-image"
+              id="hero"
               className="thumb-input"
               onChange={onChangeUpload}
               accept="image/*"
               required
             />
-            <label htmlFor="hero-image" className="thumb-label">
+            <label htmlFor="hero" className="thumb-label">
               <span className="upload-btn">
                 <UploadOutlined />
                 Upload

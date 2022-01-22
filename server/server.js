@@ -104,10 +104,10 @@ app.post('/api/posts/note', (req, res) => {
 
 /* image upload */
 const fileFields = upload.fields([
-  { name: 'thumb-image', maxCount: 1 },
-  { name: 'hero-image', maxCount: 1 },
+  { name: 'thumb', maxCount: 1 },
+  { name: 'hero', maxCount: 1 },
 ]);
-app.post('/api/posts/upload', fileFields, (req, res) => {
+app.post('/api/posts/upload/:name', fileFields, (req, res) => {
   console.log('req files', req.files);
   return res.status(200).json({
     uploadSuccess: true,
