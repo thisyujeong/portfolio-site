@@ -139,21 +139,7 @@ function Projects(props) {
         console.log('the posts data is empty...');
       }
     });
-
-    if (confirm) {
-      axios
-        .post('/api/posts/delete', { id: targetId }) //
-        .then((response) => console.log(response.data));
-    }
-  }, [confirm, dispatch, targetId]);
-
-  useEffect(() => {
-    if (confirm) {
-      axios
-        .post('/api/posts/delete', { id: targetId }) //
-        .then((response) => console.log(response.data));
-    }
-  });
+  }, [confirm, dispatch]);
 
   /* modal type handler */
   const onClickDelete = useCallback((e) => {
@@ -166,9 +152,16 @@ function Projects(props) {
     setVisible(state);
   }, []);
 
-  const onConfirmHandler = useCallback((state) => {
-    setConfirm(state);
-  }, []);
+  const onConfirmHandler = useCallback(
+    (state) => {
+      setConfirm(state);
+      axios
+        .post('/api/posts/delete', { id: targetId }) //
+        .then((response) => console.log('delete project', targetId, response.data));
+    },
+    [targetId]
+  );
+
   return (
     <>
       <AdminHeader

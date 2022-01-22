@@ -261,6 +261,7 @@ function Write(props) {
 
   /* onSubmit */
   const onSubmitHandler = (e) => {
+    // 첨부된 파일이 없다면 warning
     if (heroFile === '' || thumbFile === '') {
       setModalType('warning');
       setModal(true);
@@ -291,10 +292,9 @@ function Write(props) {
       if (response.payload.success) {
         console.log('submitbody', response.payload);
 
-        const res = axios
+        axios // send formData
           .post(`/api/posts/upload/${data.title}`, formData)
           .then((res) => console.log('formData', res));
-        console.log('upload res', res);
 
         setModalType('success');
         setModal(true);
