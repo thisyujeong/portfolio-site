@@ -102,19 +102,7 @@ app.post('/api/posts/note', (req, res) => {
   });
 });
 
-/* image upload */
-const fileFields = upload.fields([
-  { name: 'thumb', maxCount: 1 },
-  { name: 'hero', maxCount: 1 },
-]);
-app.post('/api/posts/upload/:name', fileFields, (req, res) => {
-  console.log('req files', req.files);
-  return res.status(200).json({
-    uploadSuccess: true,
-    post: req.files,
-  });
-});
-
+/* post list */
 app.get('/api/posts', (req, res) => {
   Post.find((err, posts) => {
     if (err) return res.json({ success: false, error: 'database failure' });
@@ -123,6 +111,26 @@ app.get('/api/posts', (req, res) => {
       data: posts,
     });
   });
+});
+
+/* image upload */
+const fileFields = upload.fields([
+  { name: 'thumb', maxCount: 1 },
+  { name: 'hero', maxCount: 1 },
+]);
+app.post('/api/posts/upload/:name', fileFields, (req, res) => {
+  Post.findOneAndUpdate(
+    { title: req.params.name },
+    { thumb: req.files['thumb'][0].location, hero: req.files['hero'][0].location },
+    { multi: true },
+    (err, post) => {
+      if (err) return res.json({ success: false, err });
+      return res.status(200).send({
+        updateSuccess: true,
+        post: post,
+      });
+    }
+  );
 });
 
 const port = 5000;

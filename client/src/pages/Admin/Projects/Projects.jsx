@@ -39,6 +39,22 @@ const StyledTable = styled.div`
       color: #dd5353;
     }
   }
+  .ant-pagination {
+    &-item {
+      a {
+        color: #171717;
+      }
+      &:hover {
+        border-color: #171717;
+      }
+    }
+    &-item-active {
+      border-color: #171717;
+      a {
+        color: #171717;
+      }
+    }
+  }
 `;
 
 function Projects(props) {
@@ -120,7 +136,7 @@ function Projects(props) {
         desc="작성된 프로젝트의 수정 / 삭제  등을 관리를 할 수 있습니다."
       />
       <StyledTable>
-        <Table columns={columns} dataSource={inputData} pagination={false} />
+        <Table columns={columns} dataSource={inputData} />
       </StyledTable>
     </>
   );

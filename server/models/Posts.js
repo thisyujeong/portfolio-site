@@ -26,6 +26,14 @@ const postSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  hero: {
+    type: String,
+    default: '',
+  },
+  thumb: {
+    type: String,
+    default: '',
+  },
   lock: {
     type: Boolean,
     default: false,
