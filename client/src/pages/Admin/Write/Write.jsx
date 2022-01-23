@@ -5,6 +5,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { postNote } from '../../../_actions/post_action';
 import AdminHeader from '../../../components/Admin/AdminHeader';
 import WriteEditor from '../../../components/Admin/WriteEditor';
+import WriteViewer from '../../../components/Admin/WriteViewer';
 import MsgModal from '../../../components/MsgModal/MsgModal';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -188,6 +189,7 @@ function Write(props) {
   const [heroFile, setHeroFile] = useState(''); // hero image file
   const [errMessage, setErrMessage] = useState(''); // error message
   const [editorHtml, setEditorHtml] = useState('');
+  const [markdown, setMarkdown] = useState('');
 
   const [data, setData] = useState({
     member: 1,
@@ -211,6 +213,10 @@ function Write(props) {
   /* toast ui */
   const getEditorHtml = (html) => {
     setEditorHtml(html);
+  };
+  const getMarkDown = (markdown) => {
+    setMarkdown(markdown);
+    // console.log('markdown', markdown);
   };
 
   /* modal type handler */
@@ -284,7 +290,7 @@ function Write(props) {
       role: data.role,
       desc: data.desc,
       member: data.member,
-      html: data.html,
+      markdown: markdown,
       lock: check,
     };
 
@@ -299,9 +305,8 @@ function Write(props) {
       if (response.payload.success) {
         console.log('submitbody', response.payload);
 
-        axios // send formData
-          .post(`/api/posts/upload/${data.title}`, formData)
-          .then((res) => console.log('formData', res));
+        // send formData
+        axios.post(`/api/upload/${data.title}`, formData);
 
         setModalType('success');
         setModal(true);
@@ -477,8 +482,12 @@ function Write(props) {
             <span className="file-name">{heroFile.name} </span>
           </Form.Item>
 
-          <WriteEditor getEditorHtml={getEditorHtml} />
-
+          <WriteEditor
+            getEditorHtml={getEditorHtml}
+            getMarkDown={getMarkDown}
+            title={data.title}
+          />
+          <WriteViewer />
           <div className="form-footer">
             <Button>나가기</Button>
             <Button type="primary" htmlType="submit">
