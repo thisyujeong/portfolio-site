@@ -137,8 +137,16 @@ app.get('/api/posts', (req, res) => {
 const fileFields = upload.fields([
   { name: 'thumb', maxCount: 1 },
   { name: 'hero', maxCount: 1 },
+  { name: 'contents' },
 ]);
-app.post('/api/posts/upload/:name', fileFields, (req, res) => {
+app.post('/api/upload/:name', fileFields, (req, res) => {
+  console.log('server req.files', req.files['contents'][0].location);
+  if (req.files['contents']) {
+    return res.status(200).send({
+      updateSuccess: true,
+      location: req.files['contents'][0].location,
+    });
+  }
   Post.findOneAndUpdate(
     { title: req.params.name },
     { thumb: req.files['thumb'][0].location, hero: req.files['hero'][0].location },

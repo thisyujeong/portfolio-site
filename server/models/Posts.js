@@ -21,7 +21,7 @@ const postSchema = mongoose.Schema({
   due: String,
   role: String,
   desc: String,
-  html: String,
+  markdown: String,
   member: {
     type: Number,
     default: 0,

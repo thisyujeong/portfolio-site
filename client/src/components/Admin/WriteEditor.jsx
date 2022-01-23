@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import Prism from 'prismjs';
 import 'prismjs/themes/prism.css'; // 여기 css를 수정해서 코드 하이라이팅 커스텀 가능
@@ -16,6 +16,7 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
 import styled from 'styled-components';
+import axios from 'axios';
 
 const StyledEditor = styled.div`
   width: 100%;
@@ -57,15 +58,42 @@ const StyledEditor = styled.div`
     }
   }
 `;
-export default function WriteEditor({ getEditorHtml }) {
+export default function WriteEditor({ getEditorHtml, getMarkDown, title }) {
   const editorRef = useRef();
 
   const onChangeEditorTextHandler = () => {
     const getInstance = editorRef.current.getInstance();
     const getInstance_html = getInstance.getHTML();
-    console.log(getInstance_html);
+    const getInstance_md = getInstance.getMarkdown();
     getEditorHtml(getInstance_html);
+    getMarkDown(getInstance_md);
   };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const uploadImage = async (blob, cb) => {
+    const formData = new FormData();
+    const header = { header: { 'content-type': 'multipart/formdata' } };
+    formData.append('contents', blob);
+
+    const url = await axios //
+      .post(`/api/upload/${title}`, formData, header)
+      .then((res) => {
+        console.log('editor res', res.data.location);
+        return res.data.location;
+      });
+    console.log('aaa');
+    console.log('return url', url);
+    return cb(url, 'alt text');
+  };
+
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.getInstance().removeHook('addImageBlobHook');
+      editorRef.current.getInstance().addHook('addImageBlobHook', (blob, cb) => {
+        uploadImage(blob, cb);
+      });
+    }
+  }, [uploadImage]);
 
   return (
     <StyledEditor>
@@ -73,6 +101,7 @@ export default function WriteEditor({ getEditorHtml }) {
         height="600px"
         initialEditType="markdown"
         previewStyle="vertical"
+        useCommandShortcut={true}
         ref={editorRef}
         onChange={onChangeEditorTextHandler}
         plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
