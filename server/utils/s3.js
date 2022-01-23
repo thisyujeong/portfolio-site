@@ -40,4 +40,31 @@ const upload = multer({
   // limits: { fileSize: 5 * 1024 * 1024 }, // 용량 제한
 });
 
-module.exports = upload;
+const emptyBucketDir = (prefix, cb) => {
+  let params = {
+    Bucket: BUCKET_NAME,
+    Prefix: `${prefix}/`,
+  };
+
+  s3.listObjects(params, function (err, data) {
+    if (err) return cb(err);
+    if (data.Contents.length == 0) return cb();
+
+    params = { Bucket: BUCKET_NAME };
+    params.Delete = { Objects: [] };
+
+    data.Contents.forEach(function (content) {
+      params.Delete.Objects.push({ Key: content.Key });
+    });
+
+    s3.deleteObjects(params, function (err, data) {
+      if (err) return cb(err);
+      console.log('data', data);
+      console.log('data Contents', data.Contents);
+      if (data.Deleted.length == 1000) emptyBucketDir(BUCKET_NAME, cb);
+      else cb();
+    });
+  });
+};
+
+module.exports = { upload, emptyBucketDir };

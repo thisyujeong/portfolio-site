@@ -15,7 +15,9 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 const mongoose = require('mongoose');
-const upload = require('./utils/s3');
+const { upload, emptyBucketDir } = require('./utils/s3');
+const { BUCKET_NAME } = require('./config/dev');
+
 mongoose
   .connect(config.mongoURI)
   .then(() => console.log('mongoDB Connected...'))
@@ -104,7 +106,12 @@ app.post('/api/posts/note', (req, res) => {
 
 /* post delete */
 app.post('/api/posts/delete', (req, res) => {
-  Post.deleteOne({ id: req.body.id }, (err, result) => {
+  Post.findOne({ id: req.body.id }, (err, result) => {
+    if (err) return res.json({ success: false, err });
+    emptyBucketDir(result.title, (err, data) => {
+      if (err) return res.json({ success: false, err });
+    });
+  }).deleteOne({ id: req.body.id }, (err, result) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).json({
       success: true,
