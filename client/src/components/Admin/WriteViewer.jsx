@@ -9,7 +9,6 @@ import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
 export default function WriteViewer() {
-  console.log('write viewr');
   return (
     <Viewer
       className="Viewer"

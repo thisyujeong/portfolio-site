@@ -461,7 +461,7 @@ function Write(props) {
                 Upload
               </span>
             </label>
-            <div className="file-name">{thumbFile.name}</div>
+            {thumbFile && <div className="file-name">{thumbFile.name}</div>}
           </Form.Item>
 
           <Form.Item label="대표 이미지" className="half">
@@ -479,7 +479,7 @@ function Write(props) {
                 Upload
               </span>
             </label>
-            <span className="file-name">{heroFile.name} </span>
+            {heroFile && <div className="file-name">{heroFile.name}</div>}
           </Form.Item>
 
           <WriteEditor

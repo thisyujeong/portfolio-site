@@ -35,9 +35,9 @@ const upload = multer({
         return cb(null, dir + '/thumb-' + Date.now().toString() + extension);
       }
       if (file.fieldname === 'contents') {
-        return cb(null, dir + '/contents/' + Date.now().toString() + extension);
+        return cb(null, 'contents/' + Date.now().toString() + extension);
       }
-      cb(null, dir + '/' + Date.now().toString() + extension);
+      cb(null, Date.now().toString() + extension);
     },
   }),
   // limits: { fileSize: 5 * 1024 * 1024 }, // 용량 제한
