@@ -243,7 +243,7 @@ function Write(props) {
           <MsgModal
             error
             heading="Upload"
-            message={`새 프로젝트 등록에 실패했습니다. Error Message : ${errMessage}`}
+            message={`새 프로젝트 등록에 실패했습니다. ${errMessage}`}
             onModalHandler={onModalHandler}
           />
         );
@@ -289,6 +289,13 @@ function Write(props) {
     };
 
     dispatch(postNote(body)).then((response) => {
+      if (response.payload.overlap) {
+        console.log('overlap', response.payload);
+        setErrMessage('이미 존재하는 프로젝트입니다.');
+        setModalType('error');
+        setModal(true);
+      }
+
       if (response.payload.success) {
         console.log('submitbody', response.payload);
 
@@ -298,12 +305,12 @@ function Write(props) {
 
         setModalType('success');
         setModal(true);
-      } else if (!response.payload.success) {
-        setErrMessage(response.payload.success.err);
+      }
+
+      if (response.payload.error) {
+        setErrMessage(response.payload.err);
         setModalType('error');
-        setModal(false);
-      } else {
-        console.log(`there's no payload`);
+        setModal(true);
       }
     });
   };

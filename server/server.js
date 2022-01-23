@@ -16,7 +16,6 @@ app.use(cookieParser());
 
 const mongoose = require('mongoose');
 const { upload, emptyBucketDir } = require('./utils/s3');
-const { BUCKET_NAME } = require('./config/dev');
 
 mongoose
   .connect(config.mongoURI)
@@ -94,12 +93,15 @@ app.get('/api/users/logout', auth, (req, res) => {
 /* post */
 app.post('/api/posts/note', (req, res) => {
   const post = new Post(req.body);
-  console.log(req.body);
-  post.save((err, postInfo) => {
+  Post.findOne({ title: req.body.title }, (err, result) => {
     if (err) return res.json({ success: false, err });
-    return res.status(200).json({
-      success: true,
-      post: postInfo,
+    if (result) return res.json({ success: false, overlap: true });
+    post.save((err, postInfo) => {
+      if (err) return res.json({ success: false, err });
+      return res.status(200).json({
+        success: true,
+        post: postInfo,
+      });
     });
   });
 });
