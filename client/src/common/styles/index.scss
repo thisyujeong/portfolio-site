@@ -27,9 +27,11 @@ a {
 
 .page-admin {
   width: 100%;
-  padding: 50px 100px 150px 400px;
+  padding: 50px 50px 150px;
+  min-height: calc(100vh - 60px);
   .container {
-    max-width: 1400px;
+    margin: 0 auto;
+    max-width: 1140px;
   }
 }
 

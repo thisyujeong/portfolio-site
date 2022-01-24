@@ -31,7 +31,6 @@ const StyledHeader = styled.div`
   }
   p {
     color: #828491;
-    margin-left: 10px;
     font-size: 16px;
   }
 `;

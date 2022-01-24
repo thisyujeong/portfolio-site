@@ -8,7 +8,7 @@ import './common/styles/index.scss';
 import Admin from './pages/Admin/Admin';
 import Write from './pages/Admin/Write/Write';
 import Projects from './pages/Admin/Projects/Projects';
-import SideBar from './components/SideBar/SideBar';
+// import SideBar from './components/SideBar/SideBar';
 
 function App(props) {
   return (
@@ -19,7 +19,7 @@ function App(props) {
           <Route exact path="/" component={Auth(LandingPage, null)}></Route>
           <Route exact path="/register" component={Auth(RegisterPage, false)}></Route>
           <>
-            <SideBar />
+            {/* <SideBar /> */}
             <div className="page-admin">
               <div className="container">
                 <Route exact path="/admin" component={Auth(Admin, true)}></Route>

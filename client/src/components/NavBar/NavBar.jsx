@@ -60,7 +60,7 @@ function NavBar(props) {
     return isLogin ? (
       <>
         <li>
-          <Link to="/admin">
+          <Link to="/admin/projects">
             <FontAwesomeIcon icon={faUserCog} />
           </Link>
           <span className={styles.tooltip}>어드민</span>

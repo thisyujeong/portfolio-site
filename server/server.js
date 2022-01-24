@@ -140,7 +140,6 @@ const fileFields = upload.fields([
   { name: 'contents' },
 ]);
 app.post('/api/upload/:name', fileFields, (req, res) => {
-  console.log('server req.files', req.files['contents'][0].location);
   if (req.files['contents']) {
     return res.status(200).send({
       updateSuccess: true,

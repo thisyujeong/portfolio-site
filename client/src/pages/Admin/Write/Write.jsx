@@ -307,9 +307,7 @@ function Write(props) {
 
         // send formData
         axios.post(`/api/upload/${data.title}`, formData);
-
-        setModalType('success');
-        setModal(true);
+        props.history.push('/admin/projects');
       }
 
       if (response.payload.error) {
@@ -489,7 +487,7 @@ function Write(props) {
           />
           <WriteViewer />
           <div className="form-footer">
-            <Button>나가기</Button>
+            <Button onClick={() => props.history.push('/admin/projects')}>나가기</Button>
             <Button type="primary" htmlType="submit">
               프로젝트 등록
             </Button>

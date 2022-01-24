@@ -8,8 +8,15 @@ import { faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import MsgModal from '../../../components/MsgModal/MsgModal';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const StyledTable = styled.div`
+  .ant-table-thead > tr > th {
+    background-color: #efefef;
+    &:before {
+      background-color: rgba(0, 0, 0, 0.1) !important;
+    }
+  }
   .ant-table-tbody > tr > td {
     padding: 10px 16px;
     position: relative;
@@ -19,29 +26,46 @@ const StyledTable = styled.div`
   }
   .ant-btn + .ant-btn {
     position: relative;
-    &:after {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      height: 16px;
-      width: 1px;
-      background-color: #bbbcc2;
-      transform: translateY(-50%);
-      content: '';
-    }
   }
   .ant-btn {
-    &:hover {
-      font-weight: bold;
-    }
     &.edit-btn {
       color: #5360dd;
+      margin-right: 10px;
     }
     &.delete-btn {
       color: #dd5353;
     }
+    &.edit-btn,
+    &.delete-btn {
+      font-weight: bold;
+      &:hover {
+        background: rgba(0, 0, 0, 0.04);
+      }
+    }
   }
+
+  .ant-btn.add {
+    display: block;
+    width: 200px;
+    height: 48px;
+    color: #828491;
+    margin-left: auto;
+    background-color: #fff;
+    border-color: #d9d9d9;
+    transition: 0.2s;
+    margin-bottom: 24px;
+    &:hover,
+    &:focus {
+      background-color: #fff;
+      color: #171717;
+    }
+    &:after {
+      content: none;
+    }
+  }
+
   .ant-pagination {
+    margin-top: 50px;
     &-item {
       a {
         color: #171717;
@@ -51,7 +75,8 @@ const StyledTable = styled.div`
       }
     }
     &-item-active {
-      border-color: #171717;
+      border-color: #d9d9d9;
+      background-color: #efefef;
       a {
         color: #171717;
       }
@@ -103,11 +128,11 @@ function Projects(props) {
       title: '',
       dataIndex: 'edit',
       key: 'edit',
-      width: '150px',
+      width: '190px',
       render: (id) => (
         <>
           <Button type="text" className="edit-btn" data-number={id}>
-            수정
+            Edit
           </Button>
           <Button
             type="text"
@@ -115,7 +140,7 @@ function Projects(props) {
             data-number={id}
             onClick={onClickDelete}
           >
-            삭제
+            Delete
           </Button>
         </>
       ),
@@ -166,10 +191,17 @@ function Projects(props) {
     <>
       <AdminHeader
         title="프로젝트 관리"
-        desc="작성된 프로젝트의 수정 / 삭제  등을 관리를 할 수 있습니다."
+        desc="작성된 프로젝트를 수정 / 삭제 등을 관리 할 수 있습니다."
       />
       <StyledTable>
-        <Table columns={columns} dataSource={inputData} />
+        <Link to="/admin/write">
+          <Button className="add">프로젝트 생성</Button>
+        </Link>
+        <Table
+          columns={columns}
+          dataSource={inputData}
+          pagination={{ position: ['bottomCenter'] }}
+        />
       </StyledTable>
 
       {visible && (
