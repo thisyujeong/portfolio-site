@@ -26,22 +26,22 @@
   font-style: normal;
 }
 
-/* Arial */
+/* Lato */
 @font-face {
-  font-family: 'Arial';
-  src: url('../fonts/Arial-Regular.woff') format(woff);
-  font-weight: 500;
+  font-family: 'Lato';
+  src: url('../fonts/Lato-Regular.ttf') format(truetype);
+  font-weight: 400;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Arial';
-  src: url('../fonts/Arial-Bold.woff') format(woff);
+  font-family: 'Lato';
+  src: url('../fonts/Lato-Bold.ttf') format(truetype);
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Arial';
-  src: url('../fonts/Arial-Black.woff') format(woff);
+  font-family: 'Lato';
+  src: url('../fonts/Lato-Black.ttf') format(truetype);
   font-weight: 900;
   font-style: normal;
 }

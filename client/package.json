@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
     "@testing-library/jest-dom": "^5.11.4",
@@ -24,6 +25,7 @@
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.4.0",
     "styled-components": "^5.3.3",
+    "styled-reset": "^4.3.4",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
