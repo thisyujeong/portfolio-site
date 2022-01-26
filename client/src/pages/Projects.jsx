@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import AdminHeader from '../../../components/Admin/AdminHeader';
+import AdminHeader from '../components/Admin/AdminHeader';
 import { useDispatch } from 'react-redux';
 import { Table, Button } from 'antd';
-import { postList } from '../../../_actions/post_action';
+import { postList } from '../_actions/post_action';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import MsgModal from '../../../components/MsgModal/MsgModal';
+import MsgModal from '../components/MsgModal/MsgModal';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 

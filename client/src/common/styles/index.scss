@@ -20,23 +20,6 @@ a {
   text-decoration: none;
 }
 
-.contents {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 50px 24px;
-  height: calc(100vh - 80px);
-}
-
-.page-admin {
-  width: 100%;
-  padding: 50px 50px 150px;
-  height: 100%;
-  .container {
-    margin: 0 auto;
-    max-width: 1140px;
-  }
-}
-
 /* antd */
 .ant-select-item-option-selected {
   &:not(.ant-select-item-option-disabled) {

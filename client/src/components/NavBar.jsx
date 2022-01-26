@@ -4,14 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faUserCog } from '@fortawesome/free-solid-svg-icons';
-import { useTheme } from '../context/themeProvider';
 import { auth } from '../_actions/user_action';
 import { NavBarContainer } from './NavBar.style';
 import navLinks from '../data/navLinks';
 import ThemeToggle from './ThemeToggle';
 
 function NavBar(props) {
-  const [ThemeMode, toggleTheme] = useTheme();
   const history = useHistory();
   const dispatch = useDispatch();
   const [current, setCurrent] = useState('blog');
@@ -77,7 +75,7 @@ function NavBar(props) {
   };
 
   return (
-    <NavBarContainer mode={ThemeMode}>
+    <NavBarContainer>
       <header>
         <h1>
           <Link to="/">

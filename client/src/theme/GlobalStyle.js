@@ -7,6 +7,23 @@ export const GlobalStyle = createGlobalStyle`
     background: ${({ theme }) => theme.bgColor};
     color: ${({ theme }) => theme.textColor};
   }
+  
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .contents {
+    padding-top: 50px ;
+    padding-bottom: 50px ;
+    min-height: calc(100vh - 160px);
+  }
+
+  a {
+    transition: none;
+  }
 `;
 
 export default GlobalStyle;

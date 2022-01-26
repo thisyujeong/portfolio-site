@@ -7,10 +7,11 @@ import NavBar from './components/NavBar';
 import './common/styles/index.scss';
 import Admin from './pages/Admin/Admin';
 import Write from './pages/Admin/Write/Write';
-import Projects from './pages/Admin/Projects/Projects';
+import Projects from './pages/Projects';
 import Login from './pages/Login';
-import { ThemeProvider } from './context/themeProvider';
+import Footer from './components/Footer';
 import GlobalStyle from './theme/GlobalStyle';
+import { ThemeProvider } from './context/themeProvider';
 import { theme } from './theme/theme';
 
 function App(props) {
@@ -20,25 +21,32 @@ function App(props) {
         <GlobalStyle />
         <NavBar />
         <div className="contents">
-          <Switch>
-            <Route exact path="/" component={Auth(LandingPage, null)}></Route>
-            <Route exact path="/login" component={Auth(Login, false)}></Route>
-            <Route exact path="/register" component={Auth(RegisterPage, false)}></Route>
-            <>
-              <div className="page-admin">
-                <div className="container">
-                  <Route exact path="/admin" component={Auth(Admin, true)}></Route>
-                  <Route exact path="/admin/write" component={Auth(Write, true)}></Route>
-                  <Route
-                    exact
-                    path="/admin/projects"
-                    component={Auth(Projects, true)}
-                  ></Route>
+          <div className="container">
+            <Switch>
+              <Route exact path="/" component={Auth(LandingPage, null)}></Route>
+              <Route exact path="/login" component={Auth(Login, false)}></Route>
+              <Route exact path="/register" component={Auth(RegisterPage, false)}></Route>
+              <>
+                <div className="page-admin">
+                  <div className="container">
+                    <Route exact path="/admin" component={Auth(Admin, true)}></Route>
+                    <Route
+                      exact
+                      path="/admin/write"
+                      component={Auth(Write, true)}
+                    ></Route>
+                    <Route
+                      exact
+                      path="/admin/projects"
+                      component={Auth(Projects, true)}
+                    ></Route>
+                  </div>
                 </div>
-              </div>
-            </>
-          </Switch>
+              </>
+            </Switch>
+          </div>
         </div>
+        <Footer />
       </ThemeProvider>
     </Router>
   );
