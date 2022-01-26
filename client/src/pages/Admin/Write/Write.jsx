@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Select, Checkbox } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { postNote } from '../../../_actions/post_action';
-import AdminHeader from '../../../components/Admin/AdminHeader';
+import AdminHeader from '../../../components/AdminHeader';
 import WriteEditor from '../../../components/Admin/WriteEditor';
 import WriteViewer from '../../../components/Admin/WriteViewer';
 import MsgModal from '../../../components/MsgModal/MsgModal';
@@ -307,7 +307,7 @@ function Write(props) {
 
         // send formData
         axios.post(`/api/upload/${data.title}`, formData);
-        props.history.push('/admin/projects');
+        // props.history.push('/admin/projects');
       }
 
       if (response.payload.error) {

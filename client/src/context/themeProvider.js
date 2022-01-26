@@ -24,7 +24,7 @@ function useTheme() {
     } else {
       setThemeMode('light');
     }
-  }, [ThemeMode]);
+  }, [ThemeMode, setThemeMode]);
 
   return [ThemeMode, toggleTheme];
 }

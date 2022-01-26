@@ -63,7 +63,7 @@ function NavBar(props) {
         {navLinks.map((link) => (
           <li
             onClick={onClickNav}
-            className={link.title === current && 'active'}
+            className={link.title === current ? 'active' : ''}
             key={link.title}
             data-key={link.title}
           >

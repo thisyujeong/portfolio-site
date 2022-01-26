@@ -19,6 +19,12 @@ export const lightTheme = {
   inputLabel: 'rgba(0, 0, 0, 0.5)',
   inputFocusOutline: 'rgba(0, 0, 0, 0.03)',
   inputBgColor: 'rgba(0, 0, 0, 0.03)',
+
+  // table
+  tableHeadBg: '#efefef',
+  tableBodyBg: '#fff',
+  tableBorderColor: 'rgba(0, 0, 0, 0.1)',
+  tableLockColor: 'rgba(29, 29, 29, 0.3)',
 };
 
 export const darkTheme = {
@@ -43,6 +49,12 @@ export const darkTheme = {
   inputLabel: 'rgba(255, 255, 255, 0.5)',
   inputFocusOutline: 'rgba(255, 255, 255, 0.2)',
   inputBgColor: '#fff',
+
+  // table
+  tableHeadBg: '#222222',
+  tableBodyBg: '#1c1c1c',
+  tableBorderColor: 'rgba(255, 255, 255, 0.1)',
+  tableLockColor: 'rgba(255, 255, 255, 0.3)',
 };
 
 export const theme = {
