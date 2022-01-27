@@ -88,7 +88,7 @@ function ProjectTable(props) {
   }, [dispatch, confirm]);
 
   const onClickEdit = (e) => {
-    history.push(`/admin/projects/edit/${e.currentTarget.dataset.number}`);
+    history.push(`/admin/edit/${e.currentTarget.dataset.number}`);
   };
 
   const onClickDelete = useCallback((e) => {
