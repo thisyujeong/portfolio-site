@@ -53,18 +53,19 @@ export const NavBarContainer = styled.div`
           cursor: pointer;
           a {
             font-family: 'Lato';
-            font-weight: 700;
+            font-weight: 600;
             text-transform: uppercase;
             display: inline-block;
             color: ${(props) => props.theme.linkColor};
+            font-size: 14px;
           }
           &:before {
             display: none;
             position: absolute;
             top: -12px;
             left: 50%;
-            width: 6px;
-            height: 6px;
+            width: 4px;
+            height: 4px;
             border-radius: 3px;
             transform: translateX(-50%);
             content: '';

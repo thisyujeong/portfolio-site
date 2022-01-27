@@ -7,10 +7,11 @@ import { useDispatch } from 'react-redux';
 import { postList } from '../_actions/post_action';
 import MsgModal from './MsgModal/MsgModal';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function ProjectTable(props) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [confirm, setConfirm] = useState(false);
   const [visible, setVisible] = useState(false);
   const [targetId, setTargetId] = useState(null);
@@ -51,7 +52,7 @@ function ProjectTable(props) {
       width: '190px',
       render: (id) => (
         <>
-          <Button type="text" className="edit-btn" data-number={id}>
+          <Button type="text" className="edit-btn" data-number={id} onClick={onClickEdit}>
             Edit
           </Button>
           <Button
@@ -85,6 +86,10 @@ function ProjectTable(props) {
       }
     });
   }, [dispatch, confirm]);
+
+  const onClickEdit = (e) => {
+    history.push(`/admin/projects/edit/${e.currentTarget.dataset.number}`);
+  };
 
   const onClickDelete = useCallback((e) => {
     setTargetId(e.currentTarget.dataset.number);
