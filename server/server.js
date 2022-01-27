@@ -122,13 +122,35 @@ app.post('/api/posts/delete', (req, res) => {
   });
 });
 
-/* post list */
+/* posts list */
 app.get('/api/posts', (req, res) => {
   Post.find((err, posts) => {
     if (err) return res.json({ success: false, error: 'database failure' });
     return res.status(200).json({
       success: true,
       data: posts,
+    });
+  });
+});
+
+/* post edit */
+app.post('/api/posts/edit/:id', (req, res) => {
+  Post.findOneAndUpdate(
+    { id: req.prams.id },
+    {
+      // edit 정보 수정 코드
+    }
+  );
+});
+
+// post info
+app.get('/api/posts/info/:id', (req, res) => {
+  Post.findOne({ id: req.params.id }, (err, post) => {
+    if (err)
+      return res.json({ success: false, error: `not found the ID: ${req.params.id}` });
+    return res.status(200).send({
+      findSuccess: true,
+      post: post,
     });
   });
 });
@@ -148,7 +170,12 @@ app.post('/api/upload/:name', fileFields, (req, res) => {
   }
   Post.findOneAndUpdate(
     { title: req.params.name },
-    { thumb: req.files['thumb'][0].location, hero: req.files['hero'][0].location },
+    {
+      thumb: req.files['thumb'][0].location,
+      thumbName: req.files['thumb'][0].originalname,
+      hero: req.files['hero'][0].location,
+      heroName: req.files['hero'][0].originalname,
+    },
     { multi: true },
     (err, post) => {
       if (err) return res.json({ success: false, err });

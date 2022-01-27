@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import Prism from 'prismjs';
 import 'prismjs/themes/prism.css'; // 여기 css를 수정해서 코드 하이라이팅 커스텀 가능
@@ -58,7 +58,13 @@ const StyledEditor = styled.div`
     }
   }
 `;
-export default function WriteEditor({ getEditorHtml, getMarkDown, title }) {
+export default function WriteEditor({
+  getEditorHtml,
+  getMarkDown,
+  title,
+  editContent,
+  action,
+}) {
   const editorRef = useRef();
 
   const onChangeEditorTextHandler = () => {
@@ -95,8 +101,8 @@ export default function WriteEditor({ getEditorHtml, getMarkDown, title }) {
     }
   }, [uploadImage]);
 
-  return (
-    <StyledEditor>
+  const EditorRender = useCallback(() => {
+    return action === 'edit' ? (
       <Editor
         height="600px"
         initialEditType="markdown"
@@ -105,7 +111,27 @@ export default function WriteEditor({ getEditorHtml, getMarkDown, title }) {
         ref={editorRef}
         onChange={onChangeEditorTextHandler}
         plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
+        initialValue={`${editContent}`}
+        autofocus={false}
       />
+    ) : (
+      <Editor
+        height="600px"
+        initialEditType="markdown"
+        previewStyle="vertical"
+        useCommandShortcut={true}
+        ref={editorRef}
+        onChange={onChangeEditorTextHandler}
+        plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
+        autofocus={false}
+      />
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [action, editContent]);
+
+  return (
+    <StyledEditor>
+      <EditorRender />
     </StyledEditor>
   );
 }

@@ -1,6 +1,156 @@
 import styled from 'styled-components';
 
 export const ProjectFormContainer = styled.div`
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    label {
+      display: flex;
+      width: 100%;
+      margin-bottom: 32px;
+      padding: 0 12px;
+
+      &.half {
+        width: 50%;
+      }
+
+      .label {
+        display: block;
+        width: 120px;
+        line-height: 40px;
+      }
+
+      input,
+      select,
+      textarea {
+        position: relative;
+        height: 40px;
+        padding: 0 16px;
+        border: 1px solid #d9d9d9;
+        outline: 0;
+        &:hover {
+          border-color: #17171760;
+        }
+        &:focus {
+          border-color: #17171760;
+          box-shadow: 0 0 0 2px rgb(233, 233, 233, 0.6);
+        }
+      }
+
+      input {
+        width: calc(100% - 120px);
+
+        &[type='checkbox'] {
+          width: auto;
+          & + span {
+            line-height: 40px;
+            margin-left: 8px;
+          }
+          &:focus {
+            box-shadow: none;
+          }
+        }
+      }
+
+      select {
+        width: 100%;
+        appearance: none;
+      }
+      textarea {
+        width: calc(100% - 120px);
+        height: unset;
+        padding: 12px 16px;
+      }
+
+      .select {
+        position: relative;
+        display: flex;
+        width: calc(100% - 120px);
+        &:before {
+          position: absolute;
+          top: 50%;
+          right: 16px;
+          width: 0;
+          height: 0;
+          border-top: 8px solid #17171760;
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+          transform: translateY(-50%);
+          z-index: 1;
+          content: '';
+        }
+        &:hover {
+          &:before {
+            border-top-color: #171717;
+          }
+        }
+      }
+
+      .upload-box {
+        position: relative;
+        width: calc(100% - 120px);
+        input {
+          display: none;
+        }
+        .upload-btn {
+          display: block;
+          width: 120px;
+          height: 40px;
+          color: #333333;
+          font-size: 14px;
+          line-height: 40px;
+          text-align: center;
+          border: 1px solid #d9d9d9;
+          text-transform: uppercase;
+          background-color: #171717;
+          background-color: #ebebeb;
+          cursor: pointer;
+          &:hover {
+            color: #fff;
+            background-color: #333333;
+          }
+        }
+        .file-name {
+          margin-top: 8px;
+          font-size: 14px;
+          color: #333333;
+        }
+      }
+    }
+
+    .form-footer {
+      margin-top: 40px;
+      button {
+        width: 140px;
+        height: 40px;
+        cursor: pointer;
+        color: #585858;
+        background-color: #ebebeb;
+        border: 1px solid #d9d9d9;
+        &:hover {
+          color: #171717;
+          border-color: #b8b8b8;
+          background-color: #d9d9d9;
+        }
+      }
+
+      .submit {
+        color: #fff;
+        background-color: #171717;
+        border: 1px solid #171717;
+        &:hover {
+          color: #fff;
+          border: 1px solid #171717;
+          background-color: #333333;
+        }
+      }
+
+      button + button {
+        margin-left: 16px;
+      }
+    }
+  }
+
   .ant-form {
     display: flex;
     flex-wrap: wrap;

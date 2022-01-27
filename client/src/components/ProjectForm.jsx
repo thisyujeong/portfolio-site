@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Form, Input, Button, Select, Checkbox } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
-import { postNote } from '../_actions/post_action';
+import { postInfo, postNote } from '../_actions/post_action';
 import { ProjectFormContainer } from './ProjectForm.style';
 import WriteEditor from './Admin/WriteEditor';
 import WriteViewer from './Admin/WriteViewer';
 import MsgModal from './MsgModal/MsgModal';
 import axios from 'axios';
-
-const { Option } = Select;
-const { TextArea } = Input;
 
 function ProjectForm({ action, param }) {
   const dispatch = useDispatch();
@@ -19,88 +14,77 @@ function ProjectForm({ action, param }) {
   const [check, setCheck] = useState(false);
   const [modal, setModal] = useState(false);
   const [modalType, setModalType] = useState(''); // success | warning | error
-  const [thumbFile, setThumbFile] = useState(''); // thumbnail image file
-  const [heroFile, setHeroFile] = useState(''); // hero image file
+  const [thumbFile, setThumbFile] = useState(null); // thumbnail image file
+  const [heroFile, setHeroFile] = useState(null); // hero image file
   const [errMessage, setErrMessage] = useState(''); // error message
+  // eslint-disable-next-line no-unused-vars
   const [editorHtml, setEditorHtml] = useState('');
   const [markdown, setMarkdown] = useState('');
 
   const [data, setData] = useState({
-    member: 1,
+    title: '',
+    info: '',
     type: 'personal',
+    tech: '',
+    git: '',
+    site: '',
+    due: '',
+    role: '',
+    member: 1,
+    desc: '',
+    markdown: '',
+    lock: false,
   });
 
-  /* form elements onChange */
+  /* form onChange & toast ui */
   const onChangeCheck = (e) => {
     setCheck(e.target.checked);
-  };
-  const onChangeType = (value) => {
-    setData({ ...data, type: value });
-  };
-  const onChangeMember = (value) => {
-    setData({ ...data, member: Number(value) });
   };
   const onChangeInput = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-
-  /* toast ui */
   const getEditorHtml = (html) => {
     setEditorHtml(html);
   };
   const getMarkDown = (markdown) => {
     setMarkdown(markdown);
-    // console.log('markdown', markdown);
-  };
-
-  /* modal type handler */
-  const onModalHandler = (state) => {
-    setModal(state);
-  };
-  /* modal type */
-  const ModalType = () => {
-    switch (modalType) {
-      case 'success':
-        return (
-          <MsgModal
-            success
-            heading="Upload"
-            message="새 프로젝트가 등록되었습니다."
-            onModalHandler={onModalHandler}
-          />
-        );
-      case 'warning':
-        return (
-          <MsgModal
-            warning
-            heading="Upload"
-            message="새 프로젝트 등록에 실패했습니다. 첨부파일 또는 빈칸을 채워주세요."
-            onModalHandler={onModalHandler}
-          />
-        );
-      case 'error':
-        return (
-          <MsgModal
-            error
-            heading="Upload"
-            message={`새 프로젝트 등록에 실패했습니다. ${errMessage}`}
-            onModalHandler={onModalHandler}
-          />
-        );
-      default:
-        return null;
-    }
   };
 
   /* onSubmit failed */
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-    setModalType('warning');
-    setModal(true);
-  };
+  // const onFinishFailed = (errorInfo) => {
+  //   console.log('Failed:', errorInfo);
+  //   setModalType('warning');
+  //   setModal(true);
+  // };
+
+  useEffect(() => {
+    if (action === 'edit') {
+      dispatch(postInfo(param)).then((response) => {
+        console.log('post info:', response.payload.post);
+        const _post = response.payload.post;
+        setData({
+          ...data,
+          title: _post.title,
+          type: _post.type,
+          info: _post.info,
+          tech: _post.tech.join(', '),
+          git: _post.git,
+          site: _post.site,
+          due: _post.due,
+          role: _post.role,
+          desc: _post.desc,
+          member: _post.member,
+          markdown: _post.markdown,
+          lock: _post.lock,
+        });
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [action, dispatch, param]);
 
   /* onSubmit */
   const onSubmitHandler = (e) => {
+    e.preventDefault();
     // 첨부된 파일이 없다면 warning
     if (heroFile === '' || thumbFile === '') {
       setModalType('warning');
@@ -152,6 +136,45 @@ function ProjectForm({ action, param }) {
     });
   };
 
+  /* modal type handler */
+  const onModalHandler = (state) => {
+    setModal(state);
+  };
+  /* modal type */
+  const ModalType = () => {
+    switch (modalType) {
+      case 'success':
+        return (
+          <MsgModal
+            success
+            heading="Upload"
+            message="새 프로젝트가 등록되었습니다."
+            onModalHandler={onModalHandler}
+          />
+        );
+      case 'warning':
+        return (
+          <MsgModal
+            warning
+            heading="Upload"
+            message="새 프로젝트 등록에 실패했습니다. 첨부파일 또는 빈칸을 채워주세요."
+            onModalHandler={onModalHandler}
+          />
+        );
+      case 'error':
+        return (
+          <MsgModal
+            error
+            heading="Upload"
+            message={`새 프로젝트 등록에 실패했습니다. ${errMessage}`}
+            onModalHandler={onModalHandler}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   const onChangeUpload = (e) => {
     if (e.target.id) {
       e.target.id === 'thumb' && setThumbFile(e.target.files[0]);
@@ -163,179 +186,151 @@ function ProjectForm({ action, param }) {
   const SubmitButtons = (e) => {
     let text = action === 'write' ? '프로젝트 등록' : '프로젝트 수정';
     return (
-      <Button type="primary" htmlType="submit">
+      <button className="submit" type="submit">
         {text}
-      </Button>
+      </button>
     );
   };
 
   return (
     <>
       <ProjectFormContainer>
-        <Form
-          onFinish={onSubmitHandler}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="프로젝트 명"
-            name="title"
-            rules={[{ required: true }]}
-            className="half"
-          >
-            <Input name="title" onChange={onChangeInput} />
-          </Form.Item>
-          <Form.Item
-            label="프로젝트 타입"
-            name="type"
-            className="half"
-            initialValue="personal"
-          >
-            <Select placeholder="프로젝트 타입" onChange={onChangeType}>
-              <Option value="personal">Personal</Option>
-              <Option value="team">Team</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item
-            label="프로젝트 소개"
-            name="info"
-            rules={[{ required: true }]}
-            className="half"
-          >
-            <Input name="info" onChange={onChangeInput} />
-          </Form.Item>
-          <Form.Item
-            label="사용 기술"
-            name="tech"
-            rules={[{ required: true }]}
-            className="half"
-          >
-            <Input
-              placeholder="HTML, CSS, JavaScript"
-              name="tech"
-              onChange={onChangeInput}
+        <form onSubmit={onSubmitHandler}>
+          <label className="half">
+            <span className="label">프로젝트 명</span>
+            <input value={data.title} type="text" name="title" onChange={onChangeInput} />
+          </label>
+
+          <label className="half">
+            <span className="label">프로젝트 타입</span>
+            <div className="select">
+              <select name="type" id="type" onChange={onChangeInput} value={data.type}>
+                <option value="personal" defaultValue>
+                  Personal
+                </option>
+                <option value="team">Team</option>
+              </select>
+            </div>
+          </label>
+
+          <label className="half">
+            <span className="label">프로젝트 소개</span>
+            <input value={data.info} type="text" name="info" onChange={onChangeInput} />
+          </label>
+
+          <label className="half">
+            <span className="label">사용 기술</span>
+            <input value={data.tech} type="text" name="tech" onChange={onChangeInput} />
+          </label>
+
+          <label className="half">
+            <span className="label">깃허브 URL</span>
+            <input value={data.git} type="text" name="git" onChange={onChangeInput} />
+          </label>
+
+          <label className="half">
+            <span className="label">사이트 URL</span>
+            <input value={data.site} type="text" name="site" onChange={onChangeInput} />
+          </label>
+
+          <label className="half">
+            <span className="label">참여 인원</span>
+            <div className="select">
+              <select
+                name="member"
+                id="member"
+                onChange={onChangeInput}
+                value={`${data.member}`}
+              >
+                <option value="1" defaultValue>
+                  1
+                </option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+          </label>
+
+          <label className="half">
+            <span className="label">작업 기간</span>
+            <input value={data.due} type="text" name="due" onChange={onChangeInput} />
+          </label>
+
+          <label className="half">
+            <span className="label">업무 범위</span>
+            <input value={data.role} type="text" name="role" onChange={onChangeInput} />
+          </label>
+
+          <label className="half">
+            <span className="label">공개 여부</span>
+            <input
+              type="checkbox"
+              name="lock"
+              onChange={onChangeCheck}
+              defaultChecked={`${data.lock}`}
             />
-          </Form.Item>
-          <Form.Item
-            label="깃허브 URL"
-            name="github"
-            rules={[{ required: true }]}
-            className="half"
-          >
-            <Input
-              placeholder="https://github.com/"
-              name="git"
-              onChange={onChangeInput}
-            />
-          </Form.Item>
-          <Form.Item
-            label="사이트 URL"
-            name="site"
-            rules={[{ required: true }]}
-            className="half"
-          >
-            <Input
-              placeholder="https://github.com/"
-              name="site"
-              onChange={onChangeInput}
-            />
-          </Form.Item>
-          <Form.Item label="참여 인원" name="member" className="half" initialValue="1">
-            <Select placeholder="참여 인원" onChange={onChangeMember}>
-              <Option value="1">1</Option>
-              <Option value="2">2</Option>
-              <Option value="3">3</Option>
-              <Option value="4">4</Option>
-              <Option value="5">5</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item
-            label="작업 기간"
-            name="due"
-            rules={[{ required: true }]}
-            className="half"
-          >
-            <Input placeholder="2022/01 - 2022/02" name="due" onChange={onChangeInput} />
-          </Form.Item>
-          <Form.Item
-            label="업무 범위"
-            name="role"
-            rules={[{ required: true }]}
-            className="half"
-          >
-            <Input
-              placeholder="기획 30% / 프론트엔드 50%"
-              name="role"
-              onChange={onChangeInput}
-            />
-          </Form.Item>
-          <Form.Item
-            label="공개 여부"
-            name="lock"
-            className="half"
-            valuePropName="checked"
-          >
-            <Checkbox onChange={onChangeCheck}>비공개 설정</Checkbox>
-          </Form.Item>
-          <Form.Item label="프로젝트 설명" name="desc" rules={[{ required: true }]}>
-            <TextArea
-              placeholder="프로젝트 설명을 입력하세요."
-              autoSize={{ minRows: 4, maxRows: 6 }}
+            <span>비공개</span>
+          </label>
+
+          <label>
+            <span className="label">프로젝트 설명</span>
+            <textarea
+              value={data.desc}
+              type="textarea"
               name="desc"
               onChange={onChangeInput}
+              rows="5"
             />
-          </Form.Item>
+          </label>
 
-          <Form.Item label="썸네일 등록" className="half">
-            <input
-              type="file"
-              id="thumb"
-              name="thumb"
-              className="thumb-input"
-              onChange={onChangeUpload}
-              accept="image/*"
-            />
-            <label htmlFor="thumb" className="thumb-label">
-              <span className="upload-btn">
-                <UploadOutlined />
-                Upload
-              </span>
-            </label>
-            {thumbFile && <div className="file-name">{thumbFile.name}</div>}
-          </Form.Item>
+          <label htmlFor="thumb" className="thumb-label half">
+            <span className="label">썸네일 등록</span>
+            <div className="upload-box">
+              <input
+                type="file"
+                id="thumb"
+                name="thumb"
+                className="thumb-input"
+                onChange={onChangeUpload}
+                accept="image/*"
+              />
+              <span className="upload-btn">Upload</span>
+              {thumbFile && <div className="file-name">{thumbFile.name}</div>}
+            </div>
+          </label>
 
-          <Form.Item label="대표 이미지" className="half">
-            <input
-              type="file"
-              id="hero"
-              name="hero"
-              className="thumb-input"
-              onChange={onChangeUpload}
-              accept="image/*"
-            />
-            <label htmlFor="hero" className="thumb-label">
-              <span className="upload-btn">
-                <UploadOutlined />
-                Upload
-              </span>
-            </label>
-            {heroFile && <div className="file-name">{heroFile.name}</div>}
-          </Form.Item>
+          <label htmlFor="hero" className="thumb-label half">
+            <span className="label">대표 이미지</span>
+            <div className="upload-box">
+              <input
+                type="file"
+                id="hero"
+                name="hero"
+                className="thumb-input"
+                onChange={onChangeUpload}
+                accept="image/*"
+              />
+              <span className="upload-btn">Upload</span>
+              {heroFile && <div className="file-name">{heroFile.name}</div>}
+            </div>
+          </label>
 
           <WriteEditor
+            action={action}
+            editContent={data.markdown}
             getEditorHtml={getEditorHtml}
             getMarkDown={getMarkDown}
             title={data.title}
           />
 
           <WriteViewer />
-
           <div className="form-footer">
-            <Button onClick={() => history.push('/admin/projects')}>나가기</Button>
+            <button onClick={() => history.push('/admin/projects')}>나가기</button>
             <SubmitButtons />
           </div>
-        </Form>
-
+        </form>
         {modal && <ModalType />}
       </ProjectFormContainer>
     </>
