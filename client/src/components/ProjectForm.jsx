@@ -284,38 +284,40 @@ function ProjectForm({ action, param }) {
               rows="5"
             />
           </label>
-
-          <label htmlFor="thumb" className="thumb-label half">
-            <span className="label">썸네일 등록</span>
-            <div className="upload-box">
-              <input
-                type="file"
-                id="thumb"
-                name="thumb"
-                className="thumb-input"
-                onChange={onChangeUpload}
-                accept="image/*"
-              />
-              <span className="upload-btn">Upload</span>
-              {thumbFile && <div className="file-name">{thumbFile.name}</div>}
-            </div>
-          </label>
-
-          <label htmlFor="hero" className="thumb-label half">
-            <span className="label">대표 이미지</span>
-            <div className="upload-box">
-              <input
-                type="file"
-                id="hero"
-                name="hero"
-                className="thumb-input"
-                onChange={onChangeUpload}
-                accept="image/*"
-              />
-              <span className="upload-btn">Upload</span>
-              {heroFile && <div className="file-name">{heroFile.name}</div>}
-            </div>
-          </label>
+          <div className="upload-wrapper half">
+            <label htmlFor="thumb" className="thumb-label">
+              <span className="label">썸네일 등록</span>
+              <div className="upload-box">
+                <input
+                  type="file"
+                  id="thumb"
+                  name="thumb"
+                  className="thumb-input"
+                  onChange={onChangeUpload}
+                  accept="image/*"
+                />
+                <span className="upload-btn">Upload</span>
+                {thumbFile && <div className="file-name">{thumbFile.name}</div>}
+              </div>
+            </label>
+          </div>
+          <div className="upload-wrapper half">
+            <label htmlFor="hero" className="thumb-label">
+              <span className="label">대표 이미지</span>
+              <div className="upload-box">
+                <input
+                  type="file"
+                  id="hero"
+                  name="hero"
+                  className="thumb-input"
+                  onChange={onChangeUpload}
+                  accept="image/*"
+                />
+                <span className="upload-btn">Upload</span>
+                {heroFile && <div className="file-name">{heroFile.name}</div>}
+              </div>
+            </label>
+          </div>
 
           <WriteEditor
             action={action}

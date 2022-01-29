@@ -85,10 +85,19 @@ export const ProjectFormContainer = styled.div`
           }
         }
       }
-
+    }
+    .upload-wrapper {
+      width: 50%;
+      label {
+        width: fit-content;
+        .label {
+          display: inline-block;
+          width: 120px;
+        }
+      }
       .upload-box {
         position: relative;
-        width: calc(100% - 120px);
+        width: fit-content;
         input {
           display: none;
         }
