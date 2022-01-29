@@ -79,10 +79,15 @@ function NavBar(props) {
       <header>
         <h1>
           <Link to="/">
-            this.<span>tech</span>
+            THISYUJEONG
             <div>© yujeong lee</div>
           </Link>
         </h1>
+        <div className="keyword">
+          <span>experience</span>
+          <span>like</span>
+          <span>continue</span>
+        </div>
         <nav>
           <ul>
             <NavList />

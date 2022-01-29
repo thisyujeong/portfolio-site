@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   .container {
-    max-width: 1000px;
+    /* max-width: 1000px; */
     margin: 0 auto;
     padding-left: 24px;
     padding-right: 24px;
@@ -18,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
   .contents {
     padding-top: 50px ;
     padding-bottom: 50px ;
-    min-height: calc(100vh - 160px);
+    min-height: calc(100vh - 150px);
   }
 
   a {

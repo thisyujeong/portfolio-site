@@ -26,6 +26,7 @@ export const ProjectFormContainer = styled.div`
         position: relative;
         height: 40px;
         padding: 0 16px;
+        color: ${(props) => props.theme.textColor};
         border: 1px solid #d9d9d9;
         outline: 0;
         &:hover {
@@ -39,6 +40,7 @@ export const ProjectFormContainer = styled.div`
 
       input {
         width: calc(100% - 120px);
+        color: ${(props) => props.theme.textColor};
 
         &[type='checkbox'] {
           width: auto;

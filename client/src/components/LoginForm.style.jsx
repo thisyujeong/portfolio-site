@@ -4,8 +4,7 @@ export const LoginFormContainer = styled.div`
   width: 400px;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  margin-top: 100px;
+  margin: 100px auto;
 
   h1 {
     color: ${(props) => props.theme.textColor};

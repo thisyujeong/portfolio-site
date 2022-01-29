@@ -9,9 +9,9 @@ export const NavBarContainer = styled.div`
   z-index: 999;
   header {
     height: 100%;
-    max-width: 1000px;
+    /* max-width: 1000px; */
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid ${(props) => props.theme.borderColor};
@@ -25,9 +25,8 @@ export const NavBarContainer = styled.div`
         font-family: 'Lato';
         font-size: 20px;
         font-weight: 900;
-        span {
-          color: #2fce7e;
-        }
+        color: #2fce7e;
+
         div {
           margin-top: 4px;
           color: #fff;
@@ -36,7 +35,22 @@ export const NavBarContainer = styled.div`
         }
       }
     }
+    .keyword {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
 
+      span {
+        &:after {
+          margin: 0 12px;
+          content: '/';
+        }
+        &:last-child:after {
+          content: none;
+        }
+      }
+    }
     nav {
       height: 100%;
       margin-left: auto;
