@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { POST_NOTE, POST_LIST, POST_INFO } from './types';
+import { POST_NOTE, POST_LIST, POST_INFO, POST_EDIT } from './types';
 
 export function postNote(dataToSubmit) {
   const request = axios
@@ -7,6 +7,16 @@ export function postNote(dataToSubmit) {
     .then((response) => response.data);
   return {
     type: POST_NOTE,
+    payload: request,
+  };
+}
+
+export function postEdit(id, dataToSubmit) {
+  const request = axios
+    .post(`/api/posts/edit/${id}`, dataToSubmit)
+    .then((response) => response.data);
+  return {
+    type: POST_EDIT,
     payload: request,
   };
 }

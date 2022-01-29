@@ -31,7 +31,7 @@ function NavBar(props) {
     setCurrent(e.currentTarget.dataset.key);
   };
   const onClickLogout = useCallback(() => {
-    axios.get(`api/users/logout`).then((response) => {
+    axios.get(`/api/users/logout`).then((response) => {
       console.log('로그아웃', response.data.success);
       if (response.data.success) {
         setLogin(!isAuth);

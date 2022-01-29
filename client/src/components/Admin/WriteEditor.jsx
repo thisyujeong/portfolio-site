@@ -79,7 +79,7 @@ export default function WriteEditor({
   const uploadImage = async (blob, cb) => {
     const formData = new FormData();
     const header = { header: { 'content-type': 'multipart/formdata' } };
-    formData.append('contents', blob);
+    formData.append('content', blob);
 
     const url = await axios //
       .post(`/api/upload/${title}`, formData, header)

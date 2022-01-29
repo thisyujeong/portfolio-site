@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { postInfo, postNote } from '../_actions/post_action';
+import { postEdit, postInfo, postNote } from '../_actions/post_action';
 import { ProjectFormContainer } from './ProjectForm.style';
 import WriteEditor from './Admin/WriteEditor';
 import WriteViewer from './Admin/WriteViewer';
@@ -50,17 +50,10 @@ function ProjectForm({ action, param }) {
     setMarkdown(markdown);
   };
 
-  /* onSubmit failed */
-  // const onFinishFailed = (errorInfo) => {
-  //   console.log('Failed:', errorInfo);
-  //   setModalType('warning');
-  //   setModal(true);
-  // };
-
   useEffect(() => {
     if (action === 'edit') {
       dispatch(postInfo(param)).then((response) => {
-        console.log('post info:', response.payload.post);
+        // console.log('post info:', response.payload.post);
         const _post = response.payload.post;
         setData({
           ...data,
@@ -76,6 +69,8 @@ function ProjectForm({ action, param }) {
           member: _post.member,
           markdown: _post.markdown,
           lock: _post.lock,
+          heroName: _post.heroName,
+          thumbName: _post.heroName,
         });
       });
     }
@@ -85,55 +80,84 @@ function ProjectForm({ action, param }) {
   /* onSubmit */
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    // 첨부된 파일이 없다면 warning
-    if (heroFile === '' || thumbFile === '') {
-      setModalType('warning');
-      setModal(true);
-      return;
+
+    if (action === 'write') {
+      // 첨부된 파일이 없다면 warning
+      const formData = new FormData();
+      formData.append('thumb', thumbFile);
+      formData.append('hero', heroFile);
+
+      // 서버의 upload API 호출
+      let body = {
+        title: data.title,
+        type: data.type,
+        info: data.info,
+        tech: data.tech.split(',').map((a) => a.trim()),
+        git: data.git,
+        site: data.site,
+        due: data.due,
+        role: data.role,
+        desc: data.desc,
+        member: data.member,
+        markdown: markdown,
+        lock: check,
+      };
+
+      dispatch(postNote(body)).then((response) => {
+        if (response.payload.overlap) {
+          console.log('overlap', response.payload);
+          setErrMessage('이미 존재하는 프로젝트입니다.');
+          setModalType('error');
+          setModal(true);
+        }
+
+        if (response.payload.success) {
+          console.log('submitbody', response.payload);
+
+          // send formData
+          axios.post(`/api/upload/${data.title}`, formData);
+          history.push('/admin/projects');
+        }
+
+        if (response.payload.error) {
+          setErrMessage(response.payload.err);
+          setModalType('error');
+          setModal(true);
+        }
+      });
     }
 
-    const formData = new FormData();
-    formData.append('thumb', thumbFile);
-    formData.append('hero', heroFile);
+    if (action === 'edit') {
+      console.log('edit edit');
+      const formData = new FormData();
+      formData.append('thumb', thumbFile);
+      formData.append('hero', heroFile);
 
-    // 서버의 upload API 호출
-    let body = {
-      title: data.title,
-      type: data.type,
-      info: data.info,
-      tech: data.tech.split(',').map((a) => a.trim()),
-      git: data.git,
-      site: data.site,
-      due: data.due,
-      role: data.role,
-      desc: data.desc,
-      member: data.member,
-      markdown: markdown,
-      lock: check,
-    };
+      console.log('formData', formData);
 
-    dispatch(postNote(body)).then((response) => {
-      if (response.payload.overlap) {
-        console.log('overlap', response.payload);
-        setErrMessage('이미 존재하는 프로젝트입니다.');
-        setModalType('error');
-        setModal(true);
-      }
+      let body = {
+        title: data.title,
+        type: data.type,
+        info: data.info,
+        tech: data.tech.split(',').map((a) => a.trim()),
+        git: data.git,
+        site: data.site,
+        due: data.due,
+        role: data.role,
+        desc: data.desc,
+        member: data.member,
+        markdown: markdown,
+        lock: check,
+      };
 
-      if (response.payload.success) {
-        console.log('submitbody', response.payload);
-
-        // send formData
-        axios.post(`/api/upload/${data.title}`, formData);
-        history.push('/admin/projects');
-      }
-
-      if (response.payload.error) {
-        setErrMessage(response.payload.err);
-        setModalType('error');
-        setModal(true);
-      }
-    });
+      dispatch(postEdit(param, body)).then((response) => {
+        console.log('postEdit response:', response.payload);
+        if (response.payload.success) {
+          axios.post(`/api/upload/${data.title}`, formData);
+          history.push('/admin/projects');
+        }
+      });
+    }
   };
 
   /* modal type handler */
@@ -179,7 +203,6 @@ function ProjectForm({ action, param }) {
     if (e.target.id) {
       e.target.id === 'thumb' && setThumbFile(e.target.files[0]);
       e.target.id === 'hero' && setHeroFile(e.target.files[0]);
-      console.log(e.target.files[0]);
     }
   };
 
@@ -198,7 +221,13 @@ function ProjectForm({ action, param }) {
         <form onSubmit={onSubmitHandler}>
           <label className="half">
             <span className="label">프로젝트 명</span>
-            <input value={data.title} type="text" name="title" onChange={onChangeInput} />
+            <input
+              value={data.title}
+              type="text"
+              name="title"
+              onChange={onChangeInput}
+              required
+            />
           </label>
 
           <label className="half">
@@ -215,22 +244,46 @@ function ProjectForm({ action, param }) {
 
           <label className="half">
             <span className="label">프로젝트 소개</span>
-            <input value={data.info} type="text" name="info" onChange={onChangeInput} />
+            <input
+              value={data.info}
+              type="text"
+              name="info"
+              onChange={onChangeInput}
+              required
+            />
           </label>
 
           <label className="half">
             <span className="label">사용 기술</span>
-            <input value={data.tech} type="text" name="tech" onChange={onChangeInput} />
+            <input
+              value={data.tech}
+              type="text"
+              name="tech"
+              onChange={onChangeInput}
+              required
+            />
           </label>
 
           <label className="half">
             <span className="label">깃허브 URL</span>
-            <input value={data.git} type="text" name="git" onChange={onChangeInput} />
+            <input
+              value={data.git}
+              type="text"
+              name="git"
+              onChange={onChangeInput}
+              required
+            />
           </label>
 
           <label className="half">
             <span className="label">사이트 URL</span>
-            <input value={data.site} type="text" name="site" onChange={onChangeInput} />
+            <input
+              value={data.site}
+              type="text"
+              name="site"
+              onChange={onChangeInput}
+              required
+            />
           </label>
 
           <label className="half">
@@ -255,12 +308,24 @@ function ProjectForm({ action, param }) {
 
           <label className="half">
             <span className="label">작업 기간</span>
-            <input value={data.due} type="text" name="due" onChange={onChangeInput} />
+            <input
+              value={data.due}
+              type="text"
+              name="due"
+              onChange={onChangeInput}
+              required
+            />
           </label>
 
           <label className="half">
             <span className="label">업무 범위</span>
-            <input value={data.role} type="text" name="role" onChange={onChangeInput} />
+            <input
+              value={data.role}
+              type="text"
+              name="role"
+              onChange={onChangeInput}
+              required
+            />
           </label>
 
           <label className="half">
@@ -282,41 +347,75 @@ function ProjectForm({ action, param }) {
               name="desc"
               onChange={onChangeInput}
               rows="5"
+              required
             />
           </label>
           <div className="upload-wrapper half">
             <label htmlFor="thumb" className="thumb-label">
               <span className="label">썸네일 등록</span>
               <div className="upload-box">
-                <input
-                  type="file"
-                  id="thumb"
-                  name="thumb"
-                  className="thumb-input"
-                  onChange={onChangeUpload}
-                  accept="image/*"
-                />
+                {action === 'write' ? (
+                  <input
+                    type="file"
+                    id="thumb"
+                    name="thumb"
+                    className="thumb-input"
+                    onChange={onChangeUpload}
+                    accept="image/*"
+                    required
+                  />
+                ) : (
+                  <input
+                    type="file"
+                    id="thumb"
+                    name="thumb"
+                    className="thumb-input"
+                    onChange={onChangeUpload}
+                    accept="image/*"
+                  />
+                )}
+
                 <span className="upload-btn">Upload</span>
-                {thumbFile && <div className="file-name">{thumbFile.name}</div>}
               </div>
             </label>
+            {thumbFile ? (
+              <div className="file-name">{thumbFile.name}</div>
+            ) : (
+              <div className="file-name">{data.thumbName}</div>
+            )}
           </div>
           <div className="upload-wrapper half">
-            <label htmlFor="hero" className="thumb-label">
+            <label htmlFor="hero" className="hero-label">
               <span className="label">대표 이미지</span>
               <div className="upload-box">
-                <input
-                  type="file"
-                  id="hero"
-                  name="hero"
-                  className="thumb-input"
-                  onChange={onChangeUpload}
-                  accept="image/*"
-                />
+                {action === 'write' ? (
+                  <input
+                    type="file"
+                    id="hero"
+                    name="hero"
+                    className="hero-input"
+                    onChange={onChangeUpload}
+                    accept="image/*"
+                    required
+                  />
+                ) : (
+                  <input
+                    type="file"
+                    id="hero"
+                    name="hero"
+                    className="hero-input"
+                    onChange={onChangeUpload}
+                    accept="image/*"
+                  />
+                )}
                 <span className="upload-btn">Upload</span>
-                {heroFile && <div className="file-name">{heroFile.name}</div>}
               </div>
             </label>
+            {heroFile ? (
+              <div className="file-name">{heroFile.name}</div>
+            ) : (
+              <div className="file-name">{data.heroName}</div>
+            )}
           </div>
 
           <WriteEditor

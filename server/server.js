@@ -108,12 +108,13 @@ app.post('/api/posts/note', (req, res) => {
 
 /* post delete */
 app.post('/api/posts/delete', (req, res) => {
-  Post.findOne({ id: req.body.id }, (err, result) => {
-    if (err) return res.json({ success: false, err });
-    emptyBucketDir(result.title, (err, data) => {
-      if (err) return res.json({ success: false, err });
-    });
-  }).deleteOne({ id: req.body.id }, (err, result) => {
+  // Post.findOne({ id: req.body.id }, (err, result) => {
+  //   if (err) return res.json({ success: false, err });
+  //   emptyBucketDir(result.title, (err, data) => {
+  //     if (err) return res.json({ success: false, err });
+  //   });
+  // })
+  Post.deleteOne({ id: req.body.id }, (err, result) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).json({
       success: true,
@@ -133,14 +134,23 @@ app.get('/api/posts', (req, res) => {
   });
 });
 
+/* upload fileFields */
+const fileFields = upload.fields([
+  { name: 'thumb', maxCount: 1 },
+  { name: 'hero', maxCount: 1 },
+  { name: 'content' },
+]);
+
 /* post edit */
-app.post('/api/posts/edit/:id', (req, res) => {
-  Post.findOneAndUpdate(
-    { id: req.prams.id },
-    {
-      // edit 정보 수정 코드
-    }
-  );
+app.post('/api/posts/edit/:id', fileFields, (req, res) => {
+  console.log(req.body);
+  Post.findOneAndUpdate({ id: req.params.id }, { ...req.body }, (err, post) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).send({
+      success: true,
+      post: post,
+    });
+  });
 });
 
 // post info
@@ -156,26 +166,32 @@ app.get('/api/posts/info/:id', (req, res) => {
 });
 
 /* image upload */
-const fileFields = upload.fields([
-  { name: 'thumb', maxCount: 1 },
-  { name: 'hero', maxCount: 1 },
-  { name: 'contents' },
-]);
 app.post('/api/upload/:name', fileFields, (req, res) => {
-  if (req.files['contents']) {
+  let file = {};
+  if (req.files['thumb']) {
+    file = {
+      ...file,
+      thumb: req.files['thumb'][0].location,
+      thumbName: req.files['thumb'][0].originalname,
+    };
+  }
+  if (req.files['hero']) {
+    file = {
+      ...file,
+      hero: req.files['hero'][0].location,
+      heroName: req.files['hero'][0].originalname,
+    };
+  }
+
+  if (req.files['content']) {
     return res.status(200).send({
       updateSuccess: true,
-      location: req.files['contents'][0].location,
+      location: req.files['content'][0].location,
     });
   }
   Post.findOneAndUpdate(
     { title: req.params.name },
-    {
-      thumb: req.files['thumb'][0].location,
-      thumbName: req.files['thumb'][0].originalname,
-      hero: req.files['hero'][0].location,
-      heroName: req.files['hero'][0].originalname,
-    },
+    file,
     { multi: true },
     (err, post) => {
       if (err) return res.json({ success: false, err });

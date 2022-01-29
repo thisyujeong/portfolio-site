@@ -26,18 +26,10 @@ const upload = multer({
     acl: 'public-read',
     key: (req, file, cb) => {
       let extension = path.extname(file.originalname);
-      const dir = req.params.name;
+      const dir = file.fieldname;
       console.log('dir', dir);
-      if (file.fieldname === 'hero') {
-        return cb(null, dir + '/hero-' + Date.now().toString() + extension);
-      }
-      if (file.fieldname === 'thumb') {
-        return cb(null, dir + '/thumb-' + Date.now().toString() + extension);
-      }
-      if (file.fieldname === 'contents') {
-        return cb(null, 'contents/' + Date.now().toString() + extension);
-      }
-      cb(null, Date.now().toString() + extension);
+      console.log('s3', file);
+      cb(null, `${dir}/${Date.now().toString() + extension}`);
     },
   }),
   // limits: { fileSize: 5 * 1024 * 1024 }, // 용량 제한

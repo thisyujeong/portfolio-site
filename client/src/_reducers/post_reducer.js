@@ -1,9 +1,12 @@
-import { POST_LIST, POST_NOTE, POST_INFO } from '../_actions/types';
+import { POST_LIST, POST_NOTE, POST_INFO, POST_EDIT } from '../_actions/types';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = {}, action) {
   switch (action.type) {
     case POST_NOTE:
+      return { ...state, postData: action.payload };
+
+    case POST_EDIT:
       return { ...state, postData: action.payload };
 
     case POST_LIST:
