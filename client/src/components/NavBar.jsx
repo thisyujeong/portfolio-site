@@ -6,13 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faUserCog } from '@fortawesome/free-solid-svg-icons';
 import { auth } from '../_actions/user_action';
 import { NavBarContainer } from './NavBar.style';
-import navLinks from '../data/navLinks';
 import ThemeToggle from './ThemeToggle';
 
 function NavBar(props) {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [current, setCurrent] = useState('blog');
   const isAuth = useSelector((state) => state.user).userData.isAuth;
   const [login, setLogin] = useState();
 
@@ -27,9 +25,6 @@ function NavBar(props) {
     });
   }, [dispatch, isAuth]);
 
-  const onClickNav = (e) => {
-    setCurrent(e.currentTarget.dataset.key);
-  };
   const onClickLogout = useCallback(() => {
     axios.get(`/api/users/logout`).then((response) => {
       console.log('로그아웃', response.data.success);
@@ -56,23 +51,6 @@ function NavBar(props) {
       </ul>
     ) : null;
   }, [login, onClickLogout]);
-
-  const NavList = () => {
-    return (
-      <>
-        {navLinks.map((link) => (
-          <li
-            onClick={onClickNav}
-            className={link.title === current ? 'active' : ''}
-            key={link.title}
-            data-key={link.title}
-          >
-            <Link to={link.link}>{link.title}</Link>
-          </li>
-        ))}
-      </>
-    );
-  };
 
   return (
     <NavBarContainer>

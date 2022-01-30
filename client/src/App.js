@@ -1,11 +1,11 @@
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import LandingPage from './pages/LandingPage/LandingPage';
+import LandingPage from './pages/LandingPage';
 import Auth from './hoc/auth';
 import NavBar from './components/NavBar';
 import './common/styles/index.scss';
 import Admin from './pages/Admin/Admin';
-import Projects from './pages/Projects';
+import AdminProjects from './pages/AdminProjects';
 import Login from './pages/Login';
 import Footer from './components/Footer';
 import GlobalStyle from './theme/GlobalStyle';
@@ -29,7 +29,7 @@ function App(props) {
               <Route
                 exact
                 path="/admin/projects"
-                component={Auth(Projects, true)}
+                component={Auth(AdminProjects, true)}
               ></Route>
               <Route
                 exact

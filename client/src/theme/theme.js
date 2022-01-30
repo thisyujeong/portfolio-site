@@ -25,6 +25,16 @@ export const lightTheme = {
   tableBodyBg: '#fff',
   tableBorderColor: 'rgba(0, 0, 0, 0.1)',
   tableLockColor: 'rgba(29, 29, 29, 0.3)',
+
+  // post input
+  postInputBg: '#fff',
+  postInputBorder: '#d9d9d9',
+  postInputBorderHover: '#17171760',
+  postInputFocusShadow: '0 0 0 2px rgba(233, 233, 233, 0.6)',
+
+  // badge
+  badgeBg: 'rgba(0, 0, 0, 0.1)',
+  badgeColor: 'rgba(0, 0, 0, 0.5)',
 };
 
 export const darkTheme = {
@@ -55,6 +65,16 @@ export const darkTheme = {
   tableBodyBg: '#1c1c1c',
   tableBorderColor: 'rgba(255, 255, 255, 0.1)',
   tableLockColor: 'rgba(255, 255, 255, 0.3)',
+
+  // post input
+  postInputBg: 'rgba(255, 255, 255, 0.2)',
+  postInputBorder: 'rgba(255, 255, 255, 0.1)',
+  postInputBorderHover: 'rgba(255, 255, 255, 0.3)',
+  postInputFocusShadow: '0 0 0 2px rgba(233, 233, 233, 0.1)',
+
+  // badge
+  badgeBg: 'rgba(255, 255, 255, 0.1)',
+  badgeColor: 'rgba(255, 255, 255, 0.5)',
 };
 
 export const theme = {

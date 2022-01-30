@@ -27,14 +27,17 @@ export const ProjectFormContainer = styled.div`
         height: 40px;
         padding: 0 16px;
         color: ${(props) => props.theme.textColor};
-        border: 1px solid #d9d9d9;
         outline: 0;
+        border-radius: 2px;
+        background-color: ${(props) => props.theme.postInputBg};
+        border: 1px solid ${(props) => props.theme.postInputBorder};
+
         &:hover {
-          border-color: #17171760;
+          border-color: ${(props) => props.theme.postInputBorderHover};
         }
         &:focus {
-          border-color: #17171760;
-          box-shadow: 0 0 0 2px rgb(233, 233, 233, 0.6);
+          border-color: ${(props) => props.theme.postInputBorderHover};
+          box-shadow: ${(props) => props.theme.postInputFocusShadow};
         }
       }
 
