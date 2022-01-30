@@ -11,14 +11,14 @@ function ProjectItem({ post, idx }) {
       </Link>
       <div className="post-info">
         <div>
-          <div className="info">{post.info}</div>
           <ul className="tech">
             {post.tech.map((tag, idx) => (
               <li key={idx}>{tag}</li>
             ))}
           </ul>
+          <div className="title">{post.title}</div>
+          <div className="info">{post.info}</div>
         </div>
-        <div className="title">{post.title}</div>
         <Link to={`/projects/${post.id}`} className="more">
           view the project →
         </Link>

@@ -17,7 +17,7 @@ export const ProjectItemContainer = styled.li`
   }
 
   &:nth-child(2n) {
-    transform: translateY(8vw);
+    transform: translateY(10vw);
   }
   &:hover * {
     color: ${(props) => props.theme.textColor};
@@ -80,10 +80,11 @@ export const ProjectItemContainer = styled.li`
       overflow: hidden;
     }
     .tech {
+      padding: 0;
+      padding-right: 24px;
       font-size: 18px;
       display: flex;
       flex-wrap: nowrap;
-      margin-top: 20px;
       overflow-y: auto;
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
@@ -103,8 +104,8 @@ export const ProjectItemContainer = styled.li`
       }
     }
     .title {
-      font-size: 75px;
-      margin: 0.3em 0 0.5em;
+      font-size: 60px;
+      margin: 0.3em 0;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
@@ -112,8 +113,9 @@ export const ProjectItemContainer = styled.li`
     .more {
       display: inline-block;
       width: fit-content;
-      font-size: 32px;
+      margin-top: 1em;
       margin-left: auto;
+      font-size: 32px;
       text-align: right;
       text-decoration: underline;
       transition: all 0.3s;
@@ -122,4 +124,78 @@ export const ProjectItemContainer = styled.li`
       }
     }
   }
+
+  @media screen and (max-width: 1024px) {
+    padding: 30px 20px;
+    &:before {
+      width: calc(100% - 40px);
+      left: 20px;
+    }
+    .type {
+      font-size: 18px;
+    }
+    .thumbnail {
+      &:after {
+        display: none;
+      }
+      &:hover {
+        img {
+          transform: none;
+          opacity: 1;
+        }
+      }
+    }
+    .post-info {
+      .info {
+        font-size: 16px;
+      }
+      .title {
+        font-size: 50px;
+      }
+      .tech {
+        li {
+          font-size: 12px;
+        }
+        li + li {
+          margin-left: 12px;
+        }
+      }
+      .more {
+        font-size: 24px;
+        &:hover {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    padding: 32px 0;
+    &:nth-child(2n) {
+      transform: translateY(0);
+    }
+    &:before {
+      width: 100%;
+      left: 0;
+    }
+    .type {
+      position: absolute;
+      z-index: 1;
+      background-color: ${(props) => props.theme.bgColor};
+      line-height: 24px;
+      min-width: fit-content;
+      padding: 0 12px;
+      height: 24px;
+      border-bottom-right-radius: 10px;
+    }
+    .post-info {
+      padding: 24px 24px 0 0;
+      .title {
+        font-size: 40px;
+      }
+      
+    }
+  }
+}
 `;

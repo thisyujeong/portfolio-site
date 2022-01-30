@@ -68,7 +68,7 @@ function NavBar(props) {
         </div>
         <div className="nav-right">
           <AuthOption />
-          <ThemeToggle />
+          <ThemeToggle className="theme" />
         </div>
       </header>
     </NavBarContainer>

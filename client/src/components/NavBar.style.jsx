@@ -87,4 +87,16 @@ export const NavBarContainer = styled.div`
       }
     }
   }
+  @media screen and (max-width: 1024px) {
+  }
+  @media screen and (max-width: 768px) {
+    .keyword {
+      display: none;
+    }
+    .theme {
+      position: absolute;
+      top: 94px;
+      right: 24px;
+    }
+  }
 `;

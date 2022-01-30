@@ -8,7 +8,7 @@ const LandingContainer = styled.div`
   padding-bottom: 15vw;
   h2 {
     position: relative;
-    font-size: 10vw;
+    font-size: 150px;
     text-align: center;
     margin-top: 50px;
     margin-bottom: 100px;
@@ -21,11 +21,35 @@ const LandingContainer = styled.div`
       top: 2.5vw;
     }
   }
-  ul {
+  .projects {
     display: flex;
     max-width: 1400px;
     margin: 0 auto;
     flex-wrap: wrap;
+  }
+  @media screen and (max-width: 1024px) {
+    h2 {
+      font-size: 14vw;
+      margin: 0.4em 0 0.8em;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    h2 {
+      font-size: 25vw;
+      text-align: left;
+      margin-top: 0.2em;
+      margin-bottom: 0.2em;
+      padding-left: 10px;
+      span {
+        font-size: 5vw;
+        top: 5.5vw;
+      }
+    }
+    .projects {
+      padding-left: 10px;
+      margin-right: -26px;
+      border-top: 1px solid ${(props) => props.theme.borderColor};
+    }
   }
 `;
 
@@ -45,7 +69,7 @@ function LandingPage(props) {
       <h2>
         works<span>({posts.length})</span>
       </h2>
-      <ul>
+      <ul className="projects">
         {posts.map((post, idx) => (
           <ProjectItem post={post} key={idx} />
         ))}
