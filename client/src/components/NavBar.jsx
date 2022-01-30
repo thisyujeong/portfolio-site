@@ -88,13 +88,10 @@ function NavBar(props) {
           <span>like</span>
           <span>continue</span>
         </div>
-        <nav>
-          <ul>
-            <NavList />
-          </ul>
-        </nav>
-        <AuthOption />
-        <ThemeToggle />
+        <div className="nav-right">
+          <AuthOption />
+          <ThemeToggle />
+        </div>
       </header>
     </NavBarContainer>
   );

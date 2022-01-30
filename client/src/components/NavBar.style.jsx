@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const NavBarContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 80px;
+  height: 70px;
   background-color: #171717;
   background-color: ${(props) => props.theme.bgColor};
   z-index: 999;
@@ -13,6 +13,7 @@ export const NavBarContainer = styled.div`
     margin: 0 auto;
     padding: 0 24px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid ${(props) => props.theme.borderColor};
 
@@ -35,11 +36,13 @@ export const NavBarContainer = styled.div`
         }
       }
     }
+
     .keyword {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      opacity: 0.6;
 
       span {
         &:after {
@@ -51,63 +54,9 @@ export const NavBarContainer = styled.div`
         }
       }
     }
-    nav {
-      height: 100%;
-      margin-left: auto;
-      margin-right: 12px;
+
+    .nav-right {
       display: flex;
-      align-items: center;
-      justify-content: flex-end;
-
-      ul {
-        display: flex;
-        align-items: center;
-        li {
-          position: relative;
-          cursor: pointer;
-          a {
-            font-family: 'Lato';
-            font-weight: 600;
-            text-transform: uppercase;
-            display: inline-block;
-            color: ${(props) => props.theme.linkColor};
-            font-size: 14px;
-          }
-          &:before {
-            display: none;
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            width: 4px;
-            height: 4px;
-            border-radius: 3px;
-            transform: translateX(-50%);
-            content: '';
-          }
-          &:hover {
-            a {
-              color: ${(props) => props.theme.linkActiveColor};
-            }
-            &:before {
-              display: block;
-              background-color: ${(props) => props.theme.linkDotColor};
-            }
-          }
-          &.active {
-            a {
-              color: ${(props) => props.theme.linkActiveColor};
-            }
-            &:before {
-              display: block;
-              background-color: #2fce7e;
-            }
-          }
-        }
-
-        li + li {
-          margin-left: 16px;
-        }
-      }
     }
     .auth {
       display: flex;
