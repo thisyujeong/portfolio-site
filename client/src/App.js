@@ -4,7 +4,6 @@ import LandingPage from './pages/LandingPage';
 import Auth from './hoc/auth';
 import NavBar from './components/NavBar';
 import './common/styles/index.scss';
-import Admin from './pages/Admin/Admin';
 import AdminProjects from './pages/AdminProjects';
 import Login from './pages/Login';
 import Footer from './components/Footer';
@@ -13,6 +12,7 @@ import { ThemeProvider } from './context/themeProvider';
 import { theme } from './theme/theme';
 import ProjectWrite from './pages/ProjectWrite';
 import ProjectEdit from './pages/ProjectEdit';
+import ProjectDetail from './pages/ProjectDetail';
 
 function App(props) {
   return (
@@ -25,7 +25,11 @@ function App(props) {
             <Switch>
               <Route exact path="/" component={Auth(LandingPage, null)}></Route>
               <Route exact path="/login" component={Auth(Login, false)}></Route>
-              <Route exact path="/admin" component={Auth(Admin, true)}></Route>
+              <Route
+                exact
+                path="/projects/:id"
+                component={Auth(ProjectDetail, null)}
+              ></Route>
               <Route
                 exact
                 path="/admin/projects"
