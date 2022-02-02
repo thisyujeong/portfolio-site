@@ -1,5 +1,6 @@
 export const lightTheme = {
   // common
+  accentColor: '#18cbcb',
   bgColor: '#fff',
   textColor: '#171717',
   subTextColor: 'rgba(0, 0, 0, 0.4)',
@@ -35,10 +36,16 @@ export const lightTheme = {
   // badge
   badgeBg: 'rgba(0, 0, 0, 0.1)',
   badgeColor: 'rgba(0, 0, 0, 0.5)',
+
+  // back btn
+  backColor: 'rgba(0, 0, 0, 0.3)',
+  backBgColor: 'rgba(0, 0, 0, 0.08)',
+  backHoverColor: '#000',
 };
 
 export const darkTheme = {
   // common
+  accentColor: '#4eff25',
   bgColor: '#171717',
   textColor: '#fff',
   subTextColor: 'rgba(255, 255, 255, 0.4)',
@@ -75,6 +82,11 @@ export const darkTheme = {
   // badge
   badgeBg: 'rgba(255, 255, 255, 0.1)',
   badgeColor: 'rgba(255, 255, 255, 0.5)',
+
+  // back btn
+  backColor: 'rgba(255, 255, 255, 0.6)',
+  backBgColor: 'rgba(255, 255, 255, 0.1)',
+  backHoverColor: '#fff',
 };
 
 export const theme = {

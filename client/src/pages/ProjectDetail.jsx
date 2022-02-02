@@ -5,24 +5,11 @@ import { postInfo } from '../_actions/post_action';
 
 function ProjectDetail({ match }) {
   const dispatch = useDispatch();
-  const [post, setPost] = useState({
-    title: '',
-    info: '',
-    type: '',
-    tech: '',
-    git: '',
-    site: '',
-    due: '',
-    role: '',
-    member: 0,
-    desc: '',
-    markdown: '',
-    lock: false,
-  });
+  const [post, setPost] = useState();
 
   useEffect(() => {
     dispatch(postInfo(match.params.id)).then((res) => {
-      console.log(res.payload.post);
+      console.log('postinfo', res.payload.post);
       setPost(res.payload.post);
     });
   }, [dispatch, match.params.id]);
