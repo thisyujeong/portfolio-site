@@ -56,7 +56,7 @@ function ProjectContents({ post }) {
 
       <div className="detail">
         <div className="label">Detail</div>
-        <MarkdownRenderer markdown={post.markdown} />
+        <MarkdownRenderer markdown={post.markdown} html={post.html} />
       </div>
     </ContentsContainer>
   );

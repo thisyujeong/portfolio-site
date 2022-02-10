@@ -9,18 +9,30 @@ export const MarkdownContainer = styled.div`
   h2,
   h3,
   h4,
-  h5 {
+  h5,
+  p {
     color: ${(props) => props.theme.textColor};
   }
 
   p code {
-    background-color: #ffffff2e;
+    background-color: #f4f7f8;
     border-radius: 2px;
-    padding: 0 6px;
-    color: #35ff98d9;
+    padding: 2px 6px;
+    font-size: 16px;
+    font-family: monospace;
+    margin: 0 4px;
   }
-`;
 
-export const InlineCode = styled.span`
-  background-color: #8d909b;
+  pre {
+    background-color: #f4f7f8;
+    padding: 16px;
+    border-radius: 4px;
+    margin: 24px 0;
+    font-size: 16px;
+
+    code {
+      color: ${(props) => props.theme.bgColor};
+      text-shadow: unset;
+    }
+  }
 `;

@@ -25,7 +25,7 @@ export const ProjectItemContainer = styled.li`
 
   .type {
     min-width: 120px;
-    color: #4eff25;
+    color: #35ff98d9;
     font-family: 'Lato';
     font-size: 24px;
     font-weight: bold;

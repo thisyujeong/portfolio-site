@@ -29,7 +29,7 @@ export const ContentsContainer = styled.div`
     .label {
       font-size: 18px;
       display: inline-block;
-      color: #4eff25;
+      color: #35ff98d9;
       font-weight: 900;
       width: 120px;
     }
@@ -93,7 +93,7 @@ export const ContentsContainer = styled.div`
     .label {
       position: relative;
       font-size: 24px;
-      color: #4eff25;
+      color: #35ff98d9;
       font-weight: 900;
       &:after {
         position: absolute;

@@ -22,6 +22,7 @@ const postSchema = mongoose.Schema({
   role: String,
   desc: String,
   markdown: String,
+  html: String,
   member: {
     type: Number,
     default: 0,

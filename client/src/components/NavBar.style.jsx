@@ -26,7 +26,7 @@ export const NavBarContainer = styled.div`
         font-family: 'Lato';
         font-size: 20px;
         font-weight: 900;
-        color: #4eff25;
+        color: #35ff98d9;
 
         div {
           margin-top: 4px;

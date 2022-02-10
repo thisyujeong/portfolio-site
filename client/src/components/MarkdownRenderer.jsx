@@ -1,13 +1,23 @@
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
 import { MarkdownContainer } from './MarkdownRenderer.style';
 
-function MarkdownRenderer({ markdown }) {
+import Prism from 'prismjs';
+// 여기 css를 수정해서 코드 하이라이팅 커스텀 가능
+import 'prismjs/themes/prism.css';
+
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Viewer } from '@toast-ui/react-editor';
+
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+
+export default function MarkdownRenderer({ markdown, html }) {
   return (
     <MarkdownContainer>
-      <ReactMarkdown>{markdown}</ReactMarkdown>
+      <Viewer
+        plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+        initialValue={markdown}
+      />
     </MarkdownContainer>
   );
 }
-
-export default MarkdownRenderer;

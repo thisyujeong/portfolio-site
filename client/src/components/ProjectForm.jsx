@@ -33,6 +33,7 @@ function ProjectForm({ action, param }) {
     member: 1,
     desc: '',
     markdown: '',
+    html: '',
     lock: false,
   });
 
@@ -68,6 +69,7 @@ function ProjectForm({ action, param }) {
           desc: _post.desc,
           member: _post.member,
           markdown: _post.markdown,
+          html: _post.editorHtml,
           lock: _post.lock,
           heroName: _post.heroName,
           thumbName: _post.heroName,
@@ -100,6 +102,7 @@ function ProjectForm({ action, param }) {
         desc: data.desc,
         member: data.member,
         markdown: markdown,
+        html: editorHtml,
         lock: check,
       };
 
@@ -147,6 +150,7 @@ function ProjectForm({ action, param }) {
         desc: data.desc,
         member: data.member,
         markdown: markdown,
+        html: editorHtml,
         lock: check,
       };
 
