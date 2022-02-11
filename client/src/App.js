@@ -13,6 +13,7 @@ import { theme } from './theme/theme';
 import ProjectWrite from './pages/ProjectWrite';
 import ProjectEdit from './pages/ProjectEdit';
 import ProjectDetail from './pages/ProjectDetail';
+import About from './pages/About';
 
 function App(props) {
   return (
@@ -25,6 +26,7 @@ function App(props) {
             <Switch>
               <Route exact path="/" component={Auth(LandingPage, null)}></Route>
               <Route exact path="/login" component={Auth(Login, false)}></Route>
+              <Route exact path="/about" component={Auth(About, null)}></Route>
               <Route
                 exact
                 path="/projects/:id"

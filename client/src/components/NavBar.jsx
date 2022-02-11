@@ -68,7 +68,7 @@ function NavBar(props) {
         </div>
         <div className="nav-right">
           <Link to="/about" className="about">
-            ABOUT
+            ABOUT ME
           </Link>
           <AuthOption />
           <ThemeToggle className="theme" />
