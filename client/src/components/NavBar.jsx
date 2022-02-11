@@ -57,7 +57,7 @@ function NavBar(props) {
       <header>
         <h1>
           <Link to="/">
-            THISYUJEONG
+            thisyujeong
             <div>© yujeong lee</div>
           </Link>
         </h1>

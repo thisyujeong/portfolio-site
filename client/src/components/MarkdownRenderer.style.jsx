@@ -24,15 +24,40 @@ export const MarkdownContainer = styled.div`
   }
 
   pre {
-    background-color: #f4f7f8;
-    padding: 16px;
-    border-radius: 4px;
-    margin: 24px 0;
+    code {
+    }
+  }
+  .toastui-editor-contents {
     font-size: 16px;
 
-    code {
-      color: ${(props) => props.theme.bgColor};
-      text-shadow: unset;
+    * {
+      line-height: 1.57;
     }
+
+    h1,
+    h2 {
+      border-color: ${(props) => props.theme.borderColor};
+    }
+
+    pre {
+      background-color: #f4f7f8;
+      padding: 16px;
+      border-radius: 4px;
+      margin: 24px 0;
+      font-size: 16px;
+      code {
+        color: #171717;
+        text-shadow: unset;
+      }
+    }
+
+    code {
+      color: #687593;
+      background-color: #f4f7f8;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 24px 0;
   }
 `;

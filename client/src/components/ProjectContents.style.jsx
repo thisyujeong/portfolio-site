@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const ContentsContainer = styled.div`
+  position: relative;
   .back {
     width: 40px;
     height: 40px;
@@ -27,11 +28,13 @@ export const ContentsContainer = styled.div`
     font-size: 18px;
 
     .label {
-      font-size: 18px;
-      display: inline-block;
-      color: #35ff98d9;
-      font-weight: 900;
       width: 120px;
+      display: inline-block;
+      color: #ff1460f5;
+      font-size: 18px;
+      font-family: Courier;
+      font-weight: 900;
+      text-transform: uppercase;
     }
 
     .techs {
@@ -93,16 +96,71 @@ export const ContentsContainer = styled.div`
     .label {
       position: relative;
       font-size: 24px;
-      color: #35ff98d9;
+      color: #ff1460f5;
+      font-family: Courier;
       font-weight: 900;
       &:after {
         position: absolute;
         top: 50%;
         right: 0;
         height: 1px;
-        width: calc(100% - 75px);
+        width: calc(100% - 100px);
         background: ${(props) => props.theme.borderColor};
         content: '';
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    padding-top: 45px;
+    .back {
+      position: absolute;
+      top: -26px;
+      left: 0;
+    }
+    .title {
+      margin-bottom: 40px;
+    }
+
+    .info-box {
+      .label {
+        width: 90px;
+      }
+      align-items: flex-start;
+      margin-bottom: 24px;
+      font-size: 16px;
+      line-height: 1.5;
+      .techs {
+        margin: 0 -4px;
+        flex-wrap: wrap;
+        li {
+          margin: 0 4px 10px;
+          height: 25px;
+          line-height: 1;
+        }
+        li + li {
+          margin: 0 4px;
+        }
+      }
+
+      .thumbnail {
+        margin: 24px -24px;
+        width: 100vw;
+        height: 200px;
+      }
+
+      &.column {
+        flex-direction: column;
+        .col {
+          width: 100%;
+          padding-right: 0;
+        }
+        .col + .col {
+          margin-top: 24px;
+        }
+        .label {
+          margin-bottom: 12px;
+        }
       }
     }
   }

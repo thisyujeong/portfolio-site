@@ -25,7 +25,7 @@ export const ProjectItemContainer = styled.li`
 
   .type {
     min-width: 120px;
-    color: #35ff98d9;
+    color: #ff1460f5;
     font-family: 'Lato';
     font-size: 24px;
     font-weight: bold;
@@ -181,13 +181,13 @@ export const ProjectItemContainer = styled.li`
     }
     .type {
       position: absolute;
-      z-index: 1;
-      background-color: ${(props) => props.theme.bgColor};
-      line-height: 24px;
-      min-width: fit-content;
+      height: 28px;
       padding: 0 12px;
-      height: 24px;
-      border-bottom-right-radius: 10px;
+      min-width: fit-content;
+      line-height: 28px;
+      font-size: 16px;
+      background-color: ${(props) => props.theme.bgColor};
+      z-index: 1;
     }
     .post-info {
       padding: 24px 24px 0 0;
