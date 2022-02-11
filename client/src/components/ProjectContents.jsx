@@ -3,12 +3,18 @@ import MarkdownRenderer from './MarkdownRenderer';
 import { ContentsContainer } from './ProjectContents.style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { useHistory } from 'react-router-dom';
 
 function ProjectContents({ post }) {
+  const history = useHistory();
+  const onClickBack = (e) => {
+    e.preventDefault();
+    history.push('/');
+  };
   if (!post) return null;
   return (
     <ContentsContainer>
-      <button className="back">
+      <button className="back" onClick={onClickBack}>
         <FontAwesomeIcon icon={faArrowLeft} />
       </button>
       <h3 className="title">{post.title}</h3>

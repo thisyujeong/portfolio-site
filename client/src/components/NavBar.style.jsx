@@ -57,7 +57,17 @@ export const NavBarContainer = styled.div`
 
     .nav-right {
       display: flex;
+      align-items: center;
     }
+
+    .about {
+      font-weight: bold;
+      &:hover {
+        text-decoration: underline;
+        color: unset;
+      }
+    }
+
     .auth {
       display: flex;
       height: 100%;

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ProjectItemContainer } from './ProjectItem.style';
 
 function ProjectItem({ post, idx }) {
+  if (!post) return null;
   return (
     <ProjectItemContainer key={idx}>
       <div className="type">{post.type}</div>

@@ -36,6 +36,7 @@ export const ProjectItemContainer = styled.li`
     padding-bottom: 60%;
     border: 1px solid ${(props) => props.theme.borderColor};
     overflow: hidden;
+    
     img {
       position: absolute;
       top: 0;
@@ -50,12 +51,13 @@ export const ProjectItemContainer = styled.li`
       top: 50%;
       left: 50%;
       color: #fff;
+      font-size: 20px;
       font-weight: bold;
-      font-size: 3vw;
       opacity: 0;
-      transform: translate(-50%, -50%) rotate(-20deg);
+      transform: translate(-50%, -50%);
       transition: all 0.3s;
-      content: 'VIEW';
+      content: 'view the project';
+      text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
     }
 
     &:hover {
@@ -64,7 +66,7 @@ export const ProjectItemContainer = styled.li`
         opacity: 0.7;
       }
       &:after {
-        opacity: 0.7;
+        opacity: 1;
       }
     }
   }

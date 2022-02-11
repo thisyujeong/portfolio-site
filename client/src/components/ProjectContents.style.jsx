@@ -5,10 +5,11 @@ export const ContentsContainer = styled.div`
   .back {
     width: 40px;
     height: 40px;
-    color: ${(props) => props.theme.backColor};
-    background-color: ${(props) => props.theme.backBgColor};
-    border: 0;
     margin-bottom: 50px;
+    color: ${(props) => props.theme.backColor};
+    border: 0;
+    background-color: ${(props) => props.theme.backBgColor};
+    cursor: pointer;
 
     &:hover {
       color: ${(props) => props.theme.backHoverColor};

@@ -4,7 +4,7 @@ import { ThemeProvider as StyledProvider } from 'styled-components';
 const ThemeContext = createContext({});
 
 const ThemeProvider = ({ children }) => {
-  const [ThemeMode, setThemeMode] = useState('dark');
+  const [ThemeMode, setThemeMode] = useState('light');
   const themeObject = ThemeMode === 'light' ? lightTheme : darkTheme;
 
   return (

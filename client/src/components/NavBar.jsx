@@ -67,6 +67,9 @@ function NavBar(props) {
           <span>continue</span>
         </div>
         <div className="nav-right">
+          <Link to="/about" className="about">
+            ABOUT
+          </Link>
           <AuthOption />
           <ThemeToggle className="theme" />
         </div>
