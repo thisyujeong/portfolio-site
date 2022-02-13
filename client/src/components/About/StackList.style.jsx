@@ -7,7 +7,7 @@ export const StackListContainer = styled.div`
   }
 
   .stack-box {
-    padding: 24px 50px 24px 0;
+    padding: 24px 0;
     display: flex;
     border-top: 1px solid ${(props) => props.theme.borderColor};
     margin-top: 12px;
@@ -23,6 +23,7 @@ export const StackListContainer = styled.div`
     li {
       display: flex;
       align-items: flex-start;
+      padding-right: 50px;
       margin-bottom: 24px;
       .stack {
         width: 40%;

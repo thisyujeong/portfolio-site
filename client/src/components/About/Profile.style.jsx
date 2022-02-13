@@ -4,7 +4,7 @@ export const ProfileContainer = styled.div`
   position: relative;
   display: flex;
   align-items: flex-start;
-  margin-bottom: 80px;
+  margin-bottom: 160px;
   .title {
     font-size: 60px;
     font-weight: bold;
