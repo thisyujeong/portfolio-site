@@ -70,9 +70,9 @@ function LandingPage(props) {
         works<span>({posts.length})</span>
       </h2>
       <ul className="projects">
-        {posts.map((post, idx) => (
-          <ProjectItem post={post} key={idx} />
-        ))}
+        {posts
+          .reverse()
+          .map((post, idx) => !post.lock && <ProjectItem post={post} key={idx} />)}
       </ul>
     </LandingContainer>
   );

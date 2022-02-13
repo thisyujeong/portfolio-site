@@ -58,7 +58,7 @@ export const ProfileContainer = styled.div`
           text-align: center;
           border-radius: 4px;
           &:hover {
-            background-color: #ff1460f5;
+            background-color: #096dd9;
           }
         }
         li + li {

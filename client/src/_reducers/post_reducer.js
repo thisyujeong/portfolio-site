@@ -12,7 +12,6 @@ const initialState = {
   member: 0,
   desc: '',
   markdown: '',
-  lock: false,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export

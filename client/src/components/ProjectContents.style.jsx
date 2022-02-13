@@ -31,7 +31,7 @@ export const ContentsContainer = styled.div`
     .label {
       width: 120px;
       display: inline-block;
-      color: #ff1460f5;
+      color: #096dd9;
       font-size: 18px;
       font-family: Courier;
       font-weight: 900;
@@ -93,11 +93,11 @@ export const ContentsContainer = styled.div`
   }
 
   .detail {
-    margin-top: 50px;
+    margin-top: 100px;
     .label {
       position: relative;
       font-size: 24px;
-      color: #ff1460f5;
+      color: #096dd9;
       font-family: Courier;
       font-weight: 900;
       &:after {
@@ -165,4 +165,11 @@ export const ContentsContainer = styled.div`
       }
     }
   }
+`;
+
+export const ContentsFooterContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0 18px;
 `;

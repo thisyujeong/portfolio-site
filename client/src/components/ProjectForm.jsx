@@ -21,21 +21,7 @@ function ProjectForm({ action, param }) {
   const [editorHtml, setEditorHtml] = useState('');
   const [markdown, setMarkdown] = useState('');
 
-  const [data, setData] = useState({
-    title: '',
-    info: '',
-    type: 'personal',
-    tech: '',
-    git: '',
-    site: '',
-    due: '',
-    role: '',
-    member: 1,
-    desc: '',
-    markdown: '',
-    html: '',
-    lock: false,
-  });
+  const [data, setData] = useState();
 
   /* form onChange & toast ui */
   const onChangeCheck = (e) => {
@@ -219,6 +205,8 @@ function ProjectForm({ action, param }) {
     );
   };
 
+  if (!data) return null;
+
   return (
     <>
       <ProjectFormContainer>
@@ -338,7 +326,7 @@ function ProjectForm({ action, param }) {
               type="checkbox"
               name="lock"
               onChange={onChangeCheck}
-              defaultChecked={`${data.lock}`}
+              defaultChecked={action === 'write' ? false : data.lock}
             />
             <span>비공개</span>
           </label>

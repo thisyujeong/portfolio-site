@@ -16,7 +16,7 @@ function ProjectTable(props) {
   const [visible, setVisible] = useState(false);
   const [targetId, setTargetId] = useState(null);
   const [inputData, setInputData] = useState([
-    { key: 0, number: 0, title: '', info: '', lock: false },
+    { key: 0, number: 0, title: '', info: '' },
   ]);
 
   const columns = [
@@ -85,7 +85,7 @@ function ProjectTable(props) {
         console.log('the posts data is empty...');
       }
     });
-  }, [dispatch, confirm]);
+  }, [dispatch, confirm, visible]);
 
   const onClickEdit = (e) => {
     history.push(`/admin/edit/${e.currentTarget.dataset.number}`);

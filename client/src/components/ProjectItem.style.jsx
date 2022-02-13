@@ -25,7 +25,7 @@ export const ProjectItemContainer = styled.li`
 
   .type {
     min-width: 120px;
-    color: #ff1460f5;
+    color: #096dd9;
     font-family: 'Lato';
     font-size: 24px;
     font-weight: bold;
@@ -46,27 +46,10 @@ export const ProjectItemContainer = styled.li`
       transition: all 0.3s;
     }
 
-    &:after {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      color: #fff;
-      font-size: 20px;
-      font-weight: bold;
-      opacity: 0;
-      transform: translate(-50%, -50%);
-      transition: all 0.3s;
-      content: 'view the project';
-      text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
-    }
-
     &:hover {
       img {
         transform: scale(1.1);
         opacity: 0.7;
-      }
-      &:after {
-        opacity: 1;
       }
     }
   }
@@ -100,9 +83,10 @@ export const ProjectItemContainer = styled.li`
         font-weight: bold;
         background-color: ${(props) => props.theme.badgeBg};
         color: ${(props) => props.theme.badgeColor};
+        white-space: nowrap;
       }
       li + li {
-        margin-left: 24px;
+        margin-left: 12px;
       }
     }
     .title {

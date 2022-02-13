@@ -68,7 +68,7 @@ export const TableContainer = styled.div`
 
     &:hover,
     &:focus {
-      background-color: #ff1460f5;
+      background-color: #096dd9;
       color: ${(props) => props.theme.bgColor};
       font-weight: bold;
     }

@@ -36,7 +36,7 @@ export const MarkdownContainer = styled.div`
 
     h1,
     h2 {
-      border-color: ${(props) => props.theme.borderColor};
+      border: 0;
     }
 
     pre {
@@ -54,6 +54,22 @@ export const MarkdownContainer = styled.div`
     code {
       color: #687593;
       background-color: #f4f7f8;
+    }
+
+    p {
+      font-size: 18px;
+      a {
+        color: #abc5e1;
+        font-size: 16px;
+      }
+    }
+    p img {
+      border: 1px solid ${(props) => props.theme.borderColor};
+    }
+    ul > li {
+      &:before {
+        margin-top: 11px;
+      }
     }
   }
 
