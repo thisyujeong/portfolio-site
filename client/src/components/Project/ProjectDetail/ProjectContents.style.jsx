@@ -173,6 +173,25 @@ export const ContentsContainer = styled.div`
 export const ContentsFooterContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 50px 18px;
+  border-top: 1px solid ${(props) => props.theme.borderColor};
+  > div {
+    width: 50%;
+  }
 
-  padding: 0 18px;
+  > div + div {
+    margin-left: 30px;
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    padding: 40px 0;
+    > div {
+      width: 100%;
+    }
+    > div + div {
+      margin: 0;
+      margin-top: 24px;
+    }
+  }
 `;

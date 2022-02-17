@@ -26,7 +26,7 @@ function ProjectContents({ post }) {
   useEffect(() => {
     post &&
       dispatch(postList()).then((res) => {
-        const _data = res.payload.data;
+        const _data = res.payload.data.filter((v) => v.lock === false);
         const idx = _data.findIndex((i) => i.id === post.id);
         setPosts(_data);
         setCurrent(idx);

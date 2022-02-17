@@ -6,6 +6,7 @@ function DirectionBtn({ type, post }) {
   const history = useHistory();
 
   const onClick = (e) => {
+    if (post === null) return;
     history.push(`/projects/${post.id}`);
   };
 
@@ -13,23 +14,17 @@ function DirectionBtn({ type, post }) {
 
   console.log(type, post);
   const DirBtn = () => {
-    return type === 'prev' ? (
-      post == null ? (
-        <div className="dir-btn prev" onClick={onClick}>
-          <div className="dir-title"> 첫번쩨 프로젝트입니다.</div>
+    return post == null ? (
+      <div className={`dir-btn not-allow ${type}`} onClick={onClick}>
+        <div className="dir-title">
+          {' '}
+          {type === 'prev' ? '첫번째' : '마지막'} 프로젝트입니다.
         </div>
-      ) : (
-        <div className="dir-btn prev" onClick={onClick}>
-          <div className="dir-title">{post.title}</div>
-        </div>
-      )
-    ) : post == null ? (
-      <div className="dir-btn next" onClick={onClick}>
-        <div className="dir-title">마지막 프로젝트입니다.</div>
       </div>
     ) : (
-      <div className="dir-btn next" onClick={onClick}>
+      <div className={`dir-btn ${type}`} onClick={onClick}>
         <div className="dir-title">{post.title}</div>
+        <div className="desc">{post.info}</div>
       </div>
     );
   };

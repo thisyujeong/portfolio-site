@@ -4,6 +4,7 @@ export const lightTheme = {
   bgColor: '#fff',
   textColor: '#171717',
   subTextColor: 'rgba(0, 0, 0, 0.4)',
+  disabledTextColor: 'rgba(0, 0, 0, 0.2)',
   borderColor: 'rgba(0, 0, 0, 0.1)',
 
   // nav icon
@@ -41,6 +42,10 @@ export const lightTheme = {
   backColor: 'rgba(0, 0, 0, 0.3)',
   backBgColor: 'rgba(0, 0, 0, 0.08)',
   backHoverColor: '#000',
+
+  // direction btn
+  directionColor: '#f9f9fc',
+  directionHoverColor: '#f0f0f5',
 };
 
 export const darkTheme = {
@@ -49,6 +54,7 @@ export const darkTheme = {
   bgColor: '#171717',
   textColor: '#fff',
   subTextColor: 'rgba(255, 255, 255, 0.4)',
+  disabledTextColor: 'rgba(255, 255, 255, 0.2)',
   borderColor: 'rgba(255, 255, 255, 0.1)',
 
   // nav icon
@@ -87,6 +93,10 @@ export const darkTheme = {
   backColor: 'rgba(255, 255, 255, 0.6)',
   backBgColor: 'rgba(255, 255, 255, 0.1)',
   backHoverColor: '#fff',
+
+  // direction btn
+  directionColor: '#242529',
+  directionHoverColor: '#212327',
 };
 
 export const theme = {

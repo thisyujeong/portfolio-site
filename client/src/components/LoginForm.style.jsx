@@ -58,7 +58,7 @@ export const LoginFormContainer = styled.div`
     border: 0;
     border-radius: 4px;
     background-color: #096dd9;
-    color: #171717;
+    color: #fff;
     font-size: 16px;
     font-family: 'Lato';
     font-weight: 900;
@@ -66,8 +66,8 @@ export const LoginFormContainer = styled.div`
     transform: 0.3s;
     cursor: pointer;
     &:hover {
-      color: #363636;
-      background-color: #49d38e;
+      color: #ffffffe2;
+      background-color: #207adb;
     }
   }
 `;
