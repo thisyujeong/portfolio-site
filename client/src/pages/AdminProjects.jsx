@@ -1,6 +1,6 @@
 import React from 'react';
 import AdminHeader from '../components/AdminHeader';
-import ProjectTable from '../components/ProjectTable';
+import ProjectTable from '../components/Project/ProjectTable';
 
 function AdminProjects(props) {
   return (

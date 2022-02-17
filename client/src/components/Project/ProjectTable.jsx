@@ -4,8 +4,8 @@ import { Table, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { postList } from '../_actions/post_action';
-import MsgModal from './MsgModal';
+import { postList } from '../../_actions/post_action';
+import MsgModal from '../MsgModal';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 

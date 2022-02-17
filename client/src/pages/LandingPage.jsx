@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { postList } from '../_actions/post_action';
-import ProjectItem from '../components/ProjectItem';
+import ProjectItem from '../components/Project/ProjectItem';
 
 const LandingContainer = styled.div`
   padding-bottom: 15vw;
@@ -64,15 +64,18 @@ function LandingPage(props) {
     });
   }, [dispatch]);
 
+  const LazyImage = lazy(() => import('../components/Project/ProjectItem'));
   return (
     <LandingContainer>
       <h2>
         works<span>({posts.length})</span>
       </h2>
       <ul className="projects">
-        {posts
-          .reverse()
-          .map((post, idx) => !post.lock && <ProjectItem post={post} key={idx} />)}
+        <Suspense fallback={<div>...loading</div>}>
+          {posts
+            .reverse()
+            .map((post, idx) => !post.lock && <LazyImage post={post} key={idx} />)}
+        </Suspense>
       </ul>
     </LandingContainer>
   );

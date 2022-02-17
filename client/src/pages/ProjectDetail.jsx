@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import ProjectContents from '../components/ProjectContents';
+import ProjectContents from '../components/Project/ProjectDetail/ProjectContents';
 import { postInfo } from '../_actions/post_action';
 
 function ProjectDetail({ match }) {

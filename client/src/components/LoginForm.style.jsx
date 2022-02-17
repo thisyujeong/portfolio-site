@@ -57,7 +57,7 @@ export const LoginFormContainer = styled.div`
     margin-top: 12px;
     border: 0;
     border-radius: 4px;
-    background-color: #2fce7e;
+    background-color: #096dd9;
     color: #171717;
     font-size: 16px;
     font-family: 'Lato';

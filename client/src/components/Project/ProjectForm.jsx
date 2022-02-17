@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { postEdit, postInfo, postNote } from '../_actions/post_action';
+import { postEdit, postInfo, postNote } from '../../_actions/post_action';
 import { ProjectFormContainer } from './ProjectForm.style';
-import WriteEditor from './WriteEditor';
-import WriteViewer from './WriteViewer';
-import MsgModal from './MsgModal';
+import WriteEditor from '../WriteEditor';
+import WriteViewer from '../WriteViewer';
+import MsgModal from '../MsgModal';
 import axios from 'axios';
 
 function ProjectForm({ action, param }) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import AdminHeader from '../components/AdminHeader.jsx';
-import ProjectForm from '../components/ProjectForm.jsx';
+import ProjectForm from '../components/Project/ProjectForm.jsx';
 
 function ProjectWrite(props) {
   return (

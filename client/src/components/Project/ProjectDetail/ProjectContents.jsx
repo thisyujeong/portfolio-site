@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import MarkdownRenderer from './MarkdownRenderer';
+import MarkdownRenderer from '../../MarkdownRenderer';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ContentsContainer, ContentsFooterContainer } from './ProjectContents.style';
@@ -9,8 +9,8 @@ import {
   faLink,
   faExternalLinkAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import { postList } from '../_actions/post_action';
-import DirectionBtn from './Project/ProjectDetail/DirectionBtn';
+import { postList } from '../../../_actions/post_action';
+import DirectionBtn from './DirectionBtn';
 
 function ProjectContents({ post }) {
   const history = useHistory();
@@ -69,15 +69,15 @@ function ProjectContents({ post }) {
             <div className="inner-box">
               <div className="row">
                 <span className="sub-label">참여 인원</span>
-                {post.member} 명
+                <div>{post.member} 명</div>
               </div>
               <div className="row">
                 <span className="sub-label">제작 기간</span>
-                {post.due}
+                <div>{post.due}</div>
               </div>
               <div className="row">
                 <span className="sub-label">업무 범위</span>
-                {post.role}
+                <div>{post.role}</div>
               </div>
               <div className="row">
                 <span className="sub-label">GitHub</span>
@@ -87,7 +87,12 @@ function ProjectContents({ post }) {
               </div>
               <div className="row">
                 <span className="sub-label">Site Link</span>
-                <a href={post.site} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={post.site}
+                  className="link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FontAwesomeIcon icon={faExternalLinkAlt} />
                 </a>
               </div>

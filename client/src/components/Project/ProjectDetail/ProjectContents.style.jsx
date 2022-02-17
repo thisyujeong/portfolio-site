@@ -24,32 +24,30 @@ export const ContentsContainer = styled.div`
 
   .info-box {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 32px;
     font-size: 18px;
 
     .label {
       width: 120px;
+      min-width: 120px;
       display: inline-block;
       color: #096dd9;
       font-size: 18px;
-      font-family: Courier;
       font-weight: 900;
       text-transform: uppercase;
     }
 
     .techs {
       display: flex;
-
+      flex-wrap: wrap;
       li {
+        margin: 0 10px 10px 0;
         padding: 7px 12px 4px 12px;
+        color: ${(props) => props.theme.bgColor};
         font-size: 14px;
         font-weight: bold;
         background-color: ${(props) => props.theme.textColor};
-        color: ${(props) => props.theme.bgColor};
-      }
-      li + li {
-        margin-left: 24px;
       }
     }
 
@@ -82,12 +80,19 @@ export const ContentsContainer = styled.div`
 
       .row {
         margin-bottom: 12px;
-      }
-      .sub-label {
-        width: 120px;
-        display: inline-block;
-        font-weight: bold;
+        display: flex;
+        align-items: flex-start;
         line-height: 1.75;
+        .sub-label {
+          width: 120px;
+          min-width: 120px;
+          display: block;
+          font-weight: bold;
+        }
+
+        a:hover {
+          color: #096dd9;
+        }
       }
     }
   }
@@ -98,7 +103,6 @@ export const ContentsContainer = styled.div`
       position: relative;
       font-size: 24px;
       color: #096dd9;
-      font-family: Courier;
       font-weight: 900;
       &:after {
         position: absolute;
@@ -124,8 +128,10 @@ export const ContentsContainer = styled.div`
     }
 
     .info-box {
+      flex-direction: column;
       .label {
         width: 90px;
+        margin-bottom: 12px;
       }
       align-items: flex-start;
       margin-bottom: 24px;
@@ -138,9 +144,6 @@ export const ContentsContainer = styled.div`
           margin: 0 4px 10px;
           height: 25px;
           line-height: 1;
-        }
-        li + li {
-          margin: 0 4px;
         }
       }
 

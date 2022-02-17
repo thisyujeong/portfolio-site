@@ -1,6 +1,6 @@
 import React from 'react';
 import AdminHeader from '../components/AdminHeader';
-import ProjectForm from '../components/ProjectForm';
+import ProjectForm from '../components/Project/ProjectForm';
 
 function ProjectEdit({ match }) {
   return (
