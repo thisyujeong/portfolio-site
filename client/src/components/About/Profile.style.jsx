@@ -60,6 +60,7 @@ export const ProfileContainer = styled.div`
           border-radius: 4px;
           &:hover {
             background-color: #096dd9;
+            color: ${(props) => props.theme.textColor};
           }
         }
         li + li {
