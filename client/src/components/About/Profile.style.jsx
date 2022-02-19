@@ -47,6 +47,7 @@ export const ProfileContainer = styled.div`
       }
       .links {
         width: 50%;
+        padding-left: 20px;
         li a {
           display: inline-block;
           width: 250px;
@@ -63,6 +64,26 @@ export const ProfileContainer = styled.div`
         }
         li + li {
           margin-top: 12px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 100px;
+    flex-direction: column;
+    .info {
+      margin: 0;
+      margin-top: 30px;
+      width: 100%;
+      .introduce {
+        padding-right: 0;
+      }
+      .etc {
+        flex-direction: column;
+        .contact,
+        .link {
+          width: 100%;
         }
       }
     }

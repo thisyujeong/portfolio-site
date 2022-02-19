@@ -10,11 +10,19 @@ const AboutContainer = styled.div`
     font-weight: bold;
     margin-bottom: 50px;
   }
+  h4 {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 0;
+  }
 `;
 function About(props) {
   return (
     <AboutContainer>
       <h3>About Me</h3>
+      <h4>I Experience It, And If I Like It, I Continue</h4>
       <Profile />
       <StackList />
     </AboutContainer>

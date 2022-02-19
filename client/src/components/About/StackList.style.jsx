@@ -49,4 +49,27 @@ export const StackListContainer = styled.div`
       }
     }
   }
+  @media screen and (max-width: 768px) {
+    .stack-box {
+      flex-direction: column;
+
+      ul {
+        width: 100%;
+        margin-left: 0;
+        li {
+          padding: 0;
+          margin-top: 30px;
+          flex-direction: column;
+
+          .stack {
+            margin-bottom: 12px;
+            width: 100%;
+          }
+          .desc {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 `;
