@@ -13,6 +13,7 @@ const AboutContainer = styled.div`
   h4 {
     font-size: 24px;
     margin-bottom: 24px;
+    color: ${(props) => props.theme.textColor};
   }
   @media screen and (max-width: 768px) {
     padding: 0;
