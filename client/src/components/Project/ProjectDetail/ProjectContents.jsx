@@ -43,72 +43,77 @@ function ProjectContents({ post }) {
     <>
       <ContentsContainer>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <button className="back" onClick={onClickBack}>
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </button>
-          <h3 className="title">{post.title}</h3>
-          <div className="info-box">
-            <span className="label">Info.</span>
-            {post.info}
+          <div className="hero-box">
+            <HeroImg hero={post.hero} />
           </div>
-          <div className="info-box">
-            <span className="label">Tech.</span>
-            <ul className="techs">
-              {post.tech.map((tech, idx) => (
-                <li key={idx}>{tech}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="info-box">
+          <div className="content">
+            <button className="back" onClick={onClickBack}>
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </button>
+            <h3 className="title">{post.title}</h3>
+            <div className="info-box">
+              <span className="label">Info.</span>
+              {post.info}
+            </div>
+            <div className="info-box">
+              <span className="label">Tech.</span>
+              <ul className="techs">
+                {post.tech.map((tech, idx) => (
+                  <li key={idx}>{tech}</li>
+                ))}
+              </ul>
+            </div>
+            {/* <div className="info-box">
             <div className="thumbnail">
               <HeroImg hero={post.hero} />
             </div>
-          </div>
+          </div> */}
 
-          <div className="info-box column">
-            <div className="col">
-              <div className="label">What's this project?</div>
-              <p>{post.desc}</p>
-            </div>
-            <div className="col">
-              <div className="label">Summary</div>
-              <div className="inner-box">
-                <div className="row">
-                  <span className="sub-label">참여 인원</span>
-                  <div>{post.member} 명</div>
-                </div>
-                <div className="row">
-                  <span className="sub-label">제작 기간</span>
-                  <div>{post.due}</div>
-                </div>
-                <div className="row">
-                  <span className="sub-label">업무 범위</span>
-                  <div>{post.role}</div>
-                </div>
-                <div className="row">
-                  <span className="sub-label">GitHub</span>
-                  <a href={post.git} target="_blank" rel="noopener noreferrer">
-                    <FontAwesomeIcon icon={faLink} />
-                  </a>
-                </div>
-                <div className="row">
-                  <span className="sub-label">Site Link</span>
-                  <a
-                    href={post.site}
-                    className="link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FontAwesomeIcon icon={faExternalLinkAlt} />
-                  </a>
+            <div className="info-box column">
+              <div className="col">
+                <div className="label">What's this project?</div>
+                <p>{post.desc}</p>
+              </div>
+              <div className="col">
+                <div className="label">Summary</div>
+                <div className="inner-box">
+                  <div className="row">
+                    <span className="sub-label">참여 인원</span>
+                    <div>{post.member} 명</div>
+                  </div>
+                  <div className="row">
+                    <span className="sub-label">제작 기간</span>
+                    <div>{post.due}</div>
+                  </div>
+                  <div className="row">
+                    <span className="sub-label">업무 범위</span>
+                    <div>{post.role}</div>
+                  </div>
+                  <div className="row">
+                    <span className="sub-label">GitHub</span>
+                    <a href={post.git} target="_blank" rel="noopener noreferrer">
+                      <FontAwesomeIcon icon={faLink} />
+                    </a>
+                  </div>
+                  <div className="row">
+                    <span className="sub-label">Site Link</span>
+                    <a
+                      href={post.site}
+                      className="link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FontAwesomeIcon icon={faExternalLinkAlt} />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="detail">
-            <div className="label">Detail</div>
-            <MarkdownRenderer markdown={post.markdown} html={post.html} />
+            <div className="detail">
+              <div className="label">Detail</div>
+              <MarkdownRenderer markdown={post.markdown} html={post.html} />
+            </div>
           </div>
         </motion.div>
       </ContentsContainer>

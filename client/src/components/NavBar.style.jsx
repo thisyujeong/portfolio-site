@@ -97,8 +97,6 @@ export const NavBarContainer = styled.div`
       }
     }
   }
-  @media screen and (max-width: 1024px) {
-  }
   @media screen and (max-width: 768px) {
     .keyword {
       display: none;
@@ -107,6 +105,8 @@ export const NavBarContainer = styled.div`
       position: absolute;
       top: 94px;
       right: 24px;
+      background-color: ${(props) => props.theme.bgColor};
+      box-shadow: ${(props) => props.theme.postInputFocusShadow};
     }
   }
 `;

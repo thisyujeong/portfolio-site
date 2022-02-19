@@ -22,6 +22,22 @@ export const ContentsContainer = styled.div`
     margin-bottom: 70px;
   }
 
+  .hero-box {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    left: calc((100vw - 100%) / 2 * -1);
+    height: 30vw;
+    overflow: hidden;
+    background-color: red;
+  }
+
+  .content {
+    padding-top: 30vw;
+  }
+
   .info-box {
     display: flex;
     align-items: flex-start;
@@ -106,11 +122,12 @@ export const ContentsContainer = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    padding-top: 45px;
     .back {
       position: absolute;
       top: -26px;
       left: 0;
+      background-color: ${(props) => props.theme.bgColor};
+      box-shadow: ${(props) => props.theme.postInputFocusShadow};
     }
     .title {
       margin-bottom: 40px;
@@ -148,6 +165,18 @@ export const ContentsContainer = styled.div`
         .label {
           margin-bottom: 12px;
         }
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .content {
+      padding-top: 30vh;
+    }
+    .hero-box {
+      height: 30vh;
+      .thumbnail {
+        height: 100%;
       }
     }
   }
