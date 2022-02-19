@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { postList } from '../_actions/post_action';
 import ProjectItem from '../components/Project/ProjectItem';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const LandingContainer = styled.div`
   padding-bottom: 15vw;
@@ -56,9 +57,11 @@ const LandingContainer = styled.div`
 function LandingPage(props) {
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     dispatch(postList()).then((response) => {
+      setLoading(false);
       console.log('landing', response.payload.data);
       setPosts(response.payload.data);
     });
@@ -68,10 +71,11 @@ function LandingPage(props) {
   return (
     <LandingContainer>
       <h2>
-        works<span>({posts.length})</span>
+        works<span>&#40;{posts.length}&#41;</span>
       </h2>
+      {loading && <LoadingSpinner />}
       <ul className="projects">
-        <Suspense fallback={<div>...loading</div>}>
+        <Suspense fallback={<LoadingSpinner />}>
           {posts
             .reverse()
             .map((post, idx) => !post.lock && <LazyImage post={post} key={idx} />)}

@@ -8,6 +8,7 @@ import { postList } from '../../_actions/post_action';
 import MsgModal from '../MsgModal';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
+import LoadingSpinner from '../LoadingSpinner';
 
 function ProjectTable(props) {
   const dispatch = useDispatch();
@@ -15,9 +16,8 @@ function ProjectTable(props) {
   const [confirm, setConfirm] = useState(false);
   const [visible, setVisible] = useState(false);
   const [targetId, setTargetId] = useState(null);
-  const [inputData, setInputData] = useState([
-    { key: 0, number: 0, title: '', info: '' },
-  ]);
+  const [loading, setLoading] = useState(true);
+  const [inputData, setInputData] = useState();
 
   const columns = [
     {
@@ -71,6 +71,7 @@ function ProjectTable(props) {
   // 프로젝트 리스트 조회
   useEffect(() => {
     dispatch(postList()).then((response) => {
+      setLoading(false);
       if (response.payload) {
         const _inputData = response.payload.data.map((item) => ({
           key: item.id,
@@ -130,6 +131,7 @@ function ProjectTable(props) {
         <Link to="/admin/write">
           <button className="add">프로젝트 생성</button>
         </Link>
+        {loading && <LoadingSpinner />}
         <Table
           columns={columns}
           dataSource={inputData}

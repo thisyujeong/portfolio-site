@@ -6,6 +6,7 @@ export const lightTheme = {
   subTextColor: 'rgba(0, 0, 0, 0.4)',
   disabledTextColor: 'rgba(0, 0, 0, 0.2)',
   borderColor: 'rgba(0, 0, 0, 0.1)',
+  loadingBg: 'rgba(255, 255, 255, 0.4)',
 
   // nav icon
   iconBgColor: 'rgba(0, 0, 0, 0.03)',
@@ -56,6 +57,7 @@ export const darkTheme = {
   subTextColor: 'rgba(255, 255, 255, 0.4)',
   disabledTextColor: 'rgba(255, 255, 255, 0.2)',
   borderColor: 'rgba(255, 255, 255, 0.1)',
+  loadingBg: 'rgba(0, 0, 0, 0.4)',
 
   // nav icon
   iconBgColor: 'rgba(255, 255, 255, 0.1)',
