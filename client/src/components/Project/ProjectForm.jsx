@@ -37,7 +37,7 @@ function ProjectForm({ action, param }) {
 
   /* form onChange & toast ui */
   const onChangeCheck = (e) => {
-    setCheck(e.target.checked);
+    setCheck(!check);
   };
   const onChangeInput = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -76,7 +76,7 @@ function ProjectForm({ action, param }) {
           thumbName: _post.heroName,
         });
         setMarkdown(_post.markdown);
-        console.log(_post.lock);
+        setCheck(_post.lock);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -356,7 +356,7 @@ function ProjectForm({ action, param }) {
               type="checkbox"
               name="lock"
               onChange={onChangeCheck}
-              defaultChecked={data.lock}
+              checked={check}
               onKeyPress={onKeyPress}
             />
             <span>비공개</span>

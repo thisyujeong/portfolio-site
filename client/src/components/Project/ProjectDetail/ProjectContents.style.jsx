@@ -31,7 +31,6 @@ export const ContentsContainer = styled.div`
     left: calc((100vw - 100%) / 2 * -1);
     height: 30vw;
     overflow: hidden;
-    background-color: red;
   }
 
   .content {
