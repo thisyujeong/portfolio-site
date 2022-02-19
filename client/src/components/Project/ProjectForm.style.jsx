@@ -31,6 +31,7 @@ export const ProjectFormContainer = styled.div`
         border-radius: 2px;
         background-color: ${(props) => props.theme.postInputBg};
         border: 1px solid ${(props) => props.theme.postInputBorder};
+        line-height: 1.5;
 
         &:hover {
           border-color: ${(props) => props.theme.postInputBorderHover};

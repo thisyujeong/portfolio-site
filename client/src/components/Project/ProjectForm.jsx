@@ -7,7 +7,6 @@ import WriteEditor from '../WriteEditor';
 import WriteViewer from '../WriteViewer';
 import MsgModal from '../MsgModal';
 import axios from 'axios';
-import LoadingSpinner from '../LoadingSpinner';
 
 function ProjectForm({ action, param }) {
   const dispatch = useDispatch();
@@ -30,6 +29,9 @@ function ProjectForm({ action, param }) {
   };
   const onChangeInput = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') e.preventDefault();
   };
   const getEditorHtml = (html) => {
     setEditorHtml(html);
@@ -219,6 +221,7 @@ function ProjectForm({ action, param }) {
               type="text"
               name="title"
               onChange={onChangeInput}
+              onKeyPress={onKeyPress}
               required
             />
           </label>
@@ -226,7 +229,13 @@ function ProjectForm({ action, param }) {
           <label className="half">
             <span className="label">프로젝트 타입</span>
             <div className="select">
-              <select name="type" id="type" onChange={onChangeInput} value={data.type}>
+              <select
+                name="type"
+                id="type"
+                onChange={onChangeInput}
+                value={data.type}
+                onKeyPress={onKeyPress}
+              >
                 <option value="personal" defaultValue>
                   Personal
                 </option>
@@ -242,6 +251,7 @@ function ProjectForm({ action, param }) {
               type="text"
               name="info"
               onChange={onChangeInput}
+              onKeyPress={onKeyPress}
               required
             />
           </label>
@@ -253,6 +263,7 @@ function ProjectForm({ action, param }) {
               type="text"
               name="tech"
               onChange={onChangeInput}
+              onKeyPress={onKeyPress}
               required
             />
           </label>
@@ -264,6 +275,7 @@ function ProjectForm({ action, param }) {
               type="text"
               name="git"
               onChange={onChangeInput}
+              onKeyPress={onKeyPress}
               required
             />
           </label>
@@ -275,6 +287,7 @@ function ProjectForm({ action, param }) {
               type="text"
               name="site"
               onChange={onChangeInput}
+              onKeyPress={onKeyPress}
               required
             />
           </label>
@@ -287,6 +300,7 @@ function ProjectForm({ action, param }) {
                 id="member"
                 onChange={onChangeInput}
                 value={`${data.member}`}
+                onKeyPress={onKeyPress}
               >
                 <option value="1" defaultValue>
                   1
@@ -306,6 +320,7 @@ function ProjectForm({ action, param }) {
               type="text"
               name="due"
               onChange={onChangeInput}
+              onKeyPress={onKeyPress}
               required
             />
           </label>
@@ -317,6 +332,7 @@ function ProjectForm({ action, param }) {
               type="text"
               name="role"
               onChange={onChangeInput}
+              onKeyPress={onKeyPress}
               required
             />
           </label>
@@ -328,6 +344,7 @@ function ProjectForm({ action, param }) {
               name="lock"
               onChange={onChangeCheck}
               defaultChecked={action === 'write' ? false : data.lock}
+              onKeyPress={onKeyPress}
             />
             <span>비공개</span>
           </label>
