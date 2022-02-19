@@ -11,12 +11,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { postList } from '../../../_actions/post_action';
 import DirectionBtn from './DirectionBtn';
+import LoadingSpinner from '../../LoadingSpinner';
 
 function ProjectContents({ post }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const [posts, setPosts] = useState();
   const [current, setCurrent] = useState();
+  const [loading, setLoading] = useState(true);
 
   const onClickBack = (e) => {
     e.preventDefault();
@@ -30,10 +32,11 @@ function ProjectContents({ post }) {
         const idx = _data.findIndex((i) => i.id === post.id);
         setPosts(_data);
         setCurrent(idx);
+        setLoading(false);
       });
   }, [dispatch, post]);
 
-  if (!post || !posts) return null;
+  if ((!post || !posts) && loading) return <LoadingSpinner />;
   return (
     <>
       <ContentsContainer>

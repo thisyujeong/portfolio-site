@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import LoadingSpinner from '../components/LoadingSpinner';
 import ProjectContents from '../components/Project/ProjectDetail/ProjectContents';
 import { postInfo } from '../_actions/post_action';
 
 function ProjectDetail({ match }) {
   const dispatch = useDispatch();
   const [post, setPost] = useState();
-
   useEffect(() => {
     dispatch(postInfo(match.params.id)).then((res) => {
       console.log('postinfo', res.payload.post);
