@@ -11,13 +11,12 @@ export const container = {
 };
 
 export const item = {
-  hidden: { y: 200, opacity: 0 },
+  hidden: { y: '10vh', opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
     transition: {
       duration: 0.3,
-      ease: 'easeInOut',
     },
   },
 };
