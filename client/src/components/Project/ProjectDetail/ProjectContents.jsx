@@ -3,6 +3,8 @@ import MarkdownRenderer from '../../MarkdownRenderer';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ContentsContainer, ContentsFooterContainer } from './ProjectContents.style';
+import { motion } from 'framer-motion';
+import * as framer from '../../../framer/project';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowLeft,
@@ -12,6 +14,7 @@ import {
 import { postList } from '../../../_actions/post_action';
 import DirectionBtn from './DirectionBtn';
 import LoadingSpinner from '../../LoadingSpinner';
+import HeroImg from './HeroImg';
 
 function ProjectContents({ post }) {
   const history = useHistory();
@@ -58,7 +61,7 @@ function ProjectContents({ post }) {
         </div>
         <div className="info-box">
           <div className="thumbnail">
-            <img src={post.hero} alt="hero" />
+            <HeroImg hero={post.hero} />
           </div>
         </div>
 

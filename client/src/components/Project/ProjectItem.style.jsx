@@ -1,24 +1,20 @@
 import styled from 'styled-components';
 
-export const ProjectItemContainer = styled.li`
-  width: 50%;
+export const ProjectItemContainer = styled.div`
   position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 60px 40px;
   &:before {
     position: absolute;
     bottom: 0;
-    left: 40px;
-    width: calc(100% - 80px);
+    left: 0;
+    width: 100%;
     height: 1px;
     background-color: ${(props) => props.theme.borderColor};
     content: '';
   }
 
-  &:nth-child(2n) {
+  /* &:nth-child(2n) {
     transform: translateY(10vw);
-  }
+  } */
   &:hover * {
     color: ${(props) => props.theme.textColor};
   }
@@ -32,6 +28,7 @@ export const ProjectItemContainer = styled.li`
     margin-bottom: 12px;
   }
   .thumbnail {
+    display: block;
     position: relative;
     padding-bottom: 60%;
     border: 1px solid ${(props) => props.theme.borderColor};
@@ -158,9 +155,6 @@ export const ProjectItemContainer = styled.li`
   @media screen and (max-width: 768px) {
     width: 100%;
     padding: 32px 0;
-    &:nth-child(2n) {
-      transform: translateY(0);
-    }
     &:before {
       width: 100%;
       left: 0;

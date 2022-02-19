@@ -51,17 +51,6 @@ export const ContentsContainer = styled.div`
       }
     }
 
-    .thumbnail {
-      height: 400px;
-      width: 100%;
-      margin: 50px 0;
-      img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-      }
-    }
-
     &.column {
       align-items: flex-start;
       .col {
@@ -145,12 +134,6 @@ export const ContentsContainer = styled.div`
           height: 25px;
           line-height: 1;
         }
-      }
-
-      .thumbnail {
-        margin: 24px -24px;
-        width: 100vw;
-        height: 200px;
       }
 
       &.column {

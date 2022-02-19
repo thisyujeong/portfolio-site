@@ -1,10 +1,11 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { useDispatch } from 'react-redux';
 import { postList } from '../_actions/post_action';
-import ProjectItem from '../components/Project/ProjectItem';
 import LoadingSpinner from '../components/LoadingSpinner';
-
+import * as framer from '../framer/landing';
+import ProjectItem from '../components/Project/ProjectItem';
 const LandingContainer = styled.div`
   padding-bottom: 15vw;
   h2 {
@@ -27,6 +28,17 @@ const LandingContainer = styled.div`
     max-width: 1400px;
     margin: 0 auto;
     flex-wrap: wrap;
+
+    .item {
+      width: 50%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 60px 40px;
+      &:nth-child(2n) {
+        top: 150px;
+      }
+    }
   }
   @media screen and (max-width: 1024px) {
     h2 {
@@ -50,6 +62,14 @@ const LandingContainer = styled.div`
       padding-left: 10px;
       margin-right: -26px;
       border-top: 1px solid ${(props) => props.theme.borderColor};
+
+      .item {
+        width: 100%;
+        padding: 0;
+        &:nth-child(2n) {
+          top: 0;
+        }
+      }
     }
   }
 `;
@@ -63,24 +83,31 @@ function LandingPage(props) {
     dispatch(postList()).then((response) => {
       setLoading(false);
       console.log('landing', response.payload.data);
-      setPosts(response.payload.data);
+      setPosts(response.payload.data.reverse());
     });
   }, [dispatch]);
 
-  const LazyImage = lazy(() => import('../components/Project/ProjectItem'));
   return (
     <LandingContainer>
       <h2>
         works<span>&#40;{posts.length}&#41;</span>
       </h2>
       {loading && <LoadingSpinner />}
-      <ul className="projects">
-        <Suspense fallback={<LoadingSpinner />}>
-          {posts
-            .reverse()
-            .map((post, idx) => !post.lock && <LazyImage post={post} key={idx} />)}
-        </Suspense>
-      </ul>
+      <motion.ul
+        className="projects"
+        variants={framer.container}
+        initial="hidden"
+        animate="visible"
+      >
+        {posts.map(
+          (post, idx) =>
+            !post.lock && (
+              <motion.li key={idx} className="item" variants={framer.item}>
+                <ProjectItem post={post} />
+              </motion.li>
+            )
+        )}
+      </motion.ul>
     </LandingContainer>
   );
 }
