@@ -109,7 +109,6 @@ export const ProjectItemContainer = styled.div`
   }
 
   @media screen and (max-width: 1024px) {
-    padding: 30px 20px;
     &:before {
       width: calc(100% - 40px);
       left: 20px;

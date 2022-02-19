@@ -34,7 +34,7 @@ const LandingContainer = styled.div`
       position: relative;
       display: flex;
       flex-direction: column;
-      padding: 60px 40px;
+      padding: 3em 2em;
       &:nth-child(2n) {
         top: 150px;
       }

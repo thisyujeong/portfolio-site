@@ -31,7 +31,6 @@ function ProjectForm({ action, param }) {
     member: 0,
     due: '',
     role: '',
-    lock: false,
     desc: '',
     markdown: '',
   });
@@ -76,6 +75,8 @@ function ProjectForm({ action, param }) {
           heroName: _post.heroName,
           thumbName: _post.heroName,
         });
+        setMarkdown(_post.markdown);
+        console.log(_post.lock);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -103,7 +104,7 @@ function ProjectForm({ action, param }) {
         role: data.role,
         desc: data.desc,
         member: data.member,
-        markdown: markdown,
+        markdown: data.markdown,
         html: editorHtml,
         lock: check,
       };
@@ -355,7 +356,7 @@ function ProjectForm({ action, param }) {
               type="checkbox"
               name="lock"
               onChange={onChangeCheck}
-              defaultChecked={action === 'write' ? false : data.lock}
+              defaultChecked={data.lock}
               onKeyPress={onKeyPress}
             />
             <span>비공개</span>
