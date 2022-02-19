@@ -21,7 +21,20 @@ function ProjectForm({ action, param }) {
   const [editorHtml, setEditorHtml] = useState('');
   const [markdown, setMarkdown] = useState('');
 
-  const [data, setData] = useState();
+  const [data, setData] = useState({
+    title: '',
+    type: '',
+    info: '',
+    tech: '',
+    git: '',
+    site: '',
+    member: 0,
+    due: '',
+    role: '',
+    lock: false,
+    desc: '',
+    markdown: '',
+  });
 
   /* form onChange & toast ui */
   const onChangeCheck = (e) => {
@@ -120,7 +133,6 @@ function ProjectForm({ action, param }) {
     }
 
     if (action === 'edit') {
-      console.log('edit edit');
       const formData = new FormData();
       formData.append('thumb', thumbFile);
       formData.append('hero', heroFile);
