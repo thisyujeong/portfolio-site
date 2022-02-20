@@ -3,6 +3,7 @@ process.env.NODE_ENV =
   process.env.NODE_ENV && process.env.NODE_ENV.trim().toLowerCase() == 'prod'
     ? 'prod'
     : 'dev';
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -13,7 +14,7 @@ const { auth } = require('./middleware/auth');
 const path = require('path');
 
 const config = require('./config/key');
-const port = process.env.PORT || 5000;
+const port = config.PORT || 5000;
 
 // application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
