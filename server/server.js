@@ -1,3 +1,6 @@
+require('dotenv/config');
+const port = process.env.PORT || 5000;
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -5,8 +8,9 @@ const cookieParser = require('cookie-parser');
 const { User } = require('./models/Users');
 const { Post } = require('./models/Posts');
 const { auth } = require('./middleware/auth');
-const config = require('./config/key');
 const path = require('path');
+
+const config = require('./config/key');
 
 // application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -212,7 +216,5 @@ app.post('/api/upload/:name', fileFields, (req, res) => {
     }
   );
 });
-
-const port = config.PORT || 5000;
 
 app.listen(port, () => console.log(`Express app listening on port ${port}!`));
