@@ -5,8 +5,8 @@ const cookieParser = require('cookie-parser');
 const { User } = require('./models/Users');
 const { Post } = require('./models/Posts');
 const { auth } = require('./middleware/auth');
-
 const config = require('./config/key');
+const path = require('path');
 
 // application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,7 +15,17 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 const mongoose = require('mongoose');
-const { upload, emptyBucketDir } = require('./utils/s3');
+const { upload } = require('./utils/s3');
+
+// client/build 폴더를 static 파일로 사용할 수 있도록
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+// / 요청
+app.get('/', (req, res) => {
+  console.log(__dirname);
+  // index.html 파일 응답
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
 
 mongoose
   .connect(config.mongoURI)
@@ -203,6 +213,6 @@ app.post('/api/upload/:name', fileFields, (req, res) => {
   );
 });
 
-const port = 5000;
+const port = config.PORT || 5000;
 
 app.listen(port, () => console.log(`Express app listening on port ${port}!`));
