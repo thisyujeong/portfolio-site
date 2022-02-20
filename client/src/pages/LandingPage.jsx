@@ -82,7 +82,6 @@ function LandingPage(props) {
   useEffect(() => {
     dispatch(postList()).then((response) => {
       setLoading(false);
-      console.log('landing', response.payload.data);
       setPosts(response.payload.data.reverse());
     });
   }, [dispatch]);

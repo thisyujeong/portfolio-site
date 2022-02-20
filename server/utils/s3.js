@@ -27,8 +27,6 @@ const upload = multer({
     key: (req, file, cb) => {
       let extension = path.extname(file.originalname);
       const dir = file.fieldname;
-      console.log('dir', dir);
-      console.log('s3', file);
       cb(null, `${dir}/${Date.now().toString() + extension}`);
     },
   }),
@@ -54,8 +52,6 @@ const emptyBucketDir = (prefix, cb) => {
 
     s3.deleteObjects(params, function (err, data) {
       if (err) return cb(err);
-      console.log('data', data);
-      console.log('data Contents', data.Contents);
       if (data.Deleted.length == 1000) emptyBucketDir(BUCKET_NAME, cb);
       else cb();
     });

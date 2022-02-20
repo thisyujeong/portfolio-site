@@ -8,7 +8,6 @@ function ProjectDetail({ match }) {
   const [post, setPost] = useState();
   useEffect(() => {
     dispatch(postInfo(match.params.id)).then((res) => {
-      console.log('postinfo', res.payload.post);
       setPost(res.payload.post);
     });
   }, [dispatch, match.params.id]);

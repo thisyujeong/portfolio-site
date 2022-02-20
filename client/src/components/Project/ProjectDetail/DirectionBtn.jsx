@@ -12,7 +12,6 @@ function DirectionBtn({ type, post }) {
 
   if (!post) post = null;
 
-  console.log(type, post);
   const DirBtn = () => {
     return post == null ? (
       <div className={`dir-btn not-allow ${type}`} onClick={onClick}>

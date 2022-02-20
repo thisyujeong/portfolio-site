@@ -1,6 +1,3 @@
-require('dotenv/config');
-const port = process.env.PORT || 5000;
-
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -11,6 +8,7 @@ const { auth } = require('./middleware/auth');
 const path = require('path');
 
 const config = require('./config/key');
+const port = config.PORT || 5000;
 
 // application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -157,7 +155,6 @@ const fileFields = upload.fields([
 
 /* post edit */
 app.post('/api/posts/edit/:id', fileFields, (req, res) => {
-  console.log(req.body);
   Post.findOneAndUpdate({ id: req.params.id }, { ...req.body }, (err, post) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).send({

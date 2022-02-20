@@ -87,8 +87,6 @@ export default function WriteEditor({
         console.log('editor res', res.data.location);
         return res.data.location;
       });
-    console.log('aaa');
-    console.log('return url', url);
     return cb(url, 'alt text');
   };
 
