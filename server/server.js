@@ -8,7 +8,7 @@ const { auth } = require('./middleware/auth');
 const path = require('path');
 
 const config = require('./config/key');
-const port = config.PORT || 5000;
+const port = process.env.PORT || 5000;
 
 // application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
