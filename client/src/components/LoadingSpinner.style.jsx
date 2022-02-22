@@ -29,7 +29,7 @@ export const LoadingSpinnerContainer = styled.div`
     }
     100% {
       opacity: 0;
-      transform: translate(-50%, -50%) rotate(-360deg);
+      transform: translate(-50%, -50%) rotate(360deg);
     }
   }
 `;
