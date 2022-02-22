@@ -4,12 +4,9 @@ import { motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ContentsContainer, ContentsFooterContainer } from './ProjectContents.style';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowLeft,
-  faLink,
-  faExternalLinkAlt,
-} from '@fortawesome/free-solid-svg-icons';
+import { AiOutlineLink } from 'react-icons/ai';
+import { RiExternalLinkLine } from 'react-icons/ri';
+import { ImArrowLeft2 } from 'react-icons/im';
 import { postList } from '../../../_actions/post_action';
 import DirectionBtn from './DirectionBtn';
 import LoadingSpinner from '../../LoadingSpinner';
@@ -48,7 +45,7 @@ function ProjectContents({ post }) {
           </div>
           <div className="content">
             <button className="back" onClick={onClickBack}>
-              <FontAwesomeIcon icon={faArrowLeft} />
+              <ImArrowLeft2 />
             </button>
             <h3 className="title">{post.title}</h3>
             <div className="info-box">
@@ -63,12 +60,6 @@ function ProjectContents({ post }) {
                 ))}
               </ul>
             </div>
-            {/* <div className="info-box">
-            <div className="thumbnail">
-              <HeroImg hero={post.hero} />
-            </div>
-          </div> */}
-
             <div className="info-box column">
               <div className="col">
                 <div className="label">What's this project?</div>
@@ -92,7 +83,7 @@ function ProjectContents({ post }) {
                   <div className="row">
                     <span className="sub-label">GitHub</span>
                     <a href={post.git} target="_blank" rel="noopener noreferrer">
-                      <FontAwesomeIcon icon={faLink} />
+                      <AiOutlineLink />
                     </a>
                   </div>
                   <div className="row">
@@ -103,7 +94,7 @@ function ProjectContents({ post }) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FontAwesomeIcon icon={faExternalLinkAlt} />
+                      <RiExternalLinkLine />
                     </a>
                   </div>
                 </div>

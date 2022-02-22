@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faUserCog } from '@fortawesome/free-solid-svg-icons';
+import { FaSignOutAlt } from 'react-icons/fa';
+import { RiUserSettingsFill } from 'react-icons/ri';
 import { auth } from '../_actions/user_action';
 import { NavBarContainer } from './NavBar.style';
 import ThemeToggle from './ThemeToggle';
@@ -27,7 +27,6 @@ function NavBar(props) {
 
   const onClickLogout = useCallback(() => {
     axios.get(`/api/users/logout`).then((response) => {
-      console.log('로그아웃', response.data.success);
       if (response.data.success) {
         setLogin(!isAuth);
         history.push('/');
@@ -41,11 +40,11 @@ function NavBar(props) {
     return login ? (
       <ul className="auth">
         <li onClick={onClickLogout}>
-          <FontAwesomeIcon icon={faSignOutAlt} />
+          <FaSignOutAlt />
         </li>
         <li>
           <Link to="/admin/projects">
-            <FontAwesomeIcon icon={faUserCog} />
+            <RiUserSettingsFill />
           </Link>
         </li>
       </ul>

@@ -5,7 +5,7 @@ export const ThemeToggleContainer = styled.div`
     width: 40px;
     height: 40px;
     margin-left: 24px;
-    font-size: 16px;
+    font-size: 20px;
     border: 0;
     border-radius: 40%;
     background-color: ${(props) => props.theme.iconBgColor};

@@ -1,8 +1,7 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { ThemeToggleContainer } from './ThemeToggle.style';
 import { useTheme } from '../context/themeProvider';
+import { MdOutlineLightMode, MdOutlineNightlight } from 'react-icons/md';
 
 function ThemeToggle({ chidren }) {
   const [ThemeMode, toggleTheme] = useTheme();
@@ -10,11 +9,7 @@ function ThemeToggle({ chidren }) {
   return (
     <ThemeToggleContainer onClick={toggleTheme} mode={ThemeMode}>
       <button className="theme">
-        {ThemeMode === 'dark' ? (
-          <FontAwesomeIcon icon={faMoon} />
-        ) : (
-          <FontAwesomeIcon icon={faSun} />
-        )}
+        {ThemeMode === 'dark' ? <MdOutlineNightlight /> : <MdOutlineLightMode />}
       </button>
     </ThemeToggleContainer>
   );

@@ -78,11 +78,16 @@ export const NavBarContainer = styled.div`
         width: 40px;
         height: 40px;
         line-height: 40px;
-        font-size: 16px;
+        font-size: 20px;
         text-align: center;
         border-radius: 44%;
         color: ${(props) => props.theme.linkColor};
         cursor: pointer;
+        svg {
+          height: 40px;
+          display: inline-block;
+        }
+
         &:hover {
           svg path {
             color: ${(props) => props.theme.linkActiveColor};

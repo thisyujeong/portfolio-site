@@ -21,11 +21,15 @@ export const TableContainer = styled.div`
     border-color: ${(props) => props.theme.tableBorderColor};
     transition: none;
     &:first-child {
+      .lock,
+      .unlock {
+        font-size: 18px;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1;
+      }
       .unlock {
         color: ${(props) => props.theme.tableLockColor};
-      }
-      .lock {
-        color: #2fce7e;
       }
     }
   }

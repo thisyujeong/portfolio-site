@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { TableContainer } from './ProjectTable.style';
 import { Table, Button } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
+import { RiLockFill, RiLockUnlockFill } from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
 import { postList } from '../../_actions/post_action';
 import MsgModal from '../MsgModal';
@@ -27,9 +26,9 @@ function ProjectTable(props) {
       width: '50px',
       render: (lock) =>
         lock === false ? (
-          <FontAwesomeIcon icon={faUnlock} className="unlock" />
+          <RiLockUnlockFill className="unlock" />
         ) : (
-          <FontAwesomeIcon icon={faLock} className="lock" />
+          <RiLockFill className="lock" />
         ),
     },
     { title: '번호', dataIndex: 'number', key: 'number', width: '80px' },

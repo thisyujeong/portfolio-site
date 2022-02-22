@@ -1,7 +1,6 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { MsgModalContainer } from './MsgModal.style';
+import { MdError } from 'react-icons/md';
 
 function MsgModal(props) {
   let {
@@ -23,13 +22,13 @@ function MsgModal(props) {
 
   const StateIcon = () => {
     if (props.success) {
-      return <FontAwesomeIcon icon={faCheckCircle} className="success" />;
+      return <MdError className="success" />;
     } else if (props.warning) {
-      return <FontAwesomeIcon icon={faExclamationCircle} className="warning" />;
+      return <MdError className="warning" />;
     } else if (props.error) {
-      return <FontAwesomeIcon icon={faExclamationCircle} className="error" />;
+      return <MdError className="error" />;
     }
-    return <FontAwesomeIcon icon={faCheckCircle} className="success" />;
+    return <MdError className="success" />;
   };
 
   const ButtonType = () => {
