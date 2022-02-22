@@ -27,12 +27,9 @@ const { upload } = require('./utils/s3');
 // client/build 폴더를 static 파일로 사용할 수 있도록
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-// 리액트 정적 파일 제공
-app.use(express.static(path.join(__dirname, 'client/build')));
-
 // 라우트 설정
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+  res.sendFile(path.join(__dirname + '../client/build/index.html'));
 });
 
 // / 요청
