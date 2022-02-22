@@ -3,7 +3,6 @@ process.env.NODE_ENV =
   process.env.NODE_ENV && process.env.NODE_ENV.trim().toLowerCase() == 'prod'
     ? 'prod'
     : 'dev';
-
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
