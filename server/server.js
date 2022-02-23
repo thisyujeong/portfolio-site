@@ -27,12 +27,6 @@ const { upload } = require('./utils/s3');
 // client/build 폴더를 static 파일로 사용할 수 있도록
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-// / 요청
-app.get('/', (req, res) => {
-  // index.html 파일 응답
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
-
 mongoose
   .connect(config.mongoURI)
   .then(() => console.log('mongoDB Connected...'))
@@ -214,6 +208,12 @@ app.post('/api/upload/:name', fileFields, (req, res) => {
       });
     }
   );
+});
+
+// / 요청
+app.get('/', (req, res) => {
+  // index.html 파일 응답
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
 app.listen(port, () => console.log(`Express app listening on port ${port}!`));
