@@ -28,8 +28,7 @@ const { upload } = require('./utils/s3');
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 // / 요청
-app.get('*', (req, res) => {
-  console.log(__dirname);
+app.get('/', (req, res) => {
   // index.html 파일 응답
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
@@ -38,8 +37,6 @@ mongoose
   .connect(config.mongoURI)
   .then(() => console.log('mongoDB Connected...'))
   .catch((err) => console.log(err));
-
-app.get('/', (req, res) => res.send('Hello world!'));
 
 app.get('/api/hello', (req, res) => {
   res.send('hello react!');
