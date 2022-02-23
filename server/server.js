@@ -28,7 +28,7 @@ const { upload } = require('./utils/s3');
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 // / 요청
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   // index.html 파일 응답
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
