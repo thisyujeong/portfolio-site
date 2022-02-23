@@ -211,7 +211,7 @@ app.post('/api/upload/:name', fileFields, (req, res) => {
 });
 
 // / 요청
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   // index.html 파일 응답
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
