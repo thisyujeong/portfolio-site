@@ -33,7 +33,7 @@ function Profile(props) {
             <div className="label">CONTACT ME!</div>
             <p>함께 특별한 경험을 만들어요.</p>
             <div className="personal">
-              <div>this.yujeong@gmail.com</div>
+              <div>t0702@gmail.com</div>
               <div>+82&#41; 9072 5239</div>
               <div>Seoul, South Korea</div>
             </div>

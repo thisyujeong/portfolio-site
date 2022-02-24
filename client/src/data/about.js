@@ -1,7 +1,6 @@
 export const links = [
   { title: 'github', link: 'https://github.com/thisyujeong' },
   { title: 'TIL blog', link: 'https://thisyujeong.github.io/TIL/' },
-  { title: 'resume', link: '#' },
 ];
 
 export const front = [
