@@ -3,9 +3,11 @@ import { reset } from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
+
   body {
     background: ${({ theme }) => theme.bgColor};
     color: ${({ theme }) => theme.textColor};
+    font-family: 'Lato', 'NotoSans', 'NotoSansKR';
   }
   
   .container {
@@ -24,6 +26,7 @@ export const GlobalStyle = createGlobalStyle`
   a {
     transition: none;
   }
+
 `;
 
 export default GlobalStyle;
