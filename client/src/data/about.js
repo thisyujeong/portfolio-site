@@ -1,6 +1,10 @@
 export const links = [
-  { title: 'github', link: 'https://github.com/thisyujeong' },
-  { title: 'TIL blog', link: 'https://thisyujeong.github.io/TIL/' },
+  { title: 'Github', link: 'https://github.com/thisyujeong' },
+  { title: 'Tech Blog', link: 'https://thisyujeong.dev' },
+  {
+    title: 'Resume',
+    link: 'https://stump-lunch-8bd.notion.site/cd6682f659da43e1915fc4efdb325508',
+  },
 ];
 
 export const front = [
@@ -53,11 +57,6 @@ export const database = [
 ];
 
 export const etc = [
-  {
-    icon: '/img/aws.png',
-    title: 'AWS',
-    desc: 'S3에서 프로젝트 파일을 관리할 수 있습니다. 해당 프로젝트는 AWS S3를 통해 이미지 업로드 기능을 구현하였습니다.',
-  },
   {
     icon: '/img/git.png',
     title: 'Git',
