@@ -95,13 +95,24 @@ export const ProjectItemContainer = styled.div`
     }
     .more {
       display: inline-block;
+      position: relative;
       width: fit-content;
       margin-top: 1em;
       margin-left: auto;
       font-size: 32px;
       text-align: right;
-      text-decoration: underline;
       transition: all 0.3s;
+      &:after {
+        content: '';
+        position: relative;
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-left: 16px;
+        border-right: 2px solid ${(props) => props.theme.textColor};
+        border-bottom: 2px solid ${(props) => props.theme.textColor};
+        transform: rotate(-45deg) translateY(-50%);
+      }
       &:hover {
         margin-right: 30px;
       }

@@ -21,7 +21,7 @@ function ProjectItem({ post, idx }) {
           <div className="info">{post.info}</div>
         </div>
         <Link to={`/projects/${post.id}`} className="more">
-          view the project →
+          view the project
         </Link>
       </div>
     </ProjectItemContainer>

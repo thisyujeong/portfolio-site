@@ -60,7 +60,7 @@ export const ProfileContainer = styled.div`
           border-radius: 4px;
           &:hover {
             background-color: #096dd9;
-            color: ${(props) => props.theme.textColor};
+            color: #fff;
           }
         }
         li + li {
@@ -82,9 +82,18 @@ export const ProfileContainer = styled.div`
       }
       .etc {
         flex-direction: column;
-        .contact,
-        .link {
+        .contact {
           width: 100%;
+        }
+
+        .links {
+          padding-left: 0;
+          width: 100%;
+          li a {
+            width: 100%;
+            line-height: 46px;
+            height: 46px;
+          }
         }
       }
     }
