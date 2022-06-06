@@ -107,9 +107,6 @@ export const NavBarContainer = styled.div`
       display: none;
     }
     .theme {
-      position: absolute;
-      top: 94px;
-      right: 24px;
       background-color: ${(props) => props.theme.bgColor};
       box-shadow: ${(props) => props.theme.postInputFocusShadow};
     }
