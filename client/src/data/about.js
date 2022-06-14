@@ -3,7 +3,7 @@ export const links = [
   { title: 'Tech Blog', link: 'https://thisyujeong.dev' },
   {
     title: 'Resume',
-    link: 'https://stump-lunch-8bd.notion.site/cd6682f659da43e1915fc4efdb325508',
+    link: 'https://stump-lunch-8bd.notion.site/6cee37f26e104d5b8f98edbe68e2bd77',
   },
 ];
 
